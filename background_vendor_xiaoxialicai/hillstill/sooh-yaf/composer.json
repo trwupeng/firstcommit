@@ -1,0 +1,17 @@
+{
+    "name": "hillstill/sooh-yaf",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Wang",
+            "email": "hillstill_simon@163.com"
+        }
+    ],
+    "minimum-stability": "RC",
+    "require": {
+		"php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": { "SoohYaf\\" : "src/" }
+    }
+}

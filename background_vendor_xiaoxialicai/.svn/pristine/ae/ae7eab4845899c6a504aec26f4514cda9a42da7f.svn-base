@@ -1,0 +1,9 @@
+{
+	"require": {
+		"hillstill/sooh": "^1.6",
+		"hillstill/sooh-yaf": "^1.2",
+		"jpush/jpush": "^3.2",
+		"gregwar/captcha": "^1.1",
+		"phpunit/phpunit": "4"
+	}
+}

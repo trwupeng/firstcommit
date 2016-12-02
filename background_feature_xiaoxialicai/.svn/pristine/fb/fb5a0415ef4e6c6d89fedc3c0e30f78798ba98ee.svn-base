@@ -1,0 +1,21 @@
+# grid实例名
+IceGrid.InstanceName=SzcIceGrid
+#客户端连接到注册中心的地址
+IceGrid.Registry.Client.Endpoints=tcp -p 4061
+IceGrid.Registry.Server.Endpoints=tcp
+IceGrid.Registry.Internal.Endpoints=tcp
+IceGrid.Registry.PermissionsVerifier=SzcIceGrid/NullPermissionsVerifier
+IceGrid.Registry.AdminPermissionsVerifier=SzcIceGrid/NullPermissionsVerifier
+
+Ice.StdErr=ice-writable/icelogs/stderr.txt
+Ice.StdOut=ice-writable/icelogs/stdout.txt
+#注册中心数据保存路径,需要手动创建文件夹
+IceGrid.Registry.Data=ice-writable/iceRegData
+IceGrid.Registry.DynamicRegistration=1
+Ice.Admin.InstanceName=AdminInstance
+Ice.Admin.ServerId=Admin
+
+#IceGrid.Registry.Trace.Replica=3
+#IceGrid.Registry.Trace.Activator=3
+#IceGrid.Registry.Trace.Adapter=3
+#IceGrid.Registry.Trace.Server=3

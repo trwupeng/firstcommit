@@ -1,0 +1,2 @@
+Main-Class: SoohIceServer
+Class-Path: . libs/ice-3.6.1.jar libs/icebox-3.6.1.jar

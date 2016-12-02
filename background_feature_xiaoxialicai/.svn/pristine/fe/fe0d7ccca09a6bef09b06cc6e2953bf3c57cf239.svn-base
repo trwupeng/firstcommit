@@ -1,0 +1,174 @@
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 1), 'index'); ?>" method="post" id="wares-exportChecked" style="display: none;">
+</form>
+<div class="bjui-pageHeader">
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+    ?>
+    <div class="pull-right">
+
+        <?php
+// 		echo \Prj\Misc\View::btnDefaultInDatagrid('新增',\Sooh\Base\Tools::uri(null,'edit'));
+        ?>
+
+        <div class="btn-group">
+
+            <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+            <ul class="dropdown-menu right" role="menu">
+                <li><a  href="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 1, 'where' => $this->where), 'index'); ?>">导出全部</a></li>
+                <li><a class="wares-export" style="cursor: pointer">导出<span style="color: red">选中</span></a></li>
+                <!--
+                <li class="divider"></li>
+                <li><?php echo \Prj\Misc\View::btnDelChooseInDatagrid('xxx'); ?></li>
+                -->
+            </ul>
+        </div>
+        <script>
+            /*
+             构造表单 post 方法 提交
+             */
+
+            var ids = new Array();
+            $('.wares-export').click(function () {
+                if (ids.length == 0)
+                {
+                    $(document).alertmsg('error', '无选中选项');
+                    return false;
+                }
+                $('#wares-exportChecked').html('');
+                for (var i in ids)
+                {
+                    var reg = /function[.]*/;
+                    if (reg.exec(ids[i]) != null)
+                    {
+                        continue;
+                    }
+                    $('#wares-exportChecked').append("<input type='hidden' name='ids[]' value='" + ids[i] + "'>");
+                }
+                $('#wares-exportChecked').submit();
+                //window.location.href="/index.php?__=manage/managers/index&__EXCEL__=1&ids="+ids;
+                return false;
+            });
+        </script>
+    </div>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+                $headers = $this->headers;
+                foreach ($headers as $k => $v) {
+                    echo "<th width=\"$v\" >$k</th>"; //data-order-field="operation" align="center" //
+                }
+                ?>
+
+<!--<th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>-->
+                <th width="30"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+<?php
+if (in_array($this->type, ['check', 'checkSale'])) {
+    $width = 80;
+} else {
+    $width = 325;
+}
+?>
+                <th width="<?php echo $width; ?>">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php
+$statusColor = [
+    \Prj\Consts\Wares::status_abandon => 'red',
+    \Prj\Consts\Wares::status_new => 'orange',
+    \Prj\Consts\Wares::status_ready => '',
+    \Prj\Consts\Wares::status_open => 'green',
+    \Prj\Consts\Wares::status_go => 'red',
+    \Prj\Consts\Wares::status_csale => 'purple',
+    \Prj\Consts\Wares::status_close => '#c9adad',
+    \Prj\Consts\Wares::status_ahead => '#b8af95',
+];
+$records = $this->records;
+if (!empty($records)) {
+    foreach ($records as $r) {
+        //**过滤
+//                     $r['amount']/=100;
+//                     $r['remain']/=100;
+        //$color = $statusColor[$r['statusCode']];
+        //$r['statusCode'] = "<span style='color:".$color."'>".$r['statusCode']."</span>";
+        //**
+
+
+
+        $statusCode = $r['_statusCode'];
+        $payStatus = $r['_payStatus'];
+        $shelfId = $r['_shelfId'];
+        $viewTPL = $r['viewTPL'];
+        $assetId = $r['assetId'];
+        unset($r['viewTPL']);
+        unset($r['assetId']);
+        unset($r['_payStatus']);
+        unset($r['_statusCode']);
+        unset($r['_shelfId']);
+        $_pkey_ = $r['_pkey_val_'];
+        echo "<tr data-id='" . rand(1000, 9999) . "' title='" . $r['waresName'] . "'>";  //data-id=\"{$r['_pkey_val_']}\"
+        unset($r['_pkey_val_']);
+        foreach ($r as $k => $v) {
+            if ($k == 'statusCode') {
+                echo '<td style="color: ' . $statusColor[$statusCode] . '">';
+            } else {
+                echo '<td>';
+            }
+            echo $v;
+            echo '</td>';
+        }
+        //echo '<td>'.implode('</td><td>', $r)."</td>";
+
+        echo '<td>'; //tgh
+        echo '<input type="checkbox" name="ids" data-group="ids" data-toggle="icheck" value="' . $_pkey_ . '">'; //tgh
+        echo '</td>'; //tgh
+        echo '<td>';
+        $notice = $this->type == 'check' || $this->type === 'checkSale' ? "审核" : "修改";
+        //($shelfId == \Prj\Consts\Wares::shelf_static)  ? 'Std02':'Std03';
+        $edit = \Prj\Misc\View::btnDefaultInDatagrid($notice, \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_, '_type' => $this->type, 'viewTPL' => $viewTPL], 'edit'));
+        $flow = \Prj\Misc\View::btnAjax('流标', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_, '_type' => $this->type, 'viewTPL' => $viewTPL], 'flow'), '确定执行流标命令么?');
+        if (empty($this->type)) {
+            if (in_array($statusCode, [\Prj\Consts\Wares::status_abandon, \Prj\Consts\Wares::status_new])) {
+                echo $edit;
+            }
+            echo ' ';
+            if ($r['confirmGift'] > $r['repay']) {
+                echo \Prj\Misc\View::btnEditInDatagrid('逾期还款', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'delayconfirm'));
+            }
+            if ($statusCode == \Prj\Consts\Wares::status_ready) {
+                echo \Prj\Misc\View::btnAjax('立即上架', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_, 'viewTPL' => $viewTPL], 'openNow'), '确定执行立即上架么?');
+            }
+        } else {
+            echo $edit;
+        }
+        if ($statusCode == \Prj\Consts\Wares::status_open) {
+            echo $flow;
+            echo " ";
+            echo \Prj\Misc\View::btnAjax('提前满标', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'aheadFull'), '标的尚未募集结束,确定提前满标?');
+        }
+        echo "&nbsp";
+        if ($this->type != 'check' && $this->type != 'checkSale' && !in_array($statusCode, [\Prj\Consts\Wares::status_abandon, \Prj\Consts\Wares::status_new, Prj\Consts\Wares::status_csale])) {
+            if (in_array($statusCode, [\Prj\Consts\Wares::status_go])) {
+                if ($payStatus != 8) {
+                    echo \Prj\Misc\View::btnEditInDatagrid('满标转账', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'trans'));
+                    echo "&nbsp";
+                } else {
+                    echo \Prj\Misc\View::btnAjax('补还款计划', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'updateReturnPlan'), '是否进行更新还款计划，通知投资用户？');
+                    echo "&nbsp";
+                }
+            }
+            echo \Prj\Misc\View::btnDefaultInDatagrid('查看订单', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_, '__formguid__' => 'default'], 'index', 'investment'));
+        }
+        echo '</td>';
+        echo "</tr>\n";
+    }
+}
+?>
+
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager); ?></div>

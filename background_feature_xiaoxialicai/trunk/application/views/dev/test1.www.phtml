@@ -1,0 +1,145 @@
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<meta charset="utf-8"/>
+<style>
+    .test
+    {
+        background-color: gainsboro;
+    }
+</style>
+<h1>购买接口测试</h1>
+<table>
+    <form action="index/orders/add" method="get"  >
+    <input type="hidden" name="__" value="index/orders/add">
+    <input type="hidden" name="__formguid__" value="default">
+    <tbody>
+    <tr>
+        <td>标的余额：<?php echo $this->r['remain']/100; ?>元</td>
+        <td>钱包余额：<?php echo $this->wallet/100; ?>元</td>
+    </tr>
+    <tr>
+        <td>标的</td>
+        <td><input id="waresId" type="text" name="waresId" value="<?php echo $this->r['waresId']; ?>"></td>
+    </tr>
+    <tr>
+        <td>邀请码</td>
+        <td><input id="waresId" type="text" name="inviteCode" value=""></td>
+    </tr>
+    <tr>
+        <td>金额</td>
+        <td><input id="amount" type="text" name="amount" value="10000"></td>
+    </tr>
+    <tr>
+        <td>券</td>
+        <td>
+                <?php
+                foreach($this->v as $k=>$v)
+                {
+                    if($v['statusCode'])continue;
+                    echo "<div><label><input name='voucherId' type='checkbox' value='".$v['voucherId']."'>".$v['voucherId'].'/'.$v['voucherType']."</label></div>";
+                }
+                ?>
+
+    </tr>
+
+    <tr>
+        <td>支付密码</td>
+        <td><input id="paypwd" type="text" name="paypwd" value="123456"></td>
+    </tr>
+    <tr>
+        <td>短信验证码</td>
+        <td><input id="smscode" type="text" name="smscode" value="1"></td>
+    </tr>
+    <tr>
+        <td>订单号</td>
+        <td><input id="orderId" type="text" name="orderId" value="1"></td>
+    </tr>
+    <tr>
+        <td>cmd</td>
+        <td><select name="cmd">
+                <option value="buy">buy</option>
+                <option value="buypaypwd">buypaypwd</option>
+            </select></td>
+    </tr>
+    <tr>
+        <td>uniqueOpId</td>
+        <td><input id="uniqueOpId" type="text" name="uniqueOpId" value="<?php echo $this->r['uniqueOpId']; ?>"></td>
+    </tr>
+    <tr>
+        <td class="button"><input class="ajaxSubmit" type="submit" value="下单"></td>
+    </tr>
+    </tbody>
+    </form>
+</table>
+<div class="send">send</div>
+<div class="result">result</div>
+
+<script>
+    $("[name='voucherId']").click(function(){
+
+        if($(this).attr('class')=='checked')
+        {
+            $(this).removeClass('checked');
+        }
+        else
+        {
+            $(this).addClass('checked');
+        }
+
+    });
+
+    $('.ajaxSubmit').click(function(){
+        var url = 'index/orders/add?__VIEW__=json';
+        var arr = [];
+        $("[name='voucherId'][class='checked']").each(function(){
+            arr.push($(this).val());
+        });
+        var data = {
+            "waresId":$("[name='waresId']").val(),
+            "amount":$("[name='amount']").val(),
+            "cmd":$("[name='cmd']").val(),
+            "orderId":$("[name='orderId']").val(),
+            "voucherId":arr,
+            "redPacket":$("[name='redPacket']").val(),
+            "paypwd":$("[name='paypwd']").val(),
+            "inviteCode":$("[name='inviteCode']").val(),
+            "smscode":$("[name='smscode']").val(),
+            "uniqueOpId":$("[name='uniqueOpId']").val()
+        };
+
+        $.post(url,data,function(e){
+            if('ordersDone' in e)
+            {
+                if(e.ordersDone.orderStatus==8)
+                {
+                    $('.button').html("购买成功！");
+                }
+            }
+
+            //var str = JSON.stringify(e); // 缩进一个tab
+            var str = '';
+            //var str = JSON.stringify(e);
+
+            for(var i in e)
+            {
+                str+="<br>"+i+": "+e[i];
+            }
+            var strr = '';
+            for(var i in data)
+            {
+                strr+="<br>"+i+": "+data[i];
+            }
+            strr = JSON.stringify(data, null, 4);
+            str = JSON.stringify(e, null, 4);
+            $('.send').html("<pre>"+strr);
+
+            $('.result').html("<pre>"+str);
+
+        });
+
+        $.post('index.php?__=index/orders/test1&__VIEW__=json&waresId='+$("[name='waresId']").val(),'',function(e){
+            $("[name='uniqueOpId']").val(e.r.uniqueOpId);
+        })
+
+        return false;
+    });
+</script>

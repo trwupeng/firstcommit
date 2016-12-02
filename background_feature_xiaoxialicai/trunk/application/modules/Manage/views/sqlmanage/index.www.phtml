@@ -1,0 +1,74 @@
+<script src="/js/common/checked.js"></script>
+<div class="bjui-pageHeader">
+    <form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 'select'), 'downExecel'); ?>" method="post"
+          id="form-exportChecked" style="display:none" >
+    </form>
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	echo  $renderer->getSearchStandard_without_endTag_form_div(\Sooh\Base\Form\Broker::getCopy('default'));
+	echo ' '.\Prj\Misc\View::btnEditInDatagrid(' 新增',\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'edit'),'', 'data-height="800"');
+    echo ' '.\Prj\Misc\View::btnEditInDatagrid(' 导入',\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'import'),'', 'data-height="300"');
+    echo '</form>';
+    ?>
+    <form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 'select'), 'downExecel'); ?>" method="post"
+    id="form-exportChecked"  style="margin:0px; display: inline ">
+    <span id="hid"></span>
+    <?php
+    include dirname(__FILE__)."/../manager/auto/export.www.phtml";
+    ?></div>
+</form></div>
+
+
+<div class="bjui-pageContent tableContent">
+	<table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true"
+	       data-toggle="tablefixed">
+		<thead>
+		<tr><?php
+			$header = $this->header;
+			foreach ($header as $k => $v) {
+				echo "<th width = '" . $v . "'>";
+				echo $k;
+				echo "</th>";
+			}
+			?>
+            <th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+			<th width="50">操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php
+		$rs = $this->rs;
+		if (!empty($rs)) {
+			foreach ($rs as $r) {
+				$_pkey_ = $r['_pkey_val_'];
+				echo "<tr data-id=\"{$_pkey_}\">";
+				unset($r['_pkey_val_']);
+				$statusCode = $r['statusCode'];
+				unset($r['statusCode']);
+				foreach ($r as $k => $v) {
+					echo "<td>".$v."</td>";
+				}
+				//echo '<td><input type="checkbox" name="ids" data-group="ids" data-toggle="icheck" value="' . $_pkey_ . '"></td>';
+                echo '<td>';//tgh
+                echo '<input type="checkbox" name="ids" data-toggle="icheck" value="'.$_pkey_.'">';//tgh
+                echo '</td>';//tgh
+                echo "<td>";
+				echo \Prj\Misc\View::btnEditInDatagrid('修改',    \Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'edit'),'', 'data-height="800"');
+                echo ' <a href="' . \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'run') . '" class="btn
+						btn-red" data-toggle="doajax"
+						data-confirm-msg="确定要执行该SQL？">执行</a>';
+//				if ($statusCode == \Prj\Consts\Agreement::status_disable) {
+//					echo '<a href="' . \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'enable') . '" class="btn
+//							btn-red" data-toggle="doajax"
+//							data-confirm-msg="确定启用吗？">启用</a>';
+//				}
+				echo "</td>";
+				echo "</tr>";
+			}
+		}
+		?>
+		</tbody>
+	</table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>
+

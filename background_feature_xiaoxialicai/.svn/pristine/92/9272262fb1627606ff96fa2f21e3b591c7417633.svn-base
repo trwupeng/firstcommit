@@ -1,0 +1,54 @@
+<div class="bjui-pageHeader">
+    <form  id="pagerForm" method="get" action="<?php echo \Sooh\Base\Tools::uri(); ?>" data-toggle="ajaxsearch">
+        <label>开始日期：</label><input type="text" data-toggle="datepicker" name="ymdRegFrom" value="<?php echo (empty($this->ymdRegFrom)?date('Y-m-d', time()-6*86400):$this->ymdRegFrom); ?>" size="18" data-rule="required" />&nbsp;&nbsp;&nbsp;
+        <label>结束日期：</label><input type="text" data-toggle="datepicker" name="ymdRegTo" value="<?php echo empty($this->ymdRegTo)?date('Y-m-d'):$this->ymdRegTo; ?>" size="18" data-rule="required" />&nbsp;&nbsp;&nbsp;
+        <label>渠道：</label>
+        <select name="copartnerid" id="copartnerid" data-toggle="selectpicker" data-nextselect="#j_form_contract" data-refurl="<?php echo \Sooh\Base\Tools::uri([], 'getcontracts').'copartnerid={value}' ?>">
+            <option  <?php echo ($this->copartnerIdSelected==''?"selected=\"selected\"":"") ?>">-- 选择渠道 --</option>
+            <?php
+            $copartners = $this->copartners;
+            if(!empty($copartners)) {
+                foreach($copartners as $copartnerId => $copartnerName) {
+                    $html =  "<option value=\"".$copartnerId."\" ".($this->copartnerIdSelected==$copartnerId?"selected=\"selected\"":"").">".$copartnerName."[".$copartnerId."]"."</option>";
+//                    error_log('html###'.$html);
+                    echo $html;
+                }
+            }
+            ?>
+        </select>
+        <label>协议：</label>
+        <select name="contractid" id="j_form_contract" data-toggle="selectpicker" data-emptytxt="-- 选择协议 --">
+
+            <?php
+            $contracts = $this->contracts;
+            if(!empty($contracts)){
+                foreach($contracts as $contract){
+                    $str = '<option value="'.$contract[0].'" '.($this->contractIdSelected == $contract[0]? 'selected="selected"':'').'>'.$contract[1].'</option>';
+                    echo $str;
+                }
+            }else {
+                echo "<option value=\"\">-- 选择协议 --</option>";
+            }
+            ?>
+        </select>
+        <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+</div>
+
+<div class="bjui-pageContent">
+
+    <?php
+    if(!empty($this->echarts)){
+        foreach($this->echarts as $elementId => $script){
+            echo ' <div id="'.$elementId.'" style="width: 800px;height:400px; "></div>';
+            echo $script;
+//            var_log($script, $elementId.'###');
+        }
+    }
+    ?>
+
+</div>
+
+<div class="bjui-pageFooter">
+
+</div>

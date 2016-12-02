@@ -1,0 +1,15 @@
+<?php
+echo $this->renderInc('head');
+echo $this->renderInc('wapmenu');
+?>
+
+
+    <div class="container" style="margin-top:60px;">
+
+    <table class="table" width="100%" layoutH="138">
+		<tr><th width="20%">最后登入时间</th><td><?php echo $this->data['ymd']; ?></td></tr>
+		<tr><th width="20%">最后登入IP</th><td><?php echo $this->data['ip']; ?></td></tr>
+	</table>
+    </div> <!-- /container -->
+	
+<?php echo $this->renderInc('foot');?>

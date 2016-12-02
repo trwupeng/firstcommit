@@ -1,0 +1,32 @@
+<div class="bjui-pageContent">
+    <table>
+        <?php
+        echo '<table class="table">';
+        echo '<tr>';
+        foreach($this->headers as $k=>$v){
+            echo '<th>';
+            echo $v;
+            echo '</th>';
+        }
+        echo '</tr>';
+        if(!empty($this->wares)){
+            foreach($this->wares as $k=>$v){
+                echo '<tr>';
+                foreach($v as $kk=>$vv){
+                    echo '<td>';
+                    echo $vv;
+                    echo '</td>';
+                }
+                echo '</tr>';
+            }
+        }
+        echo '</table>';
+        ?>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><?php echo \Prj\Misc\View::btnAjax('确定',\Sooh\Base\Tools::uri(['data'=>$this->data],'dosplit')); ?></li>
+    </ul>
+</div>

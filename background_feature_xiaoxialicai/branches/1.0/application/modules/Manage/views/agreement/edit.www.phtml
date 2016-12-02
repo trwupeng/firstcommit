@@ -1,0 +1,14 @@
+
+<div class="bjui-pageContent">
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer();
+    $str= $renderer->getEditStandard(\Sooh\Base\Form\Broker::getCopy('default'),1);
+	echo str_replace('<textarea id="content" name="content">', '<textarea id="content" name="content" style="width:405px;height:520px">', $str);
+	?>
+</div>
+<div class="bjui-pageFooter">
+	<ul>
+        <li><button type="submit" class="btn-green" data-icon="save">确定</button></li>
+		<li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+	</ul>
+</div>

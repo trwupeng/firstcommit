@@ -1,0 +1,1 @@
+﻿insert into db_p2p.tb_config values('dbsql.ver',2) ON DUPLICATE KEY UPDATE v=2;

@@ -1,0 +1,184 @@
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.ObjectAdapterDeactivatedException
+    name = "sample0000Adapter"
+	at Ice.ObjectAdapterI.checkForDeactivation(ObjectAdapterI.java:1170)
+	at Ice.ObjectAdapterI.addFacet(ObjectAdapterI.java:406)
+	at Ice.ObjectAdapterI.add(ObjectAdapterI.java:399)
+	at SoohIceServer.run(SoohIceServer.java:31)
+	at SoohIceServer.main(SoohIceServer.java:12)
+null
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileReader.<init>(FileReader.java:72)
+	at SoohIceServer.myParseAdapterEndpoints(SoohIceServer.java:29)
+	at SoohIceServer.run(SoohIceServer.java:85)
+	at SoohIceServer.main(SoohIceServer.java:16)
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileReader.<init>(FileReader.java:72)
+	at SoohIceServer.myParseAdapterEndpoints(SoohIceServer.java:29)
+	at SoohIceServer.run(SoohIceServer.java:87)
+	at SoohIceServer.main(SoohIceServer.java:16)
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileReader.<init>(FileReader.java:72)
+	at SoohIceServer.myParseAdapterEndpoints(SoohIceServer.java:29)
+	at SoohIceServer.run(SoohIceServer.java:88)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:109)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.EndpointParseException
+    str = "unrecognized argument `10.144.152.146' in endpoint `udp 10.144.152.146'"
+	at IceInternal.EndpointFactoryManager.create(EndpointFactoryManager.java:87)
+	at Ice.ObjectAdapterI.parseEndpoints(ObjectAdapterI.java:1266)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1036)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:102)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Ice.EndpointParseException
+    str = "unrecognized argument `10.144.152.146' in endpoint `udp 10.144.152.146'"
+	at IceInternal.EndpointFactoryManager.create(EndpointFactoryManager.java:87)
+	at Ice.ObjectAdapterI.parseEndpoints(ObjectAdapterI.java:1266)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1036)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:102)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Ice.EndpointParseException
+    str = "unrecognized argument `10.144.152.146' in endpoint `udp 10.144.152.146'"
+	at IceInternal.EndpointFactoryManager.create(EndpointFactoryManager.java:87)
+	at Ice.ObjectAdapterI.parseEndpoints(ObjectAdapterI.java:1266)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1036)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:105)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Ice.EndpointParseException
+    str = "unrecognized argument `10.144.152.146' in endpoint `udp 10.144.152.146'"
+	at IceInternal.EndpointFactoryManager.create(EndpointFactoryManager.java:87)
+	at Ice.ObjectAdapterI.parseEndpoints(ObjectAdapterI.java:1266)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1036)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:105)
+	at SoohIceServer.main(SoohIceServer.java:16)

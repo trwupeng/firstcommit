@@ -1,0 +1,34 @@
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1),'index'); ?>" method="post" id="contracts-exportChecked" style="display: none;">
+</form>
+<div class="bjui-pageHeader">
+<?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+    ?>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+        <tr>
+            <?php
+            $headers=$this->headers;
+            foreach($headers as $k=>$v){
+                echo "<th width=\"$v\">$k</th>";
+            }
+            ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $records=$this->records;
+        if (!empty($records)){
+            foreach ($records as $r){
+                echo '<td>'.implode('</td><td>', $r).'</td>';
+                echo '</tr>';
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php // echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

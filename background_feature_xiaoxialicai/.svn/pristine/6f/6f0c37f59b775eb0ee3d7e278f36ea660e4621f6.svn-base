@@ -1,0 +1,29 @@
+
+<?php var_log($this->form); ?>
+<script src="/js/jquery-1.11.3.min.js"></script>
+<div class="cmscontent" style="">
+<form method="post" action="http://www.miaojilicai.com/index.php?m=admin&c=index&a=login&dosubmit=1">
+    <input name="username" type="text" value="<?php echo $this->form['username']; ?>"/>
+    <input name="password" type="password" value="<?php echo $this->form['password']; ?>"/>
+    <input name="key" type="text" value="<?php echo $this->form['key']; ?>"/>
+    <input type="submit">
+</form>
+</div>
+<script>
+    $(function(){
+        url = "<?php echo $this->url; ?>";
+        username = "<?php echo $this->form['username']; ?>";
+        password = "<?php echo $this->form['password']; ?>";
+        key = "<?php echo $this->form['key']; ?>";
+        /*
+        $.post(url,{
+            "username":username,
+            "password":password,
+            "key":key
+        },function(data){
+            alert(data);
+        });
+        */
+        //$('form').submit();
+    });
+</script>

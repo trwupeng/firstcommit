@@ -1,0 +1,1142 @@
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.ObjectAdapterDeactivatedException
+    name = "Ice.Admin"
+	at Ice.ObjectAdapterI.checkForDeactivation(ObjectAdapterI.java:1170)
+	at Ice.ObjectAdapterI.createProxy(ObjectAdapterI.java:564)
+	at IceInternal.Instance.getAdmin(Instance.java:590)
+	at IceInternal.Instance.finishSetup(Instance.java:1237)
+	at Ice.CommunicatorI.finishSetup(CommunicatorI.java:366)
+	at Ice.Util.initialize(Util.java:166)
+	at Ice.Util.initialize(Util.java:120)
+	at Ice.Util.initialize(Util.java:135)
+	at SoohIceServer.run(SoohIceServer.java:24)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.AlreadyRegisteredException
+    kindOfObject = "object adapter"
+    id = "messagerAdapter"
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:167)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:42)
+	at SoohIceServer.main(SoohIceServer.java:12)
+Ice.CommunicatorDestroyedException
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:154)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:34)
+	at SoohIceServer.main(SoohIceServer.java:12)
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+java.lang.Exception: read sock failed on parseHead
+	at sooh.fastCGI.FastcgiProtocol.parseHead(FastcgiProtocol.java:14)
+	at sooh.fastCGI.FastcgiAdapter.exec(FastcgiAdapter.java:98)
+	at sooh.fastCGI.FCGIServeiceSimple.getStr(FCGIServeiceSimple.java:78)
+	at sooh.services.logcenter.logerI.writeSyn(logerI.java:14)
+	at sooh.services.logcenter.logerI.writeAsy(logerI.java:18)
+	at sooh.services.logcenter._logerDisp.___writeAsy(_logerDisp.java:111)
+	at sooh.services.logcenter._logerDisp.__dispatch(_logerDisp.java:154)
+	at IceInternal.Incoming.invoke(Incoming.java:221)
+	at Ice.ConnectionI.invokeAll(ConnectionI.java:2536)
+	at Ice.ConnectionI.dispatch(ConnectionI.java:1145)
+	at Ice.ConnectionI.message(ConnectionI.java:1056)
+	at IceInternal.ThreadPool.run(ThreadPool.java:395)
+	at IceInternal.ThreadPool.access$300(ThreadPool.java:12)
+	at IceInternal.ThreadPool$EventHandlerThread.run(ThreadPool.java:832)
+	at java.lang.Thread.run(Thread.java:745)
+FCGIServeiceSimple error:[FCGIServeiceSimple]class java.lang.Exception:read sock failed on parseHead [lastError] FCGIServeiceSimple:fcgi-arg settted fcgi:parse head ok
+null
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXEvt101/config/config (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileReader.<init>(FileReader.java:72)
+	at SoohIceServer.myParseAdapterEndpoints(SoohIceServer.java:29)
+	at SoohIceServer.run(SoohIceServer.java:85)
+	at SoohIceServer.main(SoohIceServer.java:16)
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXEvt101/config/config (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileReader.<init>(FileReader.java:72)
+	at SoohIceServer.myParseAdapterEndpoints(SoohIceServer.java:29)
+	at SoohIceServer.run(SoohIceServer.java:87)
+	at SoohIceServer.main(SoohIceServer.java:16)
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXEvt101/config/config (No such file or directory)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileReader.<init>(FileReader.java:72)
+	at SoohIceServer.myParseAdapterEndpoints(SoohIceServer.java:29)
+	at SoohIceServer.run(SoohIceServer.java:88)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:323)
+	at IceInternal.UdpTransceiver.bind(UdpTransceiver.java:102)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:395)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.DatagramChannelImpl.bind(DatagramChannelImpl.java:691)
+	at sun.nio.ch.DatagramSocketAdaptor.bind(DatagramSocketAdaptor.java:91)
+	at IceInternal.Network.doBind(Network.java:317)
+	... 7 more
+Ice.CommunicatorDestroyedException
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:154)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:97)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more
+Ice.SocketException
+    error = 0
+	at IceInternal.Network.doBind(Network.java:307)
+	at IceInternal.TcpAcceptor.listen(TcpAcceptor.java:35)
+	at IceInternal.IncomingConnectionFactory.createAcceptor(IncomingConnectionFactory.java:586)
+	at IceInternal.IncomingConnectionFactory.<init>(IncomingConnectionFactory.java:406)
+	at Ice.ObjectAdapterI.<init>(ObjectAdapterI.java:1040)
+	at IceInternal.ObjectAdapterFactory.createObjectAdapter(ObjectAdapterFactory.java:169)
+	at Ice.CommunicatorI.createObjectAdapterWithEndpoints(CommunicatorI.java:101)
+	at SoohIceServer.run(SoohIceServer.java:103)
+	at SoohIceServer.main(SoohIceServer.java:16)
+Caused by: java.net.BindException: Cannot assign requested address
+	at sun.nio.ch.Net.bind0(Native Method)
+	at sun.nio.ch.Net.bind(Net.java:433)
+	at sun.nio.ch.Net.bind(Net.java:425)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:223)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:74)
+	at IceInternal.Network.doBind(Network.java:301)
+	... 8 more

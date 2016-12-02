@@ -1,0 +1,32 @@
+<!--<div class="bjui-pageHeader">-->
+<!--    <form id="pagerForm" method="get" action="--><?php //echo \Sooh\Base\Tools::uri([], 'delay'); ?><!--"-->
+<!--          data-toggle="ajaxsearch">-->
+<!--    <input type="hidden" name="_pkey_val_" value="--><?php //echo $this->_pkey_val_; ?><!--"/>-->
+<!--    <lable>自定义延期（小时）：</lable>-->
+<!--    <input id="hours" type="text" name="hours" value=""/>-->
+<!--<!--        <button type="submit" class="btn btn-green">确定</button>-->-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<div class="bjui-pageContent">
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+
+    $frm = \Sooh\Base\Form\Broker::getCopy('default')
+        ->init(\Sooh\Base\Tools::uri(null, 'delay'), 'get', \Sooh\Base\Form\Broker::type_c);
+    $frm->addItem('hours', \Sooh\Base\Form\Item::factory('自定义延期（小时）', '', \Sooh\Base\Form\Item::text));
+    $frm->addItem('_pkey_val_', \Sooh\Base\Form\Item::factory('', $this->_pkey_val_, \Sooh\Base\Form\Item::hidden));
+    $frm->fillValues();
+
+    echo $renderer->getEditStandard(\Sooh\Base\Form\Broker::getCopy('default'),2);
+    ?>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+        </li>
+    </ul>
+</div>

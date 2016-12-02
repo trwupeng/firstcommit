@@ -1,0 +1,64 @@
+<div class="bjui-pageContent">
+	<h6 style="color: red">警告:本界面用于交换手机号（旧号码不在可用）,过程不可逆,请务必谨慎使用.</h6>
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+	$code = $this->statusCode;
+	$msg = $this->message;
+
+	switch($code) {
+		case 200:
+			//可以执行交换
+//			$lastPkey = $this->lastPkey;
+//			var_log($lastPkey, 'lastPkey');
+			echo <<<EOT
+<div style="color:red;">
+	<h4>【警告】：交换手机号过程不可逆，请再次确认新旧手机号</h4>
+	<fieldset>
+		<legend>请再次确认手机号</legend>
+		<table>
+			<tbody>
+				<tr>
+					<th>旧手机号</th>
+					<th>新手机号</th>
+				</tr>
+				<tr>
+					<td>{$this->oldPhone}</td>
+					<td>{$this->newPhone}</td>
+				</tr>
+			</tbody>
+		</table>
+	</fieldset>
+</div>
+EOT;
+			echo '<p>';
+			echo \Prj\Misc\View::btnAjax('交换手机号', \Sooh\Base\Tools::uri(['_pkey_val_' => $this->_pkey_val_], 'changePhone'), '交换手机号,过程不可逆,确定执行交换操作?');
+			echo '</p>';
+			break;
+		case 201001:
+			//空白，初始打开此页面
+			break;
+		case 400:
+			//手机号不符合要求
+			echo '<p>';
+			echo $msg;
+			echo '</p>';
+			break;
+	}
+	?>
+	<style>
+		fieldset {
+			width: 400px;
+			margin-top: 40px;
+			text-align: center;
+		}
+		legend {
+			display: block;
+			margin-bottom: 20px;
+		}
+		table {
+			margin: 0 auto;
+		}
+		th,td{border:1px solid black;}
+	</style>
+</div>

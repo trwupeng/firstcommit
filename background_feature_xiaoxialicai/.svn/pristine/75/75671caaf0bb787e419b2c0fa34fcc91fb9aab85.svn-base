@@ -1,0 +1,13 @@
+phpredis安装配置说明
+1. linux
+	a. 解压
+	b. 进入解压后的目录
+	c. 执行 /usr/local/php/bin/phpize
+	d. 执行 ./configure --with-php-config=/usr/local/php/bin/php-config
+	e. 编译 make
+	f. 安装 make install
+	g. 编辑php配置
+		vim /usr/local/php/lib/php.ini
+		添加一行 extension=/usr/local/php/lib/php/extensions/no-debug-non-zts-20100525/redis.so
+		保存退出
+	h. 重启php-fpm

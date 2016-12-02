@@ -1,0 +1,65 @@
+<icegrid>
+   <application name = "XiaoXiaApp">
+    <replica-group   id = "XXAdaptersL">
+        <load-balancing   type = "round-robin"   />
+		<object   identity = "loger"   type = "::sooh::services::logcenter::loger" />
+    </replica-group>
+    <replica-group   id = "XXAdaptersT">
+        <load-balancing   type = "round-robin"   />
+		<object   identity = "triggers"   type = "::sooh::services::evtcenter::triggers" />
+    </replica-group>
+	<replica-group   id = "XXAdaptersS">
+        <load-balancing   type = "round-robin"   />
+		<object   identity = "sample0000"   type = "::sooh::services::samples::sample0000" />
+    </replica-group>
+	<replica-group   id = "XXAdaptersMP">
+        <load-balancing   type = "round-robin"   />
+		<object   identity = "bypush"   type = "::sooh::services::msgcenter::bypush" />
+    </replica-group>
+	<replica-group   id = "XXAdaptersMS">
+        <load-balancing   type = "round-robin"   />
+		<object   identity = "bysms"   type = "::sooh::services::msgcenter::bysms" />
+    </replica-group>
+    
+
+    
+    <server-template   id = "XXEvtServerTpl">
+        <parameter   name = "index"   />
+        <parameter   name = "listenIP"   />
+        <server   id = "XXEvt${index}"   exe = "java"   activation = "always">
+		   <option>-jar</option>
+           <option>/var/www/SoohIce/ice-java-bin/s.jar</option>
+           <adapter name="logerAdapter" replica-group="XXAdaptersL" endpoints="udp ${listenIP}" />
+		   <adapter name="sample0000Adapter" replica-group="XXAdaptersS" endpoints="tcp ${listenIP}" />
+		   <adapter name="triggersAdapter" replica-group="XXAdaptersT" endpoints="udp ${listenIP}" />
+		   	<properties>
+				<property name="Ice.ThreadPool.Client.Size" value="15" />
+				<property   name = "Ice.ThreadPool.Server.SizeMax"   value = "100"   />
+				<property   name = "Ice.ThreadPool.Server.Size"   value = "30"   />
+			</properties>
+        </server>
+    </server-template>
+    
+    <server-template   id = "XXMsgServerTpl">
+        <parameter   name = "index"   />
+        <parameter   name = "listenIP"   />
+        <server   id = "XXMsg${index}"   exe = "java"   activation = "always">
+		   <option>-jar</option>
+           <option>/var/www/SoohIce/ice-java-bin/s.jar</option>
+           <adapter name="bysmsAdapter" replica-group="XXAdaptersMS" endpoints="udp ${listenIP}" />
+		   <adapter name="bypushAdapter" replica-group="XXAdaptersMP" endpoints="udp ${listenIP}" />
+		   <properties>
+				<property name="Ice.ThreadPool.Client.Size" value="15" />
+				<property   name = "Ice.ThreadPool.Server.SizeMax"   value = "100"   />
+				<property   name = "Ice.ThreadPool.Server.Size"   value = "30"   />
+		    </properties>	
+        </server>
+    </server-template>
+    
+    <node   name = "node100">
+    	<server-instance   template = "XXEvtServerTpl" index = "101"  listenIP="-h 10.144.152.146"   />
+		<server-instance   template = "XXMsgServerTpl" index = "201" listenIP="-h 10.144.152.146"  />
+    </node>
+
+  </application>
+</icegrid>

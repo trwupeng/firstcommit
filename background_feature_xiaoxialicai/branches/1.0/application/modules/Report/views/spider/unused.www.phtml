@@ -1,0 +1,16 @@
+<div class="bjui-pageHeader">
+    <label>未发兑换码数量：<?php echo sizeof($this->records); ?></label>
+    <div class="pull-right"><button type="button" class="btn-close" data-icon="close">关闭</button></div>
+</div>
+<dive class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped">
+    <?php
+    if(!empty($this->records)){
+        $records = array_chunk($this->records, 6);
+        foreach($records as $r) {
+            echo "<tr><td>".implode("</td><td>", $r)."</td></tr>";
+        }
+    }
+    ?>
+    </table>
+</dive>

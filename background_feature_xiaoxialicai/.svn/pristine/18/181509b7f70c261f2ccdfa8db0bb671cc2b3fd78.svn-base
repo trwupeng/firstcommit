@@ -1,0 +1,98 @@
+#用户勋章功能
+
+##更新记录
+时间	|	作者	|	内容	|
+----	|	----	|	----	|
+2016-6-24		|  吴琛	|	建立文档	|
+
+##分析设计
+激发用户虚荣心，刺激用户活跃度。通过完成勋章的任务获得奖励和展示所获得勋章。
+
+1. 根据每个勋章指定的任务，来统计用户的购买行为，邀请好友注册行为，签到行为，红包使用行为等，发放对应勋章指定奖励，如：红包等。
+2. 用户可以在已获得勋章中选择一个作为展示勋章，并展示在用户中心首页、标的投资记录列表及赏金任务用户领取列表中。
+3. 勋章奖励获得的红包有效期为发放后的48小时内。
+4. 勋章奖励发放形式为达到获取奖励条件时，直接发放对应的虚拟奖励，实物奖需要客服联系用户后发放。
+5. 获取奖励和勋章后的信息推送分别为push(通知)和站内信，具体的推送信息格式参考《勋章体系设计文档》。
+6. 后台需要开发对应的勋章管理功能。
+7. 勋章系统的报表统计
+
+统计数据 |	计算公式
+----	| ----
+每一个勋章的每一个等级完成人数 | 
+每一个勋章的每一个等级完成比率 | 该勋章完成人数/投资客人数
+
+##系统设计
+
+###相关接口和改动
+1. app展示勋章墙需要的全部勋章及用户点亮获得的勋章接口。
+2. app用户中心首页接口中显示点亮的勋章。
+3. app的标的投资记录接口中增加返回用户自选的勋章字段和值。
+4. 注册成功后统计邀请人的勋章任务完成度记录
+5. 投资成功后统计投资金额勋章任务完成度记录
+6. 投资成功后统计使用红包金额勋章任务完成度记录
+7. 投资成功后统计邀请的好友投资金额勋章任务完成记录
+8. 投资成功后统计分享的红包使用数量勋章任务完成记录
+
+###管理后台设计
+1. 后台勋章列表展示查询功能。
+2. 勋章的添加功能。
+3. 勋章的修改功能（包括勋章信息修改和勋章关闭下线）。
+4. 勋章统计报表
+
+###代码设计
+接口/方法 | 内容
+---- | ---- | 
+`medal/getAllMedal` | 实现勋章墙功能
+`__preRender__=GetMedalCover` | 实现用户已获得的勋章功能
+`financing/investList`	| 增加返回每个用户获得的勋章列表
+`oauth/webReg`	| 增加注册用户对好友邀请勋章任务的完成度统计
+`orders/add_real` | 增加用户投资勋章任务和用户红包勋章任务的完成度统计
+
+1. Lib增加Medal包完成勋章的查询，统计及奖励发放等功能
+2. Lib/Services/CheckinBook.php doCheckin方法增加签到勋章任务的完成度统计 
+3. Prj/Acl/Manage.php 增加`报表.勋章统计`和`高级运营.勋章管理`菜单
+4. Prj/Data/Vouchers.php 增加`addVoucher`方法
+5. Prj/message.php 增加勋章message内容
+6. Rpt/ 增加medal勋章统计报表包
+7. modules/Manage 增加medal的控制类和views
+8. modules/Report 增加medalreport的控制类和views
+9. Cronds 增加MedalReport定时任务脚本
+
+###测试重点
+1. 勋章墙显示
+2. 投资记录用户名字旁边的勋章点亮显示
+3. 用户中心的勋章点亮显示
+4. 投资成功后相关勋章任务完成度或者完成后奖励获得是否正确
+5. 签到成功后相关勋章任务完成度或者完成后奖励获得是否正确
+6. 邀请的好友注册成功后相关勋章任务完成度或者完成后奖励获得是否正确
+7. 获得勋章后的站内信和app推送通知是否有
+8. 后台勋章管理功能
+9. 后台的勋章报表功能
+
+###SQL相关
+1. 新增表`db_p2p.tb_medal` 记录勋章信息
+2. 新增表`db_p2p.tb_user_medal`记录用户获得的勋章信息
+3. 新增表`db_p2prpt.tb_medal_final`记录勋章统计信息
+4. `db_p2p.tb_config`表新增字段值如下：
+##
+	insert into db_p2p.tb_config (`k`, `v`, `intro`) values ('SHARE_MEDAL_PIC', '', '#勋章分享图片');
+	insert into db_p2p.tb_config (`k`, `v`, `intro`) values ('SHARE_MEDAL_TITLE', '', '#勋章分享标题');
+	insert into db_p2p.tb_config (`k`, `v`, `intro`) values ('SHARE_MEDAL_DESC', '', '#勋章分享内容');
+	insert into db_p2p.tb_config (`k`, `v`, `intro`) values ('SHARE_MEDAL_URL', '', '#勋章分享链接');
+这4个配置需要产品去后台参数配置中填对应的数据
+
+5.db_p2p.tb_investment_0表和db_p2p.tb_investment_1表的vouchers字段长度修改为1000
+##
+	alter table tb_investment_0 modify column vouchers varchar(1000) ;
+	alter table tb_investment_1 modify column vouchers varchar(1000) ;
+
+###定时任务脚本
+###MedalReport.CrondMedalReport
+勋章系统数据报表统计脚本，每晚23点30分运行一次
+手动运行命令 `php /var/www/licai_php/run/crond.php "__=crond/run&task=MedalReport.CrondMedalReport&ymdh=2016062823"`
+
+###MedalReport.CrondMedalFirst
+勋章任务初始匹配脚本，只需要在上线后运行一次即可，使勋章系统上线前的用户只要历史投资、签到等行为满足勋章条件即可获得点亮勋章及相应奖励
+手动运行命令 `php /var/www/licai_php/run/crond.php "task=MedalReport.CrondMedalFirst"`
+
+

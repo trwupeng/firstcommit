@@ -1,0 +1,11 @@
+1. 安装配置redis服务器
+2. 安装配置redis php插件
+3. 在licai_php/conf/globals.php内
+	$GLOBALS['CONF']['dbConf']增加配置项(测试地址，正式服需要修改地址)
+	'redis' => array( 'type' => "redis", 
+			'pass' => 'ihBnNmFWF07mx^csKusWVrZm*n91cEbX',
+			'hosts' => array (
+				array( 'host' => '115.28.53.193', 'port' => 3888, ),
+				array( 'host' => '115.28.172.53', 'port' => 3888 ),
+			),
+		),

@@ -1,0 +1,50 @@
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 1), 'index'); ?>" method="post"
+      id="wares-exportChecked" style="display: none;">
+</form>
+<div class="bjui-pageHeader">
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    $randNum = rand(1000,9999);
+    //echo $renderer->formForExport(Sooh\Base\Tools::uri([],'index'),$randNum);
+    // echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+
+    echo  $renderer->getSearchStandard(
+        \Sooh\Base\Form\Broker::getCopy('default')
+    );
+    ?>
+</div>
+<style>
+    .checkuser div{margin-top: 10px;}
+</style>
+<div class="bjui-pageContent checkuser">
+    <?php
+    echo '<h3>平台账户</h3>';
+        function showInfo($title , $value){
+            echo '<div>';
+            echo $title.':'.$value;
+            echo '</div>';
+        }
+        if($this->userInfo){
+            $userInfo = $this->userInfo;
+            showInfo('用户ID',$userInfo['userId']);
+            showInfo('用户名',\Prj\IdCard::hideName($userInfo['nickname']));
+            showInfo('手机号',\Prj\IdCard::hideId($userInfo['phone']));
+            showInfo('余额(元)',$userInfo['wallet']/100);
+        }
+    echo '<h3>新浪账户</h3>';
+        if($this->sinaInfo){
+            $sinaInfo = $this->sinaInfo;
+            showInfo('账户余额(元)',$sinaInfo['balance']);
+            showInfo('冻结金额(元)',$sinaInfo['balance']-$sinaInfo['availableBalance']);
+            showInfo('可用余额(元)',$sinaInfo['availableBalance']);
+        }else{
+            //echo '<div style="color: #ff0000">新浪查询失败</div>';
+        }
+        if($this->error){
+            echo '<div style="color: #ff0000">警告:'.$this->error.'</div>';
+        }else{
+
+        }
+    ?>
+</div>
+

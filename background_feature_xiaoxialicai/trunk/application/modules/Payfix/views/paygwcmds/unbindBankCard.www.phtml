@@ -1,0 +1,13 @@
+<div class="bjui-pageContent">
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	$str= $renderer->getEditStandard(\Sooh\Base\Form\Broker::getCopy('default'),1);
+	echo str_replace('<form ', '<form id="j_custom_form" data-toggle="validate" data-alertmsg="false" ', $str);
+	?>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+		<li><button type="submit" class="btn-default" data-icon="save">解绑</button></li>
+    </ul>
+</div>

@@ -1,0 +1,781 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <title>
+        小虾理财
+    </title>
+    <style>
+        body{font-family: Arial,Helvetica,sans-serif;}
+        .border-left{border-left: 1px solid lightgray}
+        .bgc1{background-color: #D53736;color: white}
+        .bgc2{background-color: #e96358;color: white}
+        .color1{color: #e96358}
+        span{display: inline-block}
+        .border{border: 1px solid lightgray}
+        *{padding: 0;margin: 0;font-size: 14px}
+        label{display: block}
+        .hide{display: none}
+        .left{float: left}
+        .right{float: right}
+        .a{cursor: pointer}
+        [id^=page-]{display: none;float: left;width: 100%;height: 100%}
+        #page-waresList .ware {padding: 5px;}
+        #page-waresList .list {height: 440px;overflow: auto}
+        #viewport{width:100%;height: 100%; overflow: auto;background: #EEEEEE}
+        #viewport .content{width: 100%;height: 500px;}
+        #page-waresList .buy:hover{color: #D53736;cursor: pointer}
+        #page-waresList .shelfId{height: 40px;line-height: 40px;padding: 0 20px 0 20px}
+        #page-home .banner{height: 145px;background-color: beige}
+        #page-home .banner img{width: 100%;height: 100%}
+
+        #page-home .navigation{height: 95px;background: white;font-family: 微软雅黑}
+        #page-home .navigation .nav{height: 100%;width: 24.3%;float: left;}
+        #page-home .navigation .nav .nav-con{width: 100%;text-align: center;margin-top: 20px;}
+        #page-home .navigation .nav .nav-con .icon{background: #808080;height: 40px;width: 40px;margin: auto}
+        #page-home .navigation .help .nav-con .icon{background: url('/images/user/invite/wap_nav_invest.png') no-repeat 0 center;background-size:contain;}
+        #page-home .navigation .guide .nav-con .icon{background: url('/images/user/invite/wap_nav_help.png') no-repeat 0 center;background-size:contain;}
+        #page-home .navigation .wares .nav-con .icon{background: url('/images/user/invite/wap_nav_guide.png') no-repeat 0 center;background-size:contain;}
+        #page-home .navigation .bbs .nav-con .icon{background: url('/images/user/invite/wap_nav_bbs.png') no-repeat 0 center;background-size:contain;}
+
+
+        #page-home .ware{height: 235px}
+        #page-home .ware .ware-con{background-color: white;width: 93%;height: 190px;margin-left: auto;margin-right: auto;margin-top: 20px;}
+        #page-home .ware .ware-con .tag{position: absolute;background-color: #0024ff;width: 64px;height: 64px;background: url('/images/user/invite/tag.png') no-repeat 0 center;background-size:contain;}
+        #page-home .ware .ware-con .ware-con-title{height: 100px}
+        #page-home .ware .ware-con .ware-con-title .title1{margin-top: 10px;float: left}
+        #page-home .ware .ware-con .ware-con-title .title1 .yield{font-size: 60px;}
+        #page-home .ware .ware-con .ware-con-title .title2{float: left;margin-top: 22px;margin-left: 30px;text-align: center}
+        #page-home .ware .ware-con .ware-con-title .title3{float: left;margin-top: 22px;margin-left: 18px}
+        #page-home .ware .ware-con .ware-con-progress{margin-bottom:25px;height: 10px;position: relative;border-radius: 5px;background-color: lightgray}
+        #page-home .ware .ware-con .ware-con-progress .load{position: relative;float: left;width: 32px;height: 32px;border: 1px solid #8f8f8f;line-height: 32px;text-align: center;top: -13px;left: -15px;background-color: white;border-radius: 18px;}
+        #page-home .ware .ware-con .ware-con-button{height: 35px;line-height: 35px;border-bottom: 2px solid #D53736;text-align: center}
+        #page-home .ware .ware-con .all{width: 80%;margin-left: auto;margin-right: auto}
+
+        #viewport .header{height: 45px;line-height: 45px}
+        #viewport .header .logo{background: url('/images/logo.png') no-repeat 0 center;width: 50px;height: 35px;margin-left: 5px;margin-top: 5px;}
+        #viewport .header div{padding: 0 10px 0 10px}
+        #viewport .footer{height: 75px;text-align: center}
+        #viewport .footer div{font-size: 12px;color: #9b9b9b  }
+    </style>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script>
+        var RUN = true;
+        var baseUrl = "http://<?php echo $_SERVER['HTTP_HOST']; ?>/index.php?__VIEW__=json&__=";
+        var api = {
+            'registerSMS':baseUrl+'oauth/sendInvalidcode',
+            'checkReg':baseUrl+'oauth/checkReg',
+            'appreg':baseUrl+'oauth/appreg',
+            'info':baseUrl+'index/user/info&__VIEW__=json',
+            'recharge':baseUrl+'index/user/recharge&__VIEW__=json',
+            'applogin':baseUrl+'oauth/applogin&__VIEW__=json',
+            'token':baseUrl+'oauth/token&__VIEW__=json',
+            'passport_login':baseUrl+'passport/login&__VIEW__=json',
+            'user_bindcard':baseUrl+'user/bindcard&__VIEW__=json',
+            'financing_byshelf':baseUrl+'financing/byshelf&__VIEW__=json',
+            'orders_add':baseUrl+'orders/add&__VIEW__=json',
+            'financing_detail':baseUrl+'financing/detail&__VIEW__=json',
+            'user_openVoucher':baseUrl+'user/openVoucher&__VIEW__=json',
+            'null':null
+        };
+        var error = {
+            'phone_is_already_registered':'手机号已经存在'
+        }
+        var init = {
+            'clientId':'1104878344',
+            'clientSecret':'s20vH9emKJ6BmT1Q',
+            'redirectUri':'https://www.baidu.com/',
+            'clientType':903,
+            'returnType':{
+                2:"按月付息,到期还本",
+                1:"一次性还本付息"
+            },
+            'null':null
+        }
+        var Pass = {};
+        var Form = {
+            'id':'',
+            'num':'',
+            'name':'',
+            'init':function(id,num){
+                this.id = id;this.num = num;return this;
+            },
+            'getCopy':function(id,num){
+                var obj = {};
+                for(var i in this){
+                    obj[i] = this[i];
+                }
+                obj.id = id;
+                obj.num = num;
+                return obj;
+            },
+            'setNum':function(num){
+                this.num = num;
+                return this;
+            },
+            'val':function(name){
+                return $('#'+this.id+' .'+this.num+' [name="'+name+'"]').val();
+            },
+            'class':function(name){
+                return $('#'+this.id+' .'+this.num+' .'+name+'');
+            },
+            'input':function(name){
+                return $('#'+this.id+' .'+this.num+' [name="'+name+'"]');
+            }
+        }
+        var Tool = {
+            'showPage':function(id){
+                $("[id^=page-]").hide();
+                $("#"+id).show();
+                window.location.href = "#_"+id;
+                History.push(id);
+                if(id!='page-home'){
+                    $('.header .return').show();
+                    $('.header .logo').hide();
+                }else{
+                    $('.header .logo').show();
+                    $('.header .return').hide();
+                }
+            }
+        };
+        var History = {
+            'max':5,
+            'queue':['page-home'],
+            'push':function(page){
+                if(page==this.queue[this.queue.length-1])return;
+                this.queue.push(page);
+                if(this.queue.length>this.max){
+                    this.queue.shift();
+                }
+            },
+            'toLastPage':function(){
+                Tool.showPage(this.queue[this.queue.length-2]);
+                this.queue.pop();
+                this.queue.pop();
+            }
+        };
+    </script>
+    <script>
+        //页面JS初始化
+        $(function(){
+            $('button').click(function(){
+                return false;
+            });
+            var page = window.location.hash.replace('#_','');
+            page = page?page:'page-home';
+            Tool.showPage(page);
+            $.post(api.info,[],function(data){
+                if(data.code==200){
+
+                }else{
+
+                }
+            });
+        });
+
+        var var_log = function(str){
+            console.log(str);
+        }
+        var warn = function(str){
+            if(str==undefined){
+                str = '暂未开放,敬请期待!';
+            }
+            alert(str);
+        }
+        var die = function(){
+            RUN = false;
+        }
+    </script>
+</head>
+<body>
+
+<div id="viewport">
+    <div class="control hide" style="position: fixed;bottom: 0">
+        <button class="control-page" data-id="page-register">注册</button>
+        <button class="control-page" data-id="page-login">登录</button>
+        <button class="control-page" data-id="page-info">个人中心</button>
+        <button class="control-page" data-id="page-bindcard">绑卡</button>
+        <button class="control-page" data-id="page-recharge">充值</button>
+        <button class="control-page" data-id="page-waresList">标的列表</button>
+        <button class="control-page" data-id="page-redPacket">红包奖励</button>
+        <script>
+            $(function(){
+                $('.control .control-page').click(function(){
+                    Tool.showPage(this.getAttribute('data-id'));
+                });
+            });
+        </script>
+    </div>
+    <div class="header bgc1">
+        <div class="logo left"></div>
+        <div class="return left">返回</div>
+        <div class="login right a">登录/注册</div>
+        <div style="clear: both"></div>
+
+        <script>
+            var header = {
+                "class":function(name){
+                    return $(".header ."+name);
+                }
+            }
+            $(function(){
+                header.class('logo').click(function(){
+                    Tool.showPage("page-home");
+                });
+                header.class('login').click(function(){
+                    Tool.showPage("page-login");
+                });
+                header.class('return').click(function(){
+                    History.toLastPage();
+                });
+            });
+        </script>
+    </div>
+    <div class="content">
+        <div id="page-home">
+
+            <div class="banner">
+                <img src="/images\user\invite/banner.png">
+            </div>
+            <div class="navigation ">
+                <div class="nav help">
+                    <div class="nav-con">
+                        <div class="icon"></div>
+                        <div class="text">在线客服</div>
+                    </div>
+                </div>
+                <div class="nav guide">
+                    <div class="nav-con border-left">
+                        <div class="icon"></div>
+                        <div class="text">新手引导</div>
+                    </div>
+                </div>
+                <div class="nav wares a">
+                    <div class="nav-con border-left">
+                        <div class="icon"></div>
+                        <div class="text">项目列表</div>
+                    </div>
+                </div>
+                <div class="nav bbs">
+                    <div class="nav-con border-left">
+                        <div class="icon"></div>
+                        <div class="text">虾米专区</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ware ">
+                <div class="ware-con border">
+                    <div class="tag"></div>
+                    <div class="ware-con-title all">
+                        <div class="title1 color1">
+                            <span class="yield">10</span>
+                            <span>%年化</span>
+                        </div>
+                        <div class="title2">
+                            <div><span class="color1" style="font-size: 20px;">6</span>个月</div>
+                            <div style="color: #8f8f8f;margin-top: 7px;">项目期限</div>
+                        </div>
+                        <div class="title3">
+                            <div><span class="color1" style="font-size: 20px;">1000</span>万</div>
+                            <div style="color: #8f8f8f;margin-top: 7px;">项目规模</div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="ware-con-progress  all">
+                        <div class="bgc2" style="width: 50%;height: 100%;border-radius: 5px;float: left"></div>
+                        <div class="load">50%</div>
+                    </div>
+                    <div class="ware-con-button border all bgc2">立即投资</div>
+                </div>
+            </div>
+            <script>
+                $(function(){
+                    $('#page-home .navigation .wares').click(function(){
+                        Tool.showPage('page-waresList');
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-redPacket" >
+            <div class="first" style="width: 80%;height: 50%;margin: auto;margin-top: 20%;border: 1px solid">
+                <div class="open" style="margin-top: 35%;text-align: center;cursor: pointer;font-size: 30px ">打开红包</div>
+            </div>
+            <div class="second hide" style="width: 80%;height: 50%;margin: auto;margin-top: 20%;border: 1px solid;">
+                <div><span class="descCreate">红包名称</span></div>
+                <div><span class="amount">红包金额</span></div>
+                <div><span class="voucherNum">红包数目</span></div>
+            </div>
+            <script>
+                var page_redPacket = {
+                    "show":function(voucherId){
+                        var post = {"voucherId":voucherId};
+                        $.post(api.user_openVoucher,post,function(data){
+                            var form = Form.getCopy('page-redPacket','second');
+                            if(data.code==200){
+                                var detail = data.detail;
+                                form.class('descCreate').html(detail.descCreate);
+                                form.class('amount').html(detail.amount);
+                                form.class('voucherNum').html(detail.voucherNum);
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+                    }
+                };
+                $(function(){
+                    var form = Form.getCopy('page-redPacket','first');
+                    form.class('open').click(function(){
+                        $('#page-redPacket .first').fadeOut('slow',function(){
+                            $('#page-redPacket .second').fadeIn('slow');
+                        });
+
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-register">
+            <h3>注册</h3>
+            <form class="first">
+                <label>手机号:<input name="phone" /></label>
+                <label>登录密码:<input name="password" /></label>
+                <label>邀请码:<input name="invitationCode" /></label>
+                <button class="next">下一步</button>
+                <button class="jump">跳过</button>
+            </form>
+            <form class="second hide">
+                <label>验证码:<input name="invalidCode" /></label>
+                <button class="submit">提交</button>
+                <button class="jump">返回</button>
+            </form>
+            <script>
+                $(function(){
+                    var getForm = function(){
+                        var args = {
+                            'phone':$('#page-register .first [name="phone"]').val(),
+                            'password':$('#page-register .first [name="password"]').val(),
+                            'invitationCode':$('#page-register .first [name="invitationCode"]').val(),
+                            'invalidCode':$('#page-register .second [name="invalidCode"]').val(),
+                            'clientId':init.clientId,
+                            'clientSecret':init.clientSecret,
+                            'clientType':init.clientType,
+                            'redirectUri':init.redirectUri
+                        }
+                        return args;
+                    }
+                    $('#page-register .first .jump').click(function(){
+                        $('#page-register .first').hide();
+                        $('#page-register .second').show();
+                    });
+                    $('#page-register .second .jump').click(function(){
+                        $('#page-register .first').show();
+                        $('#page-register .second').hide();
+                    });
+                    $('#page-register .first .next').click(function(){
+                        var phone = $('#page-register .first [name="phone"]').val();
+                        var password = $('#page-register .first [name="password"]').val();
+                        var invitationCode = $('#page-register .first [name="invitationCode"]').val();
+                        var_log(phone);
+                        if(phone=='' || password==''){
+                            warn('参数不能为空');
+                            return;
+                        }
+                        var post = {"phone":phone,"cameFrom":"phone"};
+                        $.post(api.checkReg,post,function(data){
+                            var_log(data);
+                            if(data.msg=='phone_is_not_registered'){
+                                var_log(phone+'可以注册...');
+                                $.post(api.registerSMS,post,function(data){
+                                    if(data.code==200){
+                                        var_log(data.msg);
+                                        $('#page-register .first').hide();
+                                        $('#page-register .second').show();
+                                    }else{
+                                        warn(data.msg);
+                                    }
+                                });
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+
+                    });
+                    $('#page-register .second .submit').click(function(){
+                        var post = getForm();
+                        $.post(api.appreg,post,function(data){
+                            var_log(data);
+                            if(data.code==200){
+                                warn(data.msg);
+                            }else{
+                                warn(data.msg);
+
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-login">
+            <form class="first">
+                <label>手机号:<input name="phone" /></label>
+                <label>登录密码:<input name="password" /></label>
+                <button class="submit">登录</button>
+                <div>
+                    <span class="a left register">免费注册</span>
+                    <span class="a right forget">忘记密码</span>
+                    <div style="clear: both"></div>
+                </div>
+            </form>
+            <script>
+                $(function(){
+                    var getForm = function(){
+                        var args = {
+                            'phone':$('#page-login .first [name="phone"]').val(),
+                            'password':$('#page-login .first [name="password"]').val(),
+                            'clientId':init.clientId,
+                            'clientSecret':init.clientSecret,
+                            'clientType':init.clientType,
+                            'redirectUri':init.redirectUri
+                        }
+                        return args;
+                    }
+                    $('#page-login .first .submit').click(function(){
+                        $.post(api.applogin,getForm(),function(data){
+                            warn(data.msg);
+                            if(data.code==200){
+                                $.post(api.passport_login,{'code':data.info.code,'redirectUri':init.redirectUri,'clientType':init.clientType},function(data){
+                                    var_log(data);
+                                });
+                            }
+                        });
+                    });
+                    var form = Form.getCopy('page-login','first');
+                    form.class('register').click(function(){
+                        Tool.showPage('page-register');
+                    });
+                    form.class('forget').click(function(){
+                        warn();
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-info">
+            <h3><php class="nickname"></php> 账户</h3>
+            <div>
+                <span>现金金额(元):<php class="wallet"></php></span>&nbsp;
+                <span>持有资产(元):<php class="holdingAssets"></php></span>
+            </div>
+            <div>
+                <span>冻结金额(元):<php class="freezeAmount"></php></span>&nbsp;
+                <span>红包余额(元):<php class="redPacket"></php></span>
+            </div>
+            <script>
+                $(function(){
+                    $.post(api.info,[],function(data){
+                        var_log(data);
+                        if(data.code==200){
+                            $('#page-info .wallet').text(data.data.wallet/100);
+                            $('#page-info .holdingAssets').text(data.data.holdingAssets/100);
+                            $('#page-info .freezeAmount').text(data.data.freezeAmount/100);
+                            $('#page-info .redPacket').text(data.data.redPacket/100);
+                            $('#page-info .nickname').text(data.data.nickname);
+                        }
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-bindcard">
+            <h3>绑卡</h3>
+            <form class="first">
+                <label>银行:<input name="bankId" value="icbc"></label>
+                <label>银行卡号:<input name="bankCard"></label>
+                <label>真实姓名:<input name="realName"></label>
+                <label>身份证号码:<input name="idCardSn"></label>
+                <label>手机号:<input name="phone"></label>
+                <button class="next">获取短信验证码</button>
+            </form>
+            <form class="second">
+                <label>短信验证码:<input name="smsCode"></label>
+                <button class="submit">提交</button>
+            </form>
+            <script>
+                $(function(){
+                    var form = Form.getCopy("page-bindcard","first");
+                    var getForm = function(){
+                        form.setNum('first');
+                        var args = {
+                            'bankId':form.val('bankId'),
+                            'bankCard':form.val('bankCard'),
+                            'realName':form.val('realName'),
+                            'idCardSn':form.val('idCardSn'),
+                            'phone':form.val('phone'),
+                            'smsCode':form.setNum('second').val('smsCode')
+                        }
+                        return args;
+                    }
+                    form.setNum('first').class('next').click(function(){
+                        var post = getForm();
+                        post.cmd = 'binding';
+                        $.post(api.user_bindcard,post,function(data){
+                            var_log(data);
+                            if(data.code==200){
+                                warn('短信发送成功');
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+                    });
+                    form.setNum('second').class('submit').click(function(){
+                        var post = getForm();
+                        post.cmd = 'bindingcode';
+                        $.post(api.user_bindcard,post,function(data){
+                            var_log(data);
+                            if(data.code==200){
+                                warn('绑卡成功');
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-recharge">
+            <h3>充值</h3>
+            <form class="first">
+                <label>充值金额:<input name="amount" /></label>
+                <label>验证码:<input name="smsCode" /></label>
+                <button class="getCode">获取验证码</button>
+                <button class="submit">立即充值</button>
+            </form>
+            <script>
+                $(function(){
+                    var form = Form.getCopy("page-recharge","first");
+                    var getForm = function(){
+                        var args = {
+                            'amount':form.val('amount')*100,
+                            'smsCode':form.val('smsCode')
+                        }
+                        return args;
+                    }
+                    form.class('getCode').click(function(){
+                        var post = getForm();
+                        post.cmd = 'recharge';
+                        $.post(api.recharge,post,function(data){
+                            var_log(data);
+                            if(data.code==200){
+                                warn('获取验证码成功!');
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+                    });
+                    form.class('submit').click(function(){
+                        var post = getForm();
+                        post.cmd = 'rechargecode';
+                        $.post(api.recharge,post,function(data){
+                            var_log(data);
+                            if(data.code==200){
+                                warn('充值成功!');
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+        <div id="page-waresList">
+            <div class="first">
+                <div>
+                    <span class="shelfId_2000 shelfId border">房贷</span>
+                    <span class="shelfId_3000 shelfId border">车贷</span>
+                </div>
+                <div class="list">
+
+                </div>
+                <div  class="wareTPL hide">
+                    <div>
+                        <div style="float: left">
+                            <div>{waresName}&nbsp;<span style="color: red">{tag}</span></div>
+                            <div style="float: left">
+                                <div>预期年化收益</div>
+                                <div>{yieldStatic}%<span>{yieldStaticAdd}</span></div>
+                            </div>
+                            <div style="float: left">
+                                <div>期限</div>
+                                <div>{deadLine}</div>
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div style="float: right">
+                            <div><span class="buy" data-waresId="{waresId}" style="font-size: 30px">抢</span></div>
+                            <div class="progress" style="width: 130px;border: 1px solid;height: 5px">
+                                <div class="progress-con" style="height: 100%;width: {progress}%;background-color: #0024ff"></div>
+                            </div>
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <span style="float: left">{priceStart}元起投</span>
+                        <span style="float: right;">{returnType}</span>
+                        <div style="clear: both"></div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var waresList = function(obj){
+                    var ware = Form.init('page-waresList','first').class('wareTPL').html();
+                    ware = ware.replace('{waresName}',obj.waresName);
+                    ware = ware.replace('{waresId}',obj.waresId);
+                    ware = ware.replace('{yieldStatic}',obj.yieldStatic*100);
+                    var yieldStaticAdd = '';
+                    if(obj.yieldStaticAdd!="0.0000")yieldStaticAdd = '+'+obj.yieldStaticAdd*100+'%';
+                    ware = ware.replace('{yieldStaticAdd}',yieldStaticAdd);
+                    ware = ware.replace('{deadLine}',obj.deadLine+obj.dlUnit);
+                    ware = ware.replace('{priceStart}',obj.priceStart/100);
+                    ware = ware.replace('{tag}',obj.tags);
+                    ware = ware.replace('{progress}',(obj.amount-obj.remain)/obj.amount*100 );
+                    var returnType = init.returnType[obj.returnType];
+                    ware = ware.replace('{returnType}',returnType);
+                    return '<div  class="ware">'+ware+'</div>';
+                }
+                $(function(){
+                    var showWares = function(post){
+                        $.post(api.financing_byshelf,post,function(data){
+                            //var_log(data);
+                            if(data.waresList.length>0){
+                                //var_log(data.waresList);
+                                var str = '';
+                                for(var i in data.waresList){
+                                    str+=waresList(data.waresList[i]);
+                                    str+="\n";
+                                }
+                                form.class('list').html(str);
+                            }
+                        });
+                    }
+
+                    var post = {"shelfId":2000};
+                    var form = Form.getCopy('page-waresList','first');
+                    showWares(post);
+
+                    form.class('shelfId_2000').click(function(){
+                        var post = {"shelfId":2000};
+                        showWares(post);
+                    });
+
+                    form.class('shelfId_3000').click(function(){
+                        var post = {"shelfId":3000};
+                        showWares(post);
+                    });
+                    var_log(form.class('buy'));
+                    $("#page-waresList .list").on('click',form.class('buy'),function(data){
+                        //var_log($(data.target));
+                        var target = $(data.target);
+                        var post = {"id":target.attr('data-waresId')};
+                        $.post(api.financing_detail,post,function(data){
+                            var_log(data);
+
+                            page_order.showWare(data.financing);
+                            Tool.showPage('page-order');
+                            Pass.waresId = post.id;
+                            Pass.uniqueOpId = data.financing.uniqueOpId;
+                        });
+                    });
+
+                });
+            </script>
+        </div>
+        <div id="page-order">
+            <h3>投资页面</h3>
+            <div class="third">
+                <div>标的名称:<span class="waresName"></span></div>
+                <div>剩余金额:<span class="remain"></span>元</div>
+                <div>期限:<span class="deadLine"></span></div>
+                <div>还款方式:<span class="returnType"></span></div>
+            </div>
+            <div class="first">
+                <form>
+                    <label> 投资金额:<input name="amount" value="100"/>元</label>
+                    <button class="next">确认投资</button>
+                </form>
+            </div>
+            <div class="second hide">
+                <form>
+                    <label>交易密码:<input name="paypwd" /></label>
+                </form>
+            </div>
+            <script>
+                var page_order = {
+                    'form':Form.getCopy('page-order','third'),
+                    'showWare':function(ware){
+                        if(typeof ware.waresName !=undefined)this.form.class('waresName').html(ware.waresName);
+                        if(typeof ware.remain !=undefined)this.form.class('remain').html(ware.remain/100);
+                        if(typeof ware.deadLine !=undefined)this.form.class('deadLine').html(ware.deadLine+ware.dlUnit);
+                        if(typeof ware.returnType !=undefined)this.form.class('returnType').html(init.returnType[ware.returnType]);
+                        $("#page-order .first").show();
+                        $("#page-order .second").hide();
+                    }
+                }
+                $(function(){
+                    page_order.showWare({"waresName":'测试'});
+                    var form = Form.getCopy('page-order','first');
+                    var getForm = function(){
+                        form.setNum('first');
+                        var args = {
+                            "amount":form.val('amount')*100,
+                            "paypwd":form.setNum('second').val('paypwd'),
+                            "uniqueOpId":Pass.uniqueOpId,
+                            "waresId":Pass.waresId
+                        }
+                        return args;
+                    }
+                    form.class('next').click(function(){
+                        var post = getForm();
+                        post.cmd = 'buy';
+                        $.post(api.orders_add,post,function(data){
+                            var_log(data);
+                            if(data.code!=200){
+                                if(typeof data.uniqueOpId != undefined)post.uniqueOpId = data.uniqueOpId;
+                                warn(data.msg);
+                            }else{
+                                Pass.orderId = data.orderId;
+                                $('#page-order .first').hide();
+                                $('#page-order .second').show();
+                            }
+                        });
+                    });
+                    form.setNum('second').input('paypwd').blur(function(){
+                        var post = getForm();
+                        post.orderId = Pass.orderId;
+                        post.paypwd = form.setNum('second').val('paypwd');
+                        post.cmd = 'buypaypwd';
+                        $.post(api.orders_add,post,function(data){
+                            var_log(data);
+                            if(data.code==200){
+                                warn('购买成功!');
+                                if(data.ordersDone.voucherId!=''){
+                                    var voucherId = data.ordersDone.voucherId;
+                                    Tool.showPage('page-redPacket');
+                                    page_redPacket.show(voucherId);
+                                }
+                            }else{
+                                warn(data.msg);
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+    <div class="footer">
+        <div>
+            <div>@小虾理财 xiaoxialicai.com 沪ICP备20160331号</div>
+            <div style="color: #008CFA">电脑版 客服电话:400-820-2009</div>
+            <div>市场有风险,投资需谨慎</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

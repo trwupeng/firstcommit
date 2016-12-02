@@ -1,0 +1,192 @@
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<style>
+    *{
+        font-family: 微软雅黑;
+        color: #808080;
+    }
+    body{
+        background-color: #F4F4F4;
+    }
+    .fl{
+        float:left;
+    }
+    .introduction{
+        width: 640px;
+    }
+    .intro-list{
+        margin: 0 30 5 30;
+        display: inline-block;
+    }
+    .list{
+        border: 1px solid #eaeaea;
+        margin-bottom: 10px;
+        background-color: #ffffff;
+    }
+    .list:hover{
+        background-color: #F4F4F4;
+    }
+    em{
+        //color: #E25453;
+        font-size: 19px;
+        font-style:normal;
+    }
+    a{
+        text-decoration: none;
+
+    }
+    .title{
+        //color: #000000;
+        font-weight: 100;
+    }
+    .title:hover{
+        color:#E25453;
+    }
+    .i-l-1 strong{
+        color:#E25453;
+        font-size: 24px;
+    }
+    .i-l-1 span{
+        color: #E25453;
+    }
+    .i-l-6 a{
+        display: inline-block;
+        padding: 5 10 5 10;
+        border: 1px solid #eaeaea;
+    }
+    .i-l-6 a:hover{
+        background-color: #E25453;
+        color: #ffffff;
+    }
+    .out-frame{
+        height: 10px;
+        display: inline-block;
+        width: 120px;
+        border: 1px solid lightgray;
+    }
+    .out-frame span{
+        height: 10px;
+        width: 50%;
+        display: inline-block;
+        background-color: #E25453;
+    }
+    .page a{
+        display: inline-block;
+        padding: 10px;
+        border: 1px solid #eaeaea;
+        background-color: white;
+        margin-right: 5px;
+        //color: #000000;
+    }
+    .page a:hover{
+        background-color: #F4F4F4;
+    }
+    .page-active{
+        background-color: #E25453 !important;
+        border: none !important;
+        color: #ffffff !important;
+    }
+    .invest-case-list-sort{
+        background-color: #ffffff;
+        padding: 10px;
+        border: 1px solid #eaeaea;
+    }
+    .invest-case-list-sort a:hover{
+        color:#E25453;
+        cursor: pointer;
+    }
+    dl,dt,dd{
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+    }
+    .content{
+        margin-top: 10px;
+    }
+    .sort{
+        color: #E25453;
+    }
+    .rsort{
+        color: deepskyblue;
+    }
+
+</style>
+<?php
+$classArr = array();
+$order = $this->order;
+$orderArr = explode('_',$order);
+$classArr[$orderArr[1]] = $orderArr[0];
+//var_log($order);
+?>
+<div class="invest-case-list-sort">
+    <dl>
+        <dt>排序：</dt>
+        <dd>
+            <a data-id="timeStartPlan" class="<?php echo $classArr['timeStartPlan']; ?>">发布时间</a>
+            <a data-id="amount" class="<?php echo $classArr['amount'];?>">项目规模</a>
+            <a data-id="yieldStatic" class="<?php echo $classArr['yieldStatic'];?>">年化收益</a>
+            <a data-id="ymdPayPlan" class="<?php echo $classArr['ymdPayPlan'];?>">还款日期</a>
+        </dd>
+    </dl>
+</div>
+<script>
+$(function(){
+    $('.invest-case-list-sort a').click(function(){
+        if($(this).attr('class')=='sort')
+        {
+            var url = "<?php echo \Sooh\Base\Tools::uri(null,'byshelf'); ?>";
+            location.href = url+"order=rsort_"+$(this).attr('data-id');
+        }
+        else
+        {
+            var url = "<?php echo \Sooh\Base\Tools::uri(null,'byshelf'); ?>";
+            location.href = url+"order=sort_"+$(this).attr('data-id');
+        }
+    })
+});
+</script>
+<?php
+$this->htmlHeadPart('<!-- head part -->');
+echo $this->renderInc('head');
+
+
+
+$rs = $this->waresList;
+echo '<div class="content">';
+if(!empty($rs))
+{
+    foreach($rs as $r){
+        unset($r['introDisplay']);
+        $url = \Sooh\Base\Tools::uri(['id'=>$r['waresId']],'detail');
+        //echo "<br>".json_encode($r).'<a href="'.$url.'">'.$url.'</a>';
+        echo '<div class="list">';
+        $typeNameArr = \Prj\Consts\Wares::$typeNameArr;
+        $r['typeName'] = $typeNameArr[$r['mainType']];
+        echo ' <h2><em>【'.$r['typeName'].'】</em><a class="title" href="'.$url.'">'.$r['waresName'].'</a></h2>';
+        echo '<div class="fl introduction">';
+        echo '<span class="intro-list i-l-1">年化收益：<strong>'.($r['yieldStatic']*100).'</strong><span>%</span></span>';
+        echo '<span class="intro-list i-l-2">项目期限：<strong>'.$r['waresSN'].'</strong><span>个月</span></span>';
+        echo '<span class="intro-list i-l-3">项目规模：<strong>'.($r['amount']/100).'</strong><span>元</span></span>';
+        $r['returnTypeName'] = \Prj\Consts\InvestReturn::$enum[$r['returnType']];
+        echo '<span class="intro-list i-l-4">还款方式：'.$r['returnTypeName'].'</span>';
+        echo '<span class="intro-list i-l-5">保障机构：<a>××投资股份有限公司</a></span>';
+        echo '</div>';
+        $r['invest'] = ($r['amount']-$r['remain'])/$r['amount']*100;
+        echo '<div class="fl i-l-6"><a href="'.$url.'">'.\Prj\Misc\View::btnBuyName($r['statusCode']).'</a><p>投资进度：'.$r['invest'].'%  <!-- <span class="out-frame"><span data-width="'.$r['invest'].'"></span></span>--> </p></div>';
+        echo '<div style="clear: both"></div>';
+        echo '</div>';
+    }
+}else{
+    echo '<div style="padding: 10px;background-color: #ffffff;margin-bottom: 10px">无标的</div>';
+}
+
+echo '</div>';
+$pageCount = $this->pager['pageCount'];
+echo '<div class="page">';
+//分页
+for($i=1;$i<=$pageCount;$i++)
+{
+    $class = $this->pager['pageId']==$i?'page-active':'';
+    $url = \Sooh\Base\Tools::uri(['pageId'=>$i,'order'=>$order],'byshelf');
+    echo '<a class="'.$class.'" href="'.$url.'">'.$i.'</a>';
+}
+echo '</div>';

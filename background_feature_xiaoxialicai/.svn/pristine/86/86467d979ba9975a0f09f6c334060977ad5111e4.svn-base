@@ -1,0 +1,25 @@
+# Configuration file (06/03/16 18:31:25.988)
+
+# Server configuration
+Ice.Admin.ServerId=XXEvt101
+Ice.Admin.Endpoints=tcp -h localhost
+Ice.ProgramName=XXEvt101
+# Object adapter logerAdapter
+logerAdapter.Endpoints=udp -h 10.144.152.146
+logerAdapter.AdapterId=XXEvt101.logerAdapter
+logerAdapter.ReplicaGroupId=XXAdaptersL
+# Object adapter sample0000Adapter
+sample0000Adapter.Endpoints=tcp -h 10.144.152.146
+sample0000Adapter.AdapterId=XXEvt101.sample0000Adapter
+sample0000Adapter.ReplicaGroupId=XXAdaptersS
+# Object adapter triggersAdapter
+triggersAdapter.Endpoints=udp -h 10.144.152.146
+triggersAdapter.AdapterId=XXEvt101.triggersAdapter
+triggersAdapter.ReplicaGroupId=XXAdaptersT
+# Server descriptor properties
+Ice.ThreadPool.Client.Size=6
+Ice.ThreadPool.Server.SizeMax=100
+Ice.ThreadPool.Server.Size=30
+Ice.StdErr=ice-writable/iceNodes/node100/XXEvt101.err
+Ice.StdOut=ice-writable/iceNodes/node100/XXEvt101.out
+Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061

@@ -1,0 +1,31 @@
+<div class="bjui-pageHeader">
+    <label>已发兑换码数量：<?php echo sizeof($this->records); ?></label>
+    <div class="pull-right"><button type="button" class="btn-close" data-icon="close">关闭</button></div>
+</div>
+<dive class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <?php
+                foreach($this->headers as $h => $w) {
+                    $str .= "<th>".$h."</th>";
+                }
+                echo $str;
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if(!empty($this->records)){
+                foreach($this->records as $k => $r) {
+                    $r['flagMsg'] = $r['flagMsg'] ? '是':'否';
+                    $str = "<tr><td>";
+                    $str .= implode("</td><td>", $r);
+                    $str .= "</td></tr>";
+                    echo $str;
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</dive>

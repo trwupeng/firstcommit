@@ -1,0 +1,45 @@
+<div class="bjui-pageHeader">
+    <form  id="pagerForm" method="post" action="<?php echo \Sooh\Base\Tools::uri(); ?>" data-toggle="ajaxsearch">
+        <input type="hidden" name="__formguid__" value="default" />
+        <input type="hidden" name="pageSize" value="<?php echo $this->pagesize; ?>">
+        <input type="hidden" name="pageCurrent" value="<?php echo $this->pageid; ?>">
+        <input type="hidden" name="orderField" value="${param.orderField}">
+        <input type="hidden" name="orderDirection" value="${param.orderDirection}">
+        <lable>手机号：</lable>
+        <input type="text" name="phone" value="<?php echo $this->phone; ?>" />
+        <lable>电影券兑换码：</lable>
+        <input type="text" name="ticket" value="<?php echo $this->ticket; ?>" />
+        <button type="submit" class="btn-green">查询</button>
+    </form>
+</div>
+
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+            <?php
+                if(!empty($this->tableHeaders)) {
+                    foreach($this->tableHeaders as $k=>$v) {
+                        echo "<th width=\"<?php echo $v; ?>\">".$k."</th>";
+                    }
+                }
+            ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            $records = $this->records;
+//        var_log($records, 'records>>>>');
+            if(!empty($records)) {
+                foreach($records as $r) {
+                    $str = "<tr><td>";
+                    $str .= implode('</td><td>', $r);
+                    $str .= "</td></tr>";
+                    echo $str;
+                }
+
+            }
+        ?>
+        </tbody>
+    </table>
+</div>

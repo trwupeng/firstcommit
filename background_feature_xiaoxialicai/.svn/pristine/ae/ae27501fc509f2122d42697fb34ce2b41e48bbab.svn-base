@@ -1,0 +1,336 @@
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config
+arg - 0)=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - missing
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - found
+myParseAdapterEndpoints 0=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 1=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints xx=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - found
+myParseAdapterEndpoints 0=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 1=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints xx=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - found
+myParseAdapterEndpoints 0=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 1=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints ee =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config (No such file or directory)
+java.io.FileNotFoundException: =/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config (No such file or directory)
+myParseAdapterEndpoints xx=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 0/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 1/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 2/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+line 1: # Configuration file (06/03/16 17:51:13.571)
+line 2: 
+line 3: # Server configuration
+line 4: Ice.Admin.ServerId=XXMsg201
+FOUND Ice.Admin = tcp -h localhost
+line 5: tcp -h localhost
+line 6: Ice.ProgramName=XXMsg201
+line 7: # Object adapter bysmsAdapter
+FOUND bysmsAdapter = udp -h 10.144.152
+line 8: udp -h 10.144.152
+line 9: bysmsAdapter.AdapterId=XXMsg201.bysmsAdapter
+line 10: bysmsAdapter.ReplicaGroupId=XXAdaptersMS
+line 11: # Object adapter bypushAdapter
+FOUND bypushAdapter = udp -h 10.144.152
+line 12: udp -h 10.144.152
+line 13: bypushAdapter.AdapterId=XXMsg201.bypushAdapter
+line 14: bypushAdapter.ReplicaGroupId=XXAdaptersMP
+line 15: # Server descriptor properties
+line 16: Ice.ThreadPool.Client.Size=4
+line 17: Ice.ThreadPool.Server.SizeMax=30
+line 18: Ice.ThreadPool.Server.Size=10
+line 19: Ice.StdErr=ice-writable/iceNodes/node100/XXMsg201.err
+line 20: Ice.StdOut=ice-writable/iceNodes/node100/XXMsg201.out
+line 21: Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061
+myParseAdapterEndpoints 8/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 9/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints xx/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+line 1: # Configuration file (06/03/16 17:54:17.917)
+line 2: 
+line 3: # Server configuration
+line 4: Ice.Admin.ServerId=XXMsg201
+FOUND Ice.Admin = tcp -h localhost
+line 5: tcp -h localhost
+line 6: Ice.ProgramName=XXMsg201
+line 7: # Object adapter bysmsAdapter
+FOUND bysmsAdapter = udp -h 10.144.152
+line 8: udp -h 10.144.152
+line 9: bysmsAdapter.AdapterId=XXMsg201.bysmsAdapter
+line 10: bysmsAdapter.ReplicaGroupId=XXAdaptersMS
+line 11: # Object adapter bypushAdapter
+FOUND bypushAdapter = udp -h 10.144.152
+line 12: udp -h 10.144.152
+line 13: bypushAdapter.AdapterId=XXMsg201.bypushAdapter
+line 14: bypushAdapter.ReplicaGroupId=XXAdaptersMP
+line 15: # Server descriptor properties
+line 16: Ice.ThreadPool.Client.Size=4
+line 17: Ice.ThreadPool.Server.SizeMax=30
+line 18: Ice.ThreadPool.Server.Size=10
+line 19: Ice.StdErr=ice-writable/iceNodes/node100/XXMsg201.err
+line 20: Ice.StdOut=ice-writable/iceNodes/node100/XXMsg201.out
+line 21: Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+line 1: # Configuration file (06/03/16 17:55:57.281)
+line 2: 
+line 3: # Server configuration
+line 4: Ice.Admin.ServerId=XXMsg201
+FOUND Ice.Admin = tcp -h localhost
+line 5: tcp -h localhost
+line 6: Ice.ProgramName=XXMsg201
+line 7: # Object adapter bysmsAdapter
+FOUND bysmsAdapter = udp -h 10.144.152
+line 8: udp -h 10.144.152
+line 9: bysmsAdapter.AdapterId=XXMsg201.bysmsAdapter
+line 10: bysmsAdapter.ReplicaGroupId=XXAdaptersMS
+line 11: # Object adapter bypushAdapter
+FOUND bypushAdapter = udp -h 10.144.152
+line 12: udp -h 10.144.152
+line 13: bypushAdapter.AdapterId=XXMsg201.bypushAdapter
+line 14: bypushAdapter.ReplicaGroupId=XXAdaptersMP
+line 15: # Server descriptor properties
+line 16: Ice.ThreadPool.Client.Size=4
+line 17: Ice.ThreadPool.Server.SizeMax=30
+line 18: Ice.ThreadPool.Server.Size=10
+line 19: Ice.StdErr=ice-writable/iceNodes/node100/XXMsg201.err
+line 20: Ice.StdOut=ice-writable/iceNodes/node100/XXMsg201.out
+line 21: Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+line 1: # Configuration file (06/03/16 17:56:52.303)
+line 2: 
+line 3: # Server configuration
+line 4: Ice.Admin.ServerId=XXMsg201
+FOUND Ice.Admin = tcp -h localhost
+line 5: tcp -h localhost
+line 6: Ice.ProgramName=XXMsg201
+line 7: # Object adapter bysmsAdapter
+FOUND bysmsAdapter = udp -h 10.144.152
+line 8: udp -h 10.144.152
+line 9: bysmsAdapter.AdapterId=XXMsg201.bysmsAdapter
+line 10: bysmsAdapter.ReplicaGroupId=XXAdaptersMS
+line 11: # Object adapter bypushAdapter
+FOUND bypushAdapter = udp -h 10.144.152
+line 12: udp -h 10.144.152
+line 13: bypushAdapter.AdapterId=XXMsg201.bypushAdapter
+line 14: bypushAdapter.ReplicaGroupId=XXAdaptersMP
+line 15: # Server descriptor properties
+line 16: Ice.ThreadPool.Client.Size=4
+line 17: Ice.ThreadPool.Server.SizeMax=30
+line 18: Ice.ThreadPool.Server.Size=10
+line 19: Ice.StdErr=ice-writable/iceNodes/node100/XXMsg201.err
+line 20: Ice.StdOut=ice-writable/iceNodes/node100/XXMsg201.out
+line 21: Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+line 1: # Configuration file (06/03/16 17:57:41.280)
+line 2: 
+line 3: # Server configuration
+line 4: Ice.Admin.ServerId=XXMsg201
+FOUND Ice.Admin = tcp -h localhost
+line 5: tcp -h localhost
+line 6: Ice.ProgramName=XXMsg201
+line 7: # Object adapter bysmsAdapter
+FOUND bysmsAdapter = udp -h 10.144.152
+line 8: udp -h 10.144.152
+line 9: bysmsAdapter.AdapterId=XXMsg201.bysmsAdapter
+line 10: bysmsAdapter.ReplicaGroupId=XXAdaptersMS
+line 11: # Object adapter bypushAdapter
+FOUND bypushAdapter = udp -h 10.144.152
+line 12: udp -h 10.144.152
+line 13: bypushAdapter.AdapterId=XXMsg201.bypushAdapter
+line 14: bypushAdapter.ReplicaGroupId=XXAdaptersMP
+line 15: # Server descriptor properties
+line 16: Ice.ThreadPool.Client.Size=4
+line 17: Ice.ThreadPool.Server.SizeMax=30
+line 18: Ice.ThreadPool.Server.Size=10
+line 19: Ice.StdErr=ice-writable/iceNodes/node100/XXMsg201.err
+line 20: Ice.StdOut=ice-writable/iceNodes/node100/XXMsg201.out
+line 21: Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+myParseAdapterEndpoints 4/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+arg - 0)--Ice.Config=
+arg - 0)/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp 10.144.152.146
+FOUND bypushAdapter = udp 10.144.152.146
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp 10.144.152.146
+FOUND bypushAdapter = udp 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp 10.144.152.146
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp 10.144.152.146
+FOUND bypushAdapter = udp 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp 10.144.152.146
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp -h 10.144.152.146
+FOUND bypushAdapter = udp -h 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp -h 10.144.152.146
+bysmsAdapter)udp -h 10.144.152.146
+ice-call:bypush.sendMsg(bysms,sendCode)
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp -h 10.144.152.146
+FOUND bypushAdapter = udp -h 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp -h 10.144.152.146
+bysmsAdapter)udp -h 10.144.152.146
+ice-call:bypush.sendMsg(bysms,sendCode)
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp -h 10.144.152.146
+FOUND bypushAdapter = udp -h 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp -h 10.144.152.146
+bysmsAdapter)udp -h 10.144.152.146
+ice-call:bypush.sendMsg(bysms,sendCode)
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp -h 10.144.152.146
+FOUND bypushAdapter = udp -h 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp -h 10.144.152.146
+bysmsAdapter)udp -h 10.144.152.146
+args)--Ice.Config=/var/www/SoohIce/ice-writable/iceNodes/node100/servers/XXMsg201/config/config
+FOUND Ice.Admin = tcp -h localhost
+FOUND bysmsAdapter = udp -h 10.144.152.146
+FOUND bypushAdapter = udp -h 10.144.152.146
+logerAdapter)tcp
+sample0000Adapter)tcp
+triggersAdapter)tcp
+bypushAdapter)udp -h 10.144.152.146
+bysmsAdapter)udp -h 10.144.152.146
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)
+ice-call:bypush.sendMsg(bysms,sendCode)

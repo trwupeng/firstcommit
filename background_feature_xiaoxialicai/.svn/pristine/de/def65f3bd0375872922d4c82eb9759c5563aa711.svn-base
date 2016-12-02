@@ -1,0 +1,160 @@
+<style>
+    .bbb {
+        border: 1px solid burlywood;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 微软雅黑;
+    }
+
+    .topR {
+        width: 100%;
+        height: 15px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        color: #595959;
+        background-color: #F4F4F4;
+    }
+
+    .panel {
+        margin-top: 50px;
+
+    }
+
+    #frmLogin {
+        background: white;
+        padding: 20px;
+        width: 80%;
+        height: 300px;
+        box-shadow: 1px 1px 20px #d1d1d1;
+    }
+    #frmLogin:hover{
+        box-shadow: 1px 1px 10px #d1d1d1;
+    }
+
+    .panelHeaderContent {
+        color: #D0000B;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    .logo {
+        background: url("/images/logo.png");
+        width: 114px;
+        height: 114px;
+    }
+    .unit{
+        margin-bottom: 20px;
+    }
+    .unitTitle{
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    .unitInput{
+        border: 1px solid #E1E1E2;
+        width: 100%;
+        height: 20px;
+        padding: 10px;
+    }
+    .submit{
+        font-size: 16px;
+        cursor: pointer;
+        border: 0;
+        width: 100%;
+        color: white;
+        height: 40px;
+    }
+    .submit:hover{
+        background-color: #D0000B;
+    }
+    .submit:active{
+        background-color: white;
+    }
+</style>
+<div class="topR colorB" style="background-color:#16669e"></div>
+<center>
+    <div defh="150" class="panel" style="display: block;">
+        <div class="panelHeader">
+            <div class="logo">
+
+            </div>
+            <div class="panelHeaderContent"><span style="cursor: move;">登录</span></div>
+        </div>
+        <div class="panelContent" style="padding-bottom:26px;">
+            <script>
+                function myRetChk(arg) {
+                    if (arg.statusCode == DWZ.statusCode.ok) {
+                        window.location.href = 'index.php';
+                    } else {
+                        alert(arg.message);
+                    }
+                }
+                api_host = '<?php echo \Sooh\Base\Tools::uri(null,'validimg','manager')?>';
+
+                function check() {
+                    var url = '<?php echo \Sooh\Base\Tools::uri(['__VIEW__'=>'wap'],'index','manager')?>';
+                    $.post(url, {"u": $("[name='u']").val(), "p": $("[name='p']").val(),"remember":$("[name='remember']").attr('checked')}, function (data) {
+                        if (data['statusCode'] == 200) {
+                            window.location.href = url;
+                        }
+                        else {
+                            $("#warn").html(data['message']);
+                        }
+                    });
+                    return false;
+                }
+
+                $(function(){
+                    $('.unitInput').width($('.submit').width()-22);
+                });
+            </script>
+
+            <div class="pageContent">
+                    <form id="frmLogin" method="post" action="<?php echo \Sooh\Base\Tools::uri() ?>"
+                          class="pageForm" onsubmit="return check()">
+                        <div class="pageFormContent" layouth="58">
+                            <div class="unit">
+                                <div class="unitTitle">用户名</div>
+                                <div><input size="20" name="u" class="required unitInput" type="text" placeholder="输入账号" value="<?php echo $_COOKIE['u']; ?>"></div>
+                            </div>
+                            <div class="unit">
+                                <div class="unitTitle">密码</div>
+                                <div><input size="20" name="p" class="required unitInput" type="password" placeholder="输入密码">
+                                </div>
+                            </div>
+                            <div class="unit">
+                                <div class="unitTitle">
+                                    <label><input type="checkbox" name="remember" <?php echo $_COOKIE['u']?'checked':''; ?>/> 记住用户名</label>
+                                    <select style="float: right" onchange="window.location.href=''+this.value">
+                                        <option value="">手机版</option>
+                                        <option value="index?__VIEW__=html">PC版</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button" style="float:none">
+                            <div class="buttonContent" style="float:none">
+                                <button class="submit colorA" type="submit"  style="background-color:#16669e">登录</button>
+                            </div>
+                        </div>
+                        <div class="unitTitle" style="margin-top: 10px">
+
+                        </div>
+                        <div style="color:red" id="warn"></div>
+                    </form>
+            </div>
+        </div>
+        <div class="panelFooter">
+            <div class="panelFooterContent"></div>
+        </div>
+    </div>
+</center>
+<!--<div class="unit">验证：<input size="5" name="valid" class="required" id="validCodeImg" type="text" placeholder="输入校验码" >
+                    <img id="validCodeImg" src="<?php echo \Sooh\Base\Tools::uri(array('rand' => rand(1000000, 9999999)), 'validimg', 'manager') ?>"  onclick="this.src=api_host+'&'+Math.random();">
+                    </div>-->
+<!--<a href="#" onclick="document.getElementById('validCodeImg').src=api_host+'&'+Math.random();">看不清，换一张</a>-->

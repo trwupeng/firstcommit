@@ -1,0 +1,70 @@
+<div class="bjui-pageContent tableContent">
+    <form action="<?php echo \Sooh\Base\Tools::uri() ?>" id="j_custom_form" data-callback="callback" data-toggle="validate" data-alertmsg="false">
+        <input type="hidden" name="custom.id" value="edce142bc2ed4ec6b623aacaf602a4de">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+				<?php
+				$form = \Sooh\Base\Form\Broker::getCopy('default');
+				$renderer = new \Prj\Misc\FormRenderer;
+				$form->setRenderer($renderer);
+
+				$tmp = $form->renderDefault("\n".'<tr><td><label  class="control-label x85">{capt}：</label></td><td>{input}&nbsp;</td></tr>');
+				echo str_replace('<input ', '<input style="width:500px"', $tmp);
+				
+				?>
+				<tr><td><button type="submit" class="btn-default" >发送</button>&nbsp;</td></tr>
+            </tbody>
+        </table>
+    </form>
+    <script>
+        var callback = function(json){
+            console.log(json);
+            if(json.statusCode == 300){
+                $(this).alertmsg('error', json.message);
+                return;
+            }
+            $('body').dialog(
+                {
+                    id:'mydialog', url:'/manage/vouchergrantuserdefined/dialog?',data:json, title:'确认信息',width:'900',height:'700'
+                }
+            );
+        }
+    </script>
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+        <tr>
+            <?php
+            $headers=$this->headers;
+            foreach($headers as $k=>$v){
+                echo "<th width=\"$v\">$k</th>";
+            }
+//             if (!empty($headers)) {
+//                 echo '<th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>';
+//             }
+            ?>
+            
+            
+            <!-- <th width="100">操作</th> -->
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $records=$this->records;
+        if (!empty($records)){
+            foreach ($records as $r){
+                $_pkey_ = $r['_pkey_val_'];
+                unset($r['_pkey_val_']);
+                
+    		    echo "<tr data-id=\"$_pkey_\">";
+                echo '<td>'.implode('</td><td>', $r).'</td>';
+//                 echo '<td>';
+//                 echo '<input type="checkbox" name="ids" data-toggle="icheck" value="'.$_pkey_.'">';
+//                 echo '</td>';
+                echo '</tr>';
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php //echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

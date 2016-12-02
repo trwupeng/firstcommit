@@ -1,0 +1,42 @@
+<script type="text/javascript">
+
+</script>
+<div class="bjui-pageContent">
+   <table class="table-bordered table-hover">
+       <thead>
+           <tr>
+               <?php
+               foreach($this->headers as $k=>$v)
+               {
+                   echo "<th style='padding-bottom:5px'>".$k."</th>";
+               }
+               ?>
+           </tr>
+       </thead>
+       <tbody>
+               <?php
+               
+               foreach($this->rs as $k=>$v)
+               {
+                   $v['amount']/=100;
+                   $v['amountExt']/=100;
+                   $v['amountFake']/=100;
+                   $v['orderTime'] = \Prj\Misc\View::fmtYmd($v['orderTime'],'time');
+                   $v['orderStatus'] = \Prj\Consts\OrderStatus::$enum[$v['orderStatus']];
+                   $v['firstTime'] = $v['firstTime']?'是':'否';
+                   echo "<tr>";
+                   foreach($v as $kk=>$vv)
+                   {
+                       echo "<td style='padding-left:5px'>".$vv."</td>";
+                   }
+                   echo "</tr>";
+               }
+               ?>
+       </tbody>
+   </table>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

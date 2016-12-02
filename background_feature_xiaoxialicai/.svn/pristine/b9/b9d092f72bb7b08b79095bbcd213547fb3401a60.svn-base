@@ -1,0 +1,46 @@
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 1), 'index'); ?>" method="post"
+      id="wares-exportChecked" style="display: none;">
+</form>
+<div class="bjui-pageHeader">
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	echo  $renderer->getSearchStandard_without_endTag_form_div(\Sooh\Base\Form\Broker::getCopy('default'));
+	//echo \Prj\Misc\View::btnEditInDatagrid('新增',\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'edit'),'', 'data-height="800"');
+	echo '</form></div>';
+	?>
+</div>
+<div class="bjui-pageContent tableContent">
+	<table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true"
+	       data-toggle="tablefixed">
+		<thead>
+		<tr><?php
+			$header = $this->header;
+			foreach ($header as $k => $v) {
+				echo "<th width = '" . $v . "'>";
+				echo $k;
+				echo "</th>";
+			}
+			?>
+		</tr>
+		</thead>
+		<tbody>
+		<?php
+		$rs = $this->rs;
+		if (!empty($rs)) {
+			foreach ($rs as $r) {
+				$_pkey_ = $r['_pkey_val_'];
+				echo "<tr data-id=\"{$_pkey_}\">";
+				unset($r['_pkey_val_']);
+				foreach ($r as $k => $v) {
+					echo "<td>".$v."</td>";
+				}
+				//echo '<td><input type="checkbox" name="ids" data-group="ids" data-toggle="icheck" value="' . $_pkey_ . '"></td>';
+
+				echo "</tr>";
+			}
+		}
+		?>
+		</tbody>
+	</table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

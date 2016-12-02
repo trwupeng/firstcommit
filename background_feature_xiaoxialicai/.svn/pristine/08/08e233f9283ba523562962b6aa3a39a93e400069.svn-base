@@ -1,0 +1,15 @@
+
+<div class="bjui-pageContent">
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer();
+    $str= $renderer->getEditStandard(\Sooh\Base\Form\Broker::getCopy('default'),1);
+	echo str_replace('<textarea id="content" name="content">', '<textarea id="content" name="content" style="width:405px;height:520px">', $str);
+	?>
+    <p style="padding-top:20px;color:#ff0000">SQL语句需要将ALTER CREATE UPDATE功能用@ALTER@包起来 table需要用{db.table}包起来,主从表一律填主表不带序号如 @ALTER@ table {db_p2p.tb_user} modify column clientFlgs varchar(100);</p>
+</div>
+<div class="bjui-pageFooter">
+	<ul>
+        <li><button type="submit" class="btn-green" data-icon="save">确定</button></li>
+		<li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+	</ul>
+</div>

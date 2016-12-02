@@ -1,0 +1,102 @@
+<?php
+$signPacket = $this->signPacket;
+var_dump($signPacket);
+var_log($signPacket);
+//var_dump(HTTP_HOSTDD);
+//var_dump($_SERVER);
+//die();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<h1>H1</h1>
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	alert('js init!');
+	wx.config({
+		debug: true,
+		appId: '<?php echo $signPackage["appId"];?>',
+		timestamp: '<?php echo $signPackage["timestamp"];?>',
+		nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+		signature: '<?php echo $signPackage["signature"];?>',
+		jsApiList: [
+			// 所有要调用的 API 都要加到这个列表中
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'hideMenuItems',
+			'showMenuItems',
+			'hideAllNonBaseMenuItem',
+			'showAllNonBaseMenuItem',
+			'translateVoice',
+			'startRecord',
+			'stopRecord',
+			'onVoiceRecordEnd',
+			'playVoice',
+			'onVoicePlayEnd',
+			'pauseVoice',
+			'stopVoice',
+			'uploadVoice',
+			'downloadVoice',
+			'chooseImage',
+			'previewImage',
+			'uploadImage',
+			'downloadImage',
+			'getNetworkType',
+			'openLocation',
+			'getLocation',
+			'hideOptionMenu',
+			'showOptionMenu',
+			'closeWindow',
+			'scanQRCode',
+			'chooseWXPay',
+			'openProductSpecificView',
+			'addCard',
+			'chooseCard',
+			'openCard'
+		]
+	});
+	wx.ready(function () {
+		// 在这里调用 API
+		alert(11111);
+	});
+	wx.error(function(res) {
+		console.log('wx error');
+		console.log(res);
+		console.log('<?php echo $signPacket["appId"]; ?>');
+		console.log('<?php echo $signPacket["timestamp"]; ?>');
+		console.log('<?php echo $signPacket["nonceStr"]; ?>');
+		console.log('<?php echo $signPacket["signature"]; ?>');
+	});
+
+	wx.checkJsApi({
+		jsApiList: ['chooseImage'],
+		success: function(res) {
+			console.log('checkJsApi success');
+			console.log(res);
+		},
+		fail: function(res) {
+			console.log('checkJsApi error');
+			console.log(res);
+		},
+	});
+
+
+
+	wx.checkJsApi({
+		jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+		success: function(res) {
+			// 以键值对的形式返回，可用的api值true，不可用为false
+			// 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+		}
+	});
+</script>
+</html>

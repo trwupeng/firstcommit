@@ -1,0 +1,13 @@
+<div class="mid">
+    <div class="ajax">
+
+    </div>
+</div>
+
+<script>
+    url = "<?php echo \Sooh\Base\Tools::uri(['__VIEW__'=>'wap'],'recent','rptdailybasic','report'); ?>";
+    $.post(url,[],function(data){
+        $('.ajax').html(data);
+        $('.bjui-pageContent table').css('width','100%');
+    })
+</script>

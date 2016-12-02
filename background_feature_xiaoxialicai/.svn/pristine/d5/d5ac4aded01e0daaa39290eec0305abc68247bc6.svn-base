@@ -1,0 +1,211 @@
+<?php
+$data = $this->data;
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" id="viewport"
+	      content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="/css/user/invite/base.css">
+	<link rel="stylesheet" href="/css/user/invite/request.css">
+	<link rel="stylesheet" type="text/css" href="/css/user/invite/dropload.css">
+	<script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="/js/user/invite/request.js"></script>
+	<script type="application/javascript" src="/js/user/invite/dropload.js"></script>
+	<script type="text/javascript">
+
+	</script>
+</head>
+<body id="swiper-container">
+<!-- banner开始 -->
+<div class="banner">
+	<img src="/images/user/invite/banner.png">
+</div>
+<!-- 已经邀请人、已经获返利 -->
+<div class="body-in">
+	<div class="fff"></div>
+	<div class="request3 clearfix">
+		<ul>
+			<li>
+				<p>已邀请(人)</p>
+				<span><?php echo $data['invitedUserNum']; ?></span>
+			</li>
+			<li>
+				<p>已获返利(元)</p>
+				<span><?php echo $data['rebateAmount'] / 100; ?></span>
+			</li>
+			<li>
+				<p>待返金额(元)</p>
+				<span>0</span>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="gray"></div>
+<!-- 我的邀请、可获返利 -->
+<div class="body-in clearfix">
+	<div class="fff2"></div>
+	<div class="left">
+		<p>
+			我的邀请码:
+			<span><?php echo $data['inviteCode']; ?></span>
+		</p>
+
+		<p>
+			可获返利:
+			<span>净投资额*年化率*0.1%</span>
+		</p>
+	</div>
+	<div class="right <?php if ($data['isInvite']) {
+		echo 'right';
+	} else {
+		echo 'right-grey';
+	} ?>">
+		<a
+		   <?php if ($data['isInvite']) {
+			   echo ' href="' . Sooh\Base\Ini::getInstance()->get('uriBase')['www'] . '/spread/register.html?inviteCode=' . $data['inviteCode'] . '" ';
+			   echo "onclick=\"window.share.shareMethod('" . \Sooh\Base\Ini::getInstance()->get('uriBase')['www'] . '/spread/register.html?inviteCode=' . $data['inviteCode'] . "')\"";
+		   } else {
+			   echo ' href="javascript:void(0)"';
+		   }?>>
+			邀请
+		</a>
+	</div>
+</div>
+<div class="gray"></div>
+<div class="body-in1 clearfix">
+	<h2>邀请人规则</h2>
+
+	<div class="dasheds"></div>
+	<div class="fff3"></div>
+	<dl class="clearfix">
+		<dt>1、</dt>
+		<dd>
+			只要投资满2次，投资人就可以获得邀请码，成为邀请人，参加小虾理财平台“邀请好友获红包 享返利”的活动。投资人通过好友加入喵叽理财平台来参加这次活动
+		</dd>
+		<dt>2、</dt>
+		<dd>
+			新加入的好友需要在注册时填写邀请码才能与邀请人成为绑定关系（成为被邀请人）
+		</dd>
+		<dt>3、</dt>
+		<dd>
+			所有红包会在24小时内发送，红包的有效期为发放后的48小时内
+		</dd>
+		<dt>4、</dt>
+		<dd>
+			邀请人可以获得被邀请人投资金额的返利，相关信息可以在“我的”菜单—“邀请好友加入”中查询。
+		</dd>
+	</dl>
+	<div class="fff3"></div>
+</div>
+<div class="gray"></div>
+<div class="custom">
+	<div id="scroller" class="custom1">
+		<ul id="thelist">
+			<?php
+			$list = $data['list'];
+			if (is_array($list)) {
+				foreach ($list as $k => $v) {
+					$_amount = $v['amount'] / 100;
+					echo <<<LISTR
+<li>
+	<div class="fff4"></div>
+	<div class="custom-li">
+		<div class="custom-li1">
+			<div class="custom-left">
+				<p>{$v[nickname]}</p>
+			</div>
+			<div class="custom-center">
+				<p>已返</p>
+				<span>{$_amount}元</span>
+			</div>
+			<div class="custom-right">
+				<p>{$v[ymd]}</p>
+			</div>
+		</div>
+		<div class="custom-li1">
+			<div class="custom-left f-black">
+				<p>{$v[zhName]}</p>
+			</div>
+			<div class="custom-center">
+				<p>已返利{$v[counts]}次</p>
+			</div>
+			<div class="custom-right">
+				<p>{$v[his]}</p>
+			</div>
+		</div>
+		<div class="custom-li1">
+			<div class="custom-left">
+				<div class="wan">待</div>
+				<p>投资完成</p>
+			</div>
+		</div>
+	</div>
+</li>
+LISTR;
+				}
+			}
+			?>
+		</ul>
+	</div>
+</div>
+</body>
+<script>
+	var pageId = 2;
+	$('.custom').dropload({
+		scrollArea: window,
+		loadDownFn: function (me) {
+			console.log(me);
+			$.ajax({
+				type: 'GET',
+				url: <?php echo '"' . $this->uri . '"'; ?> +'&page=' + pageId,
+				success: function (data) {
+					if (data.code == 200) {
+						if (data.data.length < 1) {
+							alert('没有更多了');
+							me.resetload();
+						} else {
+							// 为了测试，延迟1秒加载
+							pageId++;
+							setTimeout(function () {
+								$('#thelist').append(fillTmpl(data.data));
+								me.resetload();
+							}, 1000);
+						}
+					} else {
+						alert(data.msg);
+						me.resetload();
+					}
+				},
+				error: function (xhr, type) {
+					alert('加载失败，请稍后再试!');
+					me.resetload();
+				}
+			});
+		}
+	});
+
+	function fillTmpl(data) {
+		var result = '';
+		for (var i = 0; i < data.length; i++) {
+			var tmp = data[i];
+			result += '<li><div class="fff4"></div><div class="custom-li"><div class="custom-li1"><div class="custom-left"><p>'
+				+ tmp['nickname']
+				+ '</p></div><div class="custom-center"><p>已返</p><span>'
+				+ tmp['amount'] / 100
+				+ '元</span></div><div class="custom-right"><p>'
+				+ tmp['ymd']
+				+ '</p></div></div><div class="custom-li1"><div class="custom-left f-black"><p>'
+				+ tmp['zhName']
+				+ '</p></div><div class="custom-center"><p>已返利'
+				+ tmp['counts']
+				+ '次</p></div><div class="custom-right"><p>'
+				+ tmp['his']
+				+ '</p></div></div><div class="custom-li1"><div class="custom-left"><div class="wan">待</div><p>投资完成</p></div></div></div></li>';
+		}
+		return result;
+	}
+</script>
+</html>
+

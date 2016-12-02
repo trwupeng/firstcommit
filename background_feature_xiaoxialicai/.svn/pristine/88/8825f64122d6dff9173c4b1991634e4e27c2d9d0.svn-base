@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新手礼包</title>
+    <meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="css/wap-1.css">
+    <link rel="stylesheet" href="css/novicepacks.css">
+    <script src="/js/jquery/jquery-1.11.3.min.js"></script>
+    <script src="js/wap.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".list_hd li").click(function(e) {
+                $(this).addClass('current').siblings().removeClass('current');
+                $(".list_bd ul").eq($(this).index()).show().siblings().hide();
+            });
+        })
+    </script>
+</head>
+
+<body>
+<div class="banner"><img src="images/banner.png"></div>
+<div class="content">
+    <div class="harvest">
+        <p class="huode">恭喜您获得</p>
+        <p class="money"><span>5</span>元</p>
+    </div>
+    <div class="lingqu">
+        <form id="reg" class="reg">
+            <div class="border_line">
+                <input type="tel" placeholder="请输入手机号领取" class="input01 validatePhone" maxlength="11">
+            </div>
+            <div class="border_line">
+                <input type="tel" placeholder="输入验证码" class="input02 validateSmscode">
+                <input type="button" value="获取验证码" class="input03" id="getSmscode">
+            </div>
+            <div class="border_line" style="margin-top:0.3333rem;">
+                <input type="button" value="马上领取" class="btn" id="submit">
+            </div>
+            <div class="tk"></div>
+        </form>
+    </div>
+</div>
+<div class="content01" style="display:none;">
+    <div class="harvest">
+        <p class="sum"><span>5</span>元</p>
+        <p class="date">有效期：2016-22-03 23:59:59</p>
+    </div>
+    <p class="zhanghu">现金红包已存入账户 <span>13800138000</span></p>
+    <div class="border_line01">
+        <input type="button" value="前往小虾理财" class="goto_btn">
+    </div>
+    <div class="border_line01">
+        <input type="button" value="帮他继续邀请" class="goon_btn">
+    </div>
+</div>
+<div class="list">
+    <div class="list_hd">
+        <ul>
+            <li class="current">领取列表</li>
+            <li>活动规则</li>
+            <li class="li03">关于小虾理财</li>
+        </ul>
+    </div>
+    <div class="list_bd">
+        <ul class="ul01">
+            <div class="top">
+                <div class="left"></div>
+                <div class="center">最近20条领取记录</div>
+                <div class="right"></div>
+            </div>
+        </ul>
+        <ul class="ul02">
+            <div class="top">
+                <div class="left"></div>
+                <div class="center">邀请人规则说明</div>
+                <div class="right"></div>
+            </div>
+            <div class="first">
+                <h3>一、好友奖励</h3>
+                <p>1、好友成功注册，好友可获得5元现金红包；</p>
+                <p>2、好友成功绑卡认证，好友可再获得5元现金红包；</p>
+                <p>3、好友首次成功充值，好友可再获得10元红包。</p>
+            </div>
+            <div class="second">
+                <h3>二、好友首次投资，邀请人和好友都将获得奖励，好友投资越多，奖励越丰厚。</h3>
+                <p>1、好友投资满100元，邀请人得15元现金红包，好友得25元现金红包；</p>
+                <p>2、好友投资满500元，邀请人得40元现金红包，好友得45元现金红包；</p>
+                <p>3、好友投资满5000元，邀请人得60元现金红包，好友得80元现金红包；</p>
+                <p>4、好友投资满10000元，邀请人得80元现金红包，好友得120元现金红包；</p>
+                <p>说明：邀请人1天内最多可获得3个好友首次投资奖励红包。</p>
+            </div>
+            <div class="third">
+                <h3>三、好友持续投资，邀请人还有返利。投资越多，返利越高！</h3>
+                <p>1、好友注册之日起1年内的所有投资，邀请人都会有返利；</p>
+                <p>2、返利金额为：用户投资额（不含红包金额）*标的期限/360*0.1%;</p>
+                <p>3、投资项目满标并成功放款的1个工作日内发放至邀请人账户。</p>
+            </div>
+            <div class="forth">
+                <h3>四、投资过两次（含以上）的老用户才有邀请资格</h3>
+            </div>
+        </ul>
+        <ul class="ul03">
+            <div class="top">
+                <div class="left"></div>
+                <div class="center">关于小虾理财 </div>
+                <div class="right"></div>
+            </div>
+            <p>小虾理财——国内专业的抵押类互联网金融平台.一直秉持着"普惠金融"的理念,通过精湛的互联网大数据挖掘和金融创新风控,为投资者提供真实透明、安全稳健、灵活便捷的优质理财服务.
+高管团队,十余年行业探索,匠心独运,开创"日签收益、趣味投资"的新颖概念和"顶级观览、一触即达"的极致用户体验,并配备新浪支付进行资金托管、民安财险承保、完善的风险备付金机制,打造出一家集理财与趣味于一体,国内罕存的"零"风险、完美风险应对型互联网金融平台.</p>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(function() {
+        $.ajax({
+            url: 'index.php?__=public/donothing&__VIEW__=json&__preRender__=GetReceiveListFromReg',
+            type: 'GET',
+            success: function(data) {
+                if (data.amount > 0) {
+                    $('.money').find('span').text(data.amount);
+                }
+                if (data.hasList == 1) {
+                    var list = template(data.list);
+                    $('.ul01').find('.top').after(list);
+                }
+            },
+            error: function() {
+
+            },
+        });
+
+//        $('#reg').delegate('.validatePhone', 'blur', function() {
+//            var _val = $(this).val();
+//            if (checkPhone(_val)) {
+//                $("#submit").attr("disabled",false);
+//                $("#submit").removeClass('btn');
+//                $("#submit").addClass("btn_highlight");
+//            }
+//        });
+
+//        $('#reg').delegate('.validateSmscode', 'blur', function() {
+//            var _val = $(this).val();
+//            if (checkSmscode(_val)) {
+//                $("#submit").attr("disabled",false);
+//                $("#submit").removeClass('btn');
+//                $("#submit").addClass("btn_highlight");
+//            }
+//        });
+
+        $('#reg').delegate('#getSmscode', 'click', function() {
+            $('#getSmscode').attr('disabled', true);
+            var phone = $('.validatePhone').val();
+            if (checkPhone(phone)) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/index.php?__=oauth/sendInvalidcode&__VIEW__=json',
+                    data: {'phone':phone},
+                    success: function(data) {
+                        number = 60;
+                        timer = setInterval(sleepss,1000);
+                        $("#getSmscode").attr("disabled", true);
+                        showTK(data.msg);
+                    },
+                    error: function() {
+                        showTK('发送失败，请稍后再试');
+                    }
+                });
+            } else {
+                showTK('手机号不正确，请重新输入');
+            }
+            $('#getSmscode').attr('disabled', false);
+        });
+
+        $('#reg').delegate('#submit', 'click', function() {
+            $('#submit').attr('disabled', true);
+            var phone = $('.validatePhone').val();
+            var smscode = $('.validateSmscode').val();
+            var inviteCode = getParameter('inviteCode');
+            var contractId = '501';
+            var protocol = 1;
+            var clientType = '903';
+            if (checkPhone(phone)) {
+                if (checkSmscode(smscode)) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'index.php?__=passport/quickReg&__VIEW__=json',
+                        data: {'phone':phone,'smscode':smscode,'inviteCode':inviteCode,'contractId':contractId,'protocol':protocol,'clientType':clientType},
+                        success: function(data) {
+                            if (data.code == 200) {
+                                $('.content01').find('.harvest>.sum>span').text(data.amount);
+                                $('.content01').find('.harvest>.date').text('有效期：' + data.dtExpired);
+                                $('.content01').find('.zhanghu>span').text(phone);
+                                $('.content').hide();
+                                $('.content01').show();
+                            } else {
+                                showTK(data.msg);
+                            }
+                        },
+                        error: function() {
+                            showTK('网络连接失败，请稍后再试');
+                        }
+                    });
+                } else {
+                    showTK('验证码填写不正确');
+                }
+            } else {
+                showTK('手机号填写不正确');
+            }
+
+            $('#submit').attr('disabled', false);
+        });
+    });
+
+    /**
+     * 填充模板
+     * @param data
+     */
+    function template(data) {
+        var content = '';
+        for(var i = 0; i < data.length; i++) {
+            content += '<li>';
+            content += '<div class="part01">' + data[i].name + '</div>';
+            content += '<div class="part02">' + data[i].amount + '元</div>';
+            content += '<div class="part03">' + data[i].time + '</div>';
+            content += '</li>';
+        }
+        return content;
+    }
+
+    function checkPhone(val) {
+        if (!isEmpty(val)) {
+            if (isDigit(val)) {
+                if (val.length != 11 || !isMobile(val)) {
+                    return false
+                } else {
+                    return true;
+                }
+            }
+        }
+        return false
+    }
+
+    function checkSmscode(val) {
+        if (!isEmpty(val)) {
+            if (isDigit(val)) {
+                if (val.length != 6) {
+                    return false
+                } else {
+                    return true;
+                }
+            }
+        }
+        return false
+    }
+
+    function showTK(msg) {
+        $('.tk').show();
+        $(".tk").html(msg);
+        setTimeout("$('.tk').fadeOut(2000)", 2000);
+    }
+
+    //发送短信后倒计时
+    function sleepss(){
+        number--;
+        if(number<=0){
+            clearInterval(timer);
+            $("#getSmscode").attr("disabled",false);
+            $("#getSmscode").removeClass();
+            $("#getSmscode").addClass("input03");
+            $("#getSmscode").val("重获验证码");
+        }else{
+            $("#getSmscode").removeClass();
+            $("#getSmscode").addClass("yzm_gray");
+            $("#getSmscode").val("剩余" + number +"秒");
+            $("#getSmscode").attr("disabled",true);
+        }
+    };
+
+    function getParameter(paramName) {
+        var searchString = window.location.search.substring(1), i, val, params = searchString.split("&");
+        for (i = 0; i < params.length; i++) {
+            val = params[i].split("=");
+            if (val[0] == paramName) {
+                return decodeURIComponent(val[1]);
+            }
+        }
+        return null;
+    }
+
+    function isEmpty(str) {
+        if ((str == null) || (str.length == 0)) return true;
+        else return (false);
+    }
+
+    function isDigit(s) {
+        var patrn = /^\d+(\.\d+)?$/;
+        if (!patrn.exec(s)) return false
+        return true
+    }
+
+    function isMobile(s) {
+        var patrn = /^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i;
+        if (!patrn.exec(s)) return false
+        return true
+    }
+</script>
+</html>

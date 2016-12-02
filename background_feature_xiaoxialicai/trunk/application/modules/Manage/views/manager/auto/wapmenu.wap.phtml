@@ -1,0 +1,68 @@
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .top{
+        position: fixed;
+        width: 100%;
+        height: 50px;
+        //background-color: #808080;
+    }
+    .top a{
+        color: white;
+    }
+    .top ul{
+        width: 33.3%;
+        float: left;
+    }
+    .top ul li{
+        background-color: #FA6257;
+        cursor: pointer;
+        color: white;
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        position: relative;
+    }
+    .hide{
+        display: none;
+    }
+    li{
+        list-style-type: none;
+    }
+
+    .top li a{
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script src="/js/jquery-1.11.3.min.js"></script>
+<div class="top">
+    <ul>
+        <li></li>
+    </ul>
+    <ul>
+        <li></li>
+    </ul>
+    <ul>
+        <?php var_log($this->selectA,'selectA>>>>>>>>'); ?>
+        <li><?php echo $this->selectA?$this->selectA:'手机版'; ?></li>
+        <li class="hide"><a href="/manage/manager/index?__VIEW__=wap&selectA=rb">手机版</a></li>
+        <li class="hide"><a href="/manage/manager/index?selectA=pc&switch=1">PC版</a></li>
+    </ul>
+</div>
+<div style="height: 50px;"></div>
+<script>
+    $(function(){
+        $('div').click(function(){
+            //if($(this)[0]!=$('div.top')[0])$('li.hide').hide();
+        });
+        $('.top ul').click(function(){
+            $('li.hide').hide();
+            $(this).find('li').fadeIn();
+        });
+    });
+</script>

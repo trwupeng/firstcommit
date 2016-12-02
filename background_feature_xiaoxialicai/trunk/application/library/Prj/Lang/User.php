@@ -1,0 +1,41 @@
+<?php
+return array(
+	'paypwd_invalid'=>'paypwd_invalid',//支付密码为6位纯数字
+	'idcard_mismatch'=>'idcard_mismatch',//请输入与帐号匹配的身份证号码
+	'voucher_missing'=>'voucher_missing',//指定券不存在
+	'realname_long_wrong'=>'name_out',//绑卡时实名的长度不合法
+	'namemismatch_rebindcard'=>'error_name',//尝试使用不同的名字再绑定一张卡
+	'idcardmismatch_rebindcard'=>'error_idCardSn',//尝试使用不同的身份中再绑定一张卡
+	'getvoucher_notfound'=>'void_voucherId',// 尝试领取不存在的红包
+	'getvoucher_belong_other'=>'void_userId',//尝试领取预定给予其他人的红包
+	'getvoucher_closed'=>'void_statusCode',//尝试领取已经关闭的红包
+	'setinvite_emptycode'=>'no_code',//补填邀请码但是空
+	'setinvite_codemissing'=>'error_code',//补填邀请码但是邀请码无效
+	'user_notfound'=>'user_notfound',//用户不存在
+	'contact_paygw_failed'=>'gw_error',//实名认证时支付网关通讯失败
+	'recharge_bankerror'=>'bank_error',//充值时使用的银行卡无效
+	'paypwd_error'=>'error_paypwd',//支付密码错误
+	'withdraw_over_pertime'=>'perTime_out',//提现超出单次提现限额
+	'withdraw_bankcard_error'=>'void_card',//提现超出单次提现限额
+	'withdraw_over_perday'=>'dayAmount_out',//提现超出单日提现限额
+	'withdraw_over_remain'=>'out_amount',//提现超出余额
+	'withdraw_user_lockfailed'=>'lock_user_failed',//提现锁定用户失败
+	'resetpaypwd_oldinvalid'=>'resetpaypwd_oldinvalid',//支付密码已失效，请重新输入
+	'createpaypwd_exists'=>'paypwd_exist',//已经创建过支付密码了
+	'withdraw_calendar_error'=>'calendar_out',//提现时获取每日提现总限额失败
+	'beBorrower_forbidden'=>'forbid',//TODO:无法申请成为借款人
+	'beBorrower_already'=>'is_borrower',//TODO:已经是借款人了
+	'beBorrower_wait'=>'wait_borrower',//TODO:已经发送过借款申请了
+	'wares_invalid'=>'void_waresId',//投资时标的id无效
+	'recharegeOrders_missing'=>'no_orders_id',//充值详情查询中流水订单号无效
+    'user_has_been_invited' => 'user_has_been_invited',//已经填写过邀请码了
+    'cant_fill_out_own_invitation_code' => 'cant_fill_out_own_invitation_code',//不能填写自己的邀请码
+    'error_realname'=>'error_name',//错误的实名
+    'error_idCardSn'=>'error_idCardSn',//错误的身份证号
+    'card_exist'=>'card_exist', //银行卡已经存在
+    'addCard_failed'=>'addCard_failed',//添加银行卡失败
+    'no_smsCode'=>'no_smsCode',//没有短信验证码
+    'already_binding'=>'already_binding',//已经绑过卡了
+    'pwd_not_syn'=>'pwd_not_syn',//密码版本不同步,请重新登录
+    'error_paypwd'=>'error_paypwd',//错误的支付密码
+);

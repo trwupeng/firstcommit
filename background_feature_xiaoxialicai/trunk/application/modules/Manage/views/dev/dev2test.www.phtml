@@ -1,0 +1,26 @@
+<div class="bjui-pageContent">
+    <div class="pageFormContent">
+        <div style="margin:15px auto 0; width:800px;" >
+            <fieldset>
+                <legend>结果</legend>
+                <table class="table table-condensed table-hover">
+                    <tbody>
+                        <tr><td>完成时间</td><td><?php echo $this->dt;?></td></tr>
+                        <tr><td>协议数量</td><td><?php echo $this->agreement;?></td></tr>
+                        <tr><td>配置数量</td><td><?php echo $this->config;?></td></tr>
+                        <tr>
+                            <td colspan="3">
+                                 &nbsp;&nbsp;&nbsp;&nbsp;<b>配置项中以下几个没有迁移过来：</b><br>'dbsql.ver','SHARE_VOUCHER_PIC','SHARE_VOUCHER_URL','WECHAT_ACCESSTOKEN',<br>'CUSTOMER_INVITE_PICURL','CUSTOMER_INVITE_URL'。
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

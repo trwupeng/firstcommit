@@ -1,0 +1,130 @@
+<style>
+    *{
+        font-size: 12px;
+        color:#3b3b3b;
+        font-family: 微软雅黑;
+    }
+    table{
+        width: 100% !important;
+        border-collapse: collapse;
+    }
+    td{
+        border: 1px solid #E0E0E0;
+        padding: 8px;
+        text-align: center;
+    }
+    h1{
+        font-size: 13px;
+    }
+    a{
+        text-decoration: none;
+        color:#E53D3A;
+    }
+    .title{
+        background-color: #fff0ee;
+        width: 40%;
+    }
+
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<div style="width: 100%">
+    <h1>项目详情</h1>
+    <div>
+        <span>
+            <?php echo $this->data['a']; ?>
+        </span>
+    </div>
+    <h1>借款人信息</h1>
+    <div>
+        <table>
+            <?php
+            $tag = 'b';
+            unset(\Prj\WaresTpl\Std02\Editor::$_allTabs[$tag]['fields']['idCard']);
+            foreach(\Prj\WaresTpl\Std02\Editor::$_allTabs[$tag]['fields'] as $k=>$v){
+                echo '<tr>';
+                echo '<td class="title">';
+                echo $v;
+                echo '</td>';
+                echo '<td>';
+                echo $this->data[$tag][$k];
+                echo '</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+    </div>
+    <?php
+    $tag = 'c';
+    $diyaData = $this->data[$tag];
+    $dataFirst = current($this->data[$tag]);
+    if(!is_array($dataFirst)) {
+        foreach($diyaData as $k=>$v) {
+            $diyaData[$k] = [$v];
+        }
+        reset($diyaData);
+        $dataFirst = current($diyaData);
+    }
+    $count = count($dataFirst);
+    $num = 0;
+    $bigNums = ['一','二','三','四','五','六','七','八','九','十'];
+    foreach($dataFirst as $i){
+    ?>
+    <div>
+        <?php if($num == 0)echo '<h1 style="float: left">抵押物信息</h1>'; ?>
+        <?php if($count>1){?><div style="float: right;"><span style="width: 14px;height: 12px;display: inline-block"><div style="width: 5px;height: 5px;background-color: #f2c1bb;margin: auto;margin-top: 5px;"></div></span><span style="line-height: 34px;color: #929292">抵押物<?php echo $bigNums[$num]; ?></span></div><?php } ?>
+        <div style="clear: both"></div>
+    </div>
+    <div>
+        <table>
+            <?php
+
+            foreach(\Prj\WaresTpl\Std02\Editor::$_allTabs[$tag]['fields'] as $k=>$v){
+                echo '<tr>';
+                echo '<td class="title">';
+                echo $v;
+                echo '</td>';
+                echo '<td>';
+                echo $diyaData[$k][$num];
+                echo '</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+    </div>
+    <?php
+        $num++;
+    }
+    ?>
+    <h1>安全审核</h1>
+    <div>
+        <table>
+            <tr>
+                <td class="title">审核资料</td>
+                <td  class="title">审核人员</td>
+                <td class="title">明细</td>
+            </tr>
+            <?php
+            $tag = 'd';
+            foreach(\Prj\WaresTpl\Std02\Editor::$_allTabs[$tag]['fields'] as $k=>$v){
+                $checkName = $this->data[$tag][$k]['name'];
+                if(empty($checkName))continue;
+                echo '<tr>';
+                echo '<td>';
+                echo $v['title'];
+                echo '</td>';
+                echo '<td>';
+                echo $this->data[$tag][$k]['name'];
+                echo '</td>';
+                echo '<td>';
+                echo '<a href="jump_'.$k.'">查看</a>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+<?php
+$this->htmlHeadPart('<!-- head part -->');
+echo $this->renderInc('head');
+
+$orderDone = $this->OrdersDone;
+if(!empty($orderDone)){
+	echo json_encode($orderDone);
+	$url = \Prj\Misc\View::realUrl($this->returnUrl);
+	echo '<a href="'.$url.'">'.$url.'</a>';
+}else{
+
+	if($this->code==400){
+		echo "<font color=red>".$this->msg."</font><br>";
+	}
+	$frm = \Sooh\Base\Form\Broker::getCopy('default');
+
+	echo "<table>";
+	echo $frm->renderFormTag();
+	echo $frm->renderDefault();
+	echo $frm->renderSubmit('充值');
+	echo '</form></table>';
+}

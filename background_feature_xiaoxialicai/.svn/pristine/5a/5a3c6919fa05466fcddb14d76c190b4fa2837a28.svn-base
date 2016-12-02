@@ -1,0 +1,117 @@
+# 开标提醒
+
+## 更新记录
+
+| 时间        | 更新人  | 更新内容     |
+| --------- | ---- | :------- |
+| 2016-5-30 | 汤高航  | 1.0 建立文档 |
+
+## 分析设计：
+
+标的上架之前可以对指定标的设置推送提醒
+
+系统关键要点如下：
+
+1.后台可以配置开标前X秒发送推送提醒	  
+2.X秒之后禁止对标的设置提醒  
+3.开标提醒全局按钮,开启/关闭  
+4.单个标的设置提醒,开启/关闭  
+5.定时任务扫描即将上架商品,对设置了提醒的用户发送推送提醒
+
+
+
+## 系统设计
+
+### 主要的几个流程
+
+1.用户通过客户端，标记自己想关注度的标的，在用户表中记录下（格式：	{"标的ID":1（表示需要通知）,"1462950285538300":1}  ）
+
+2.定时任务扫描要开售的标的，找出允许监控的，并且时间快到了的（系统配置的）标的，遍历所有用户，对关注了的用户发送消息提醒  
+
+
+### 接口说明
+
+1.对标的设置开标提醒  
+
+>user/setRemindWares
+
+	string	waresId	标的ID
+	int	remind	1:打开提醒 0:关闭提醒
+	正常输出
+	{code:200,recharge:[]}
+	错误情况
+	{code:400,msg:'miss_waresId'} 没有传参数waresId
+	{code:400,msg:'error_waresId'} 错误的标的ID
+	{code:400,msg:'db_error'} 数据库错误  
+2.获取用户是否开启了标的提醒  
+> 接口：*  
+> 参数：\_\_preRender\_\_=GetStartBidFlag  
+> 结果说明：1开启了；0关闭了  
+~~~json
+	{"startBidFlag":"1"}
+~~~
+
+3.设置标的提醒开关  
+> 参见推送开关设置接口  
+
+## 数据库设计
+
+1.tb_user_n 表添加字段 **remindWares**, 记录标的提醒设置情况  
+2.tb_config,tb_config_ram,配置表和配置缓存表添加字段**wares_remind_second**,标的上架提前提醒的时间(秒)
+
+	ALTER TABLE `tb_user_0`
+	ADD COLUMN `remindWares`  varchar(500) NOT NULL DEFAULT '' COMMENT '标的上架提醒' AFTER `redPacketRecentlyExpired`;
+	
+	ALTER TABLE `tb_user_1`
+	ADD COLUMN `remindWares`  varchar(500) NOT NULL DEFAULT '' COMMENT '标的上架提醒' AFTER `redPacketRecentlyExpired`;
+	
+	INSERT INTO `tb_config` (`k`, `v`, `intro`) VALUES ('wares_remind_second', '300', '#标的上架提醒的有效时间#单位秒');
+	INSERT INTO `tb_config_ram` (`k`, `v`, `intro`) VALUES ('wares_remind_second', '300', '#标的上架提醒的有效时间#单位秒');
+
+## 定时任务  
+定时任务 **BidRemind** 扫描即将上架商品,到了合适的时间点,对设置了提醒的用户发送推送提醒,定时任务每4分钟跑一次, 找到开启提醒的用户后用 **ReadConf/Run** 发送推送  
+
+## 部署步骤  
+> 在globals.tpl中增加一行配置：
+~~~php
+$GLOBALS['CONF']['JPUSH_ALIAS_RULE'] = 'licai';//极光推送生成别名时的后缀
+~~~
+
+> 在globals.tpl中在增加一个配置（**如下环境三选一**）： 
+* 开发服  
+~~~php
+$GLOBALS['CONF']['JPUSH'] = [
+    'DEPLOY_ENVIRONMENT' => 'dev',
+    'PRO_ON'             => true,//PRO推送开关
+    'KEY'                => '76e0e67dff54dd9b3d414803',//默认配置KEY
+    'SECRET'             => '225b1f4241e299f08239391b',//默认配置SECRET
+    'KEY_PRO'            => 'e0cd9619fabb5686a4c77057',//IOS PRO KEY
+    'SECRET_PRO'         => '9b6c1098bde0a7fdb523bb61',//IOS PRO SECRET
+    'KEY_EXT'            => 'e1ecdce3c8cdc621cad55079',//扩展KEY（推送安卓）
+    'SECRET_EXT'         => '220a11d5b9d5f3f59f92a15d',//扩展SECRET（推送安卓）
+];
+~~~
+* 测试服  
+~~~php
+$GLOBALS['CONF']['JPUSH'] = [
+    'DEPLOY_ENVIRONMENT' => 'test',
+    'PRO_ON'             => true,//PRO推送开关
+    'KEY'                => '76e0e67dff54dd9b3d414803',//默认配置KEY
+    'SECRET'             => '225b1f4241e299f08239391b',//默认配置SECRET
+    'KEY_PRO'            => 'e0cd9619fabb5686a4c77057',//IOS PRO KEY
+    'SECRET_PRO'         => '9b6c1098bde0a7fdb523bb61',//IOS PRO SECRET
+    'KEY_EXT'            => 'e1ecdce3c8cdc621cad55079',//扩展KEY（推送安卓）
+    'SECRET_EXT'         => '220a11d5b9d5f3f59f92a15d',//扩展SECRET（推送安卓）
+];
+~~~
+* 正式服
+~~~php
+$GLOBALS['CONF']['JPUSH'] = [
+    'DEPLOY_ENVIRONMENT' => 'online',
+    'PRO_ON'             => true,//PRO推送开关
+    'KEY'                => 'e1ecdce3c8cdc621cad55079',//默认配置KEY
+    'SECRET'             => '220a11d5b9d5f3f59f92a15d',//默认配置SECRET
+    'KEY_PRO'            => 'e0cd9619fabb5686a4c77057',//IOS PRO KEY
+    'SECRET_PRO'         => '9b6c1098bde0a7fdb523bb61',//IOS PRO SECRET
+];
+~~~

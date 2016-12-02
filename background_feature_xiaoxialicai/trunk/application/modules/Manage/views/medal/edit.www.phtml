@@ -1,0 +1,116 @@
+<div class="bjui-pageContent">
+    <form data-callback="thiscallback" method="post" id="editForm" data-toggle="validate" data-alertmsg="false" data-reload-navtab="true" action="<?php echo \Sooh\Base\Tools::uri(FALSE, 'save'); ?>" class="nice-validator n-red" novalidate="novalidate" >
+        <input type="hidden" name="id" value="<?php echo $res['id']; ?>" />
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+                <tr>
+                    <td>勋章英文标识</td>
+                    <td><input type="text" name="key" value="<?php echo $res['key']; ?>" /></td>
+                </tr>
+                <tr>
+                    <td>勋章名称</td>
+                    <td><input type="text" name="name" value="<?php echo $res['name']; ?>" /></td>
+                </tr>
+                <tr>
+                    <td>勋章图片</td>
+                    <td><input type="text" name="icon" value="<?php echo $res['image']; ?>" /></td>                   
+                </tr>
+                <tr>
+                    <td>勋章描述</td>
+                    <td><textarea name="description"><?php echo $res['description']; ?></textarea></td>
+                </tr>
+                <tr>            
+                    <td>序列排序</td>
+                    <td><input type="text" name="serialNumber" value="<?php echo $res['serialNumber']; ?>" /></td>
+                </tr>
+                <tr>
+                    <td>勋章任务</td>
+                    <td><textarea name="task"><?php echo $res['task']; ?></textarea></td>
+                </tr>
+                <tr>
+                    <td>任务等级</td>
+                    <td><textarea name="taskLevel"><?php echo $res['taskLevel']; ?></textarea></td>
+                </tr>
+                <tr>
+                    <td>任务等级对应的数字单位</td>
+                    <td><input type="text" name="taskUnit" value="<?php echo $res['taskUnit']; ?>" /></td>
+                </tr>
+                <tr>
+                    <td>奖励等级和数量</td>
+                    <td><textarea name="reward"><?php echo $res['reward']; ?></textarea></td>
+                </tr>
+                <tr>
+                    <td>奖励等级和数量</td>
+                    <td><select name="rewardName">
+                            <option value="RedPacketForMedal" <?php echo $res['rewardName'] == 'RedPacketForMedal' ? 'selected' : '';?>>红包</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>奖励金额单位</td>
+                    <td><input type="text" name="rewardUnit" value="<?php echo $res['rewardUnit']; ?>" /></td>
+                </tr>
+                <tr>
+                    <td>奖励数量单位</td>
+                    <td><input type="text" name="rewardNumUnit" value="<?php echo $res['rewardNumUnit']; ?>" /></td>
+                </tr>
+                <tr>
+                    <td>状态</td>
+                    <td>
+                        <select name="status">
+                            <option value="0">关闭</option>
+                            <option value="1" <?php echo $res['status'] == '1' ? 'selected' : '';?>>开启</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="" />
+    </form>
+</div>    
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#taskType").on("change", function () {
+            var text = '<input type="text" size="5" name="taskCore[]" /> ';
+            var taskCore = $("#tdTaskCore");
+            taskCore.html('任务参数');
+            taskCore.append(text);
+            var value;
+            switch (this.value) {
+                case 'investment':
+                    value = '累计投资金额满';
+                    taskCore.append(text);
+                    break;
+                case 'friendsInv':
+                    value = '邀请好友累计投资金额满';
+                    taskCore.append(text);
+                    break;
+                case 'friendsReg':
+                    value = '邀请好友注册人数达到';
+                    break;
+                case 'checkin':
+                    value = '连续签到';
+                    break;
+                case 'redpacket':
+                    value = '累计使用红包';
+                    break;
+                case 'timeLimitInv':
+                    value = '在活动期间至少投资';
+                    break;
+            }
+            var tdTask = $("#tdTask");
+            tdTask.html('任务描述');
+            var text = '<input type="text" size="20" id="task" name="task" value="' + value + '" /> ';
+            tdTask.append(text);
+        });
+    });
+    function setTask(value) {
+        $("#task").val($("#task").val() + value);
+    }
+</script>

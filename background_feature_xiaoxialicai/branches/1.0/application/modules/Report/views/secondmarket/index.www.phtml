@@ -1,0 +1,53 @@
+<?php $randNum = rand(1000,9999); ?>
+<div class="bjui-pageHeader">
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    $randNum = rand(1000,9999);
+    echo $renderer->formForExport(Sooh\Base\Tools::uri([],'index'),$randNum);
+    // echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+    $btnStr = '';
+    if(!empty($this->records)){
+        $btnStr.=\Prj\Misc\View::btnEditInDatagrid('群发短信',Sooh\Base\Tools::uri(['_pkey_val_'=>$this->where],'sendmsg'),['height'=>320]);
+    }
+    echo  $renderer->getSearchStandard(
+        \Sooh\Base\Form\Broker::getCopy('default'),
+        $renderer->getBatchArea($btnStr, \Sooh\Base\Tools::uri(array('__EXCEL__'=>1,'where'=>$this->where),'index'), null,false)
+    );
+    ?>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+        <tr>
+            <?php $headers=$this->headers;
+            foreach($headers as $k=>$v){
+                echo "<th width=\"$v\">$k</th>";
+            }
+            ?>
+<!--            <th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>-->
+            <th width="200">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $records=$this->records;
+        if (!empty($records)){
+            foreach ($records as $r){
+                $_pkey_ = $r['_pkey_'];
+                echo "<tr data-id=\"{$_pkey_}\">";
+                unset ($r['_pkey_']);
+                echo '<td>'.implode('</td><td>', $r).'</td>';
+
+//                echo '<td>';
+//                echo '<input type="checkbox" name="ids" data-toggle="icheck" value="'.$_pkey_.'">';
+//                echo '</td>';
+                echo '<td>';
+                echo \Prj\Misc\View::btnEditInDatagrid('电话营销结果',\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'call'), ['height'=>600, 'width'=>800]);
+                echo '</td>';
+                echo '</tr>'."\n";
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

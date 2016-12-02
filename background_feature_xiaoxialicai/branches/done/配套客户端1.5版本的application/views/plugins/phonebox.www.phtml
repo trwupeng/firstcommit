@@ -1,0 +1,45 @@
+<div class="bjui-pageHeader">
+    <lable>手机号：</lable>
+    <input id="in_phone" type="text" name="phone" value="" />
+    <button type="button" id="btnPhone" class="btn btn-green">查询</button> 
+</div>
+<div class="bjui-pageContent tableContent" style="display: none; padding-top: 5px;" id="divUserId">
+    <label>用户ID</label>
+    <span id="spUserId"></span>
+    <button type="button" id="btnAdd" class="btn btn-blue" id="add">添加到查询条件</button>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#btnPhone").on('click', function () {
+            var phone = $("#in_phone").val();
+            if (phone != null && phone != "") {
+                $.ajax({
+                    url: "<?php echo \Sooh\Base\Tools::uri([], 'phone'); ?>" + "phone=" + phone,
+                    type: "GET",
+                    success: function (userId) {
+                        if (userId) {
+                            $("#spUserId").html(userId);
+                            $("#divUserId").show();
+                        } else {
+                            $(this).alertmsg('info', '这个手机号还未注册绑定', {displayMode: 'slide', displayPosition: 'topcenter'});
+                        }
+                    },
+                });
+            } else {
+                $(this).alertmsg('error', '请输入手机号', {displayMode: 'slide', displayPosition: 'topcenter'});
+            }
+        });
+        $("#btnAdd").on("click", function () {
+            $("input[name='<?php echo $htmlId; ?>']",window.parent.document).each(function () {
+                $(this).val($("#spUserId").html());
+            });
+            $(window.parent.document).dialog('closeCurrent');
+        });
+    });
+
+</script>

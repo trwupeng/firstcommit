@@ -1,0 +1,674 @@
+<?php
+namespace Prj\Items;
+
+use Prj\Data\VouchersInterim;
+
+/**
+ * Created by PhpStorm.
+ * User: LTM <605415184@qq.com>
+ * Date: 2015/11/4
+ * Time: 13:50
+ */
+class RedPacketForShare extends RedPacket
+{
+    static    $bonusName    = 'RedPacketForShare';
+    static    $voucherTitle = '分享红包';
+    protected $registerRule = ['1_100' => 1000, '100_300' => 8000, '300_500' => 1000];
+
+    const parentExpired    = '432000';//5天
+    const parentDayExpired = 5;
+    const childExpired     = '172800';//2天
+    const childDayExpired  = 2;
+    const maxNumOneDay     = 5;//每日最大领取次数
+
+    const errAccountNotExist = '用户不存在';
+
+    const errSendError              = '发送分享红包失败';
+    const errSendParentError        = '发送母红包失败';
+    const errSendChildError         = '分享红包失败';
+    const errSendChildEmptyError    = '红包已经领完';//201001
+    const errSendChildExpiredError  = '红包已经过期';//201002
+    const errSendChildReceivedError = '您已经领取过了';//201003
+    const errReceiveMostOneDayError = '领过太多红包了';//201004
+    const errFrequentOperation      = '您操作太频繁，请稍后再试';//400
+
+    protected $tmpChildVoucher;
+
+    protected $giveChildStep = 0;
+
+    /**
+     * 发放注册红包-废弃，不再使用
+     * @param string $userId 用户ID
+     * @return array ['type' => 'RedPacketForRegister', 'amount' => '111']
+     * @throws \Sooh\Base\ErrException
+     */
+    public function give($userId)
+    {
+        $user = \Prj\Data\User::getCopy($userId);
+        $user->load();
+        if ($user->exists() === false) {
+            throw new \Sooh\Base\ErrException(self::errAccountNotExist);
+        }
+
+        \Prj\Misc\OrdersVar::$introForUser  = self::$voucherTitle;
+        \Prj\Misc\OrdersVar::$introForCoder = 'share';
+        $ret                                = $this->give_prepare($user, 1);
+        if ($ret !== '') {
+            $this->give_rollback($user);
+            throw new \Sooh\Base\ErrException(self::errSendError);
+        } else {
+            $this->give_confirm($user);
+            try {
+                $user->update();
+            } catch (\Exception $e) {
+                //TODO
+            }
+            $voucherId = $this->voucherIds;
+
+            try {
+                \Prj\Message\Message::run(
+                    [
+                        'event'        => 'red_share_packet',
+                        'num_packet'   => '1',
+                        'num_money'    => $this->getAmountLast()[0] / 100,
+                        'num_deadline' => 30
+                    ],
+                    ['phone' => $user->getField('phone'), 'userId' => $userId]
+                );
+            } catch (\Exception $e) {
+                var_log($e->getMessage(), 'Send RedPacketForShare Message Error');
+            }
+
+            return ['type' => 'RedPacketForShare', 'amount' => $this->getAmountLast()[0], 'id' => $voucherId[0]];
+        }
+    }
+
+    /**
+     * 发放母红包 投资红包
+     * @param integer $userId            用户ID
+     * @param integer $investment        投资额
+     * @param integer $investmentExpires 投资期限，自然天数
+     */
+    public function giveParent($userId, $investment, $investmentExpires)
+    {
+        if ($this->investmentOn != 1) {
+            throw new \Sooh\Base\ErrException('投资送红包已经关闭了', 201001);
+        }
+
+        $user = \Prj\Data\User::getCopy($userId);
+        $user->load();
+        if ($user->exists() === false) {
+            throw new \Sooh\Base\ErrException(self::errAccountNotExist);
+        }
+
+        \Prj\Misc\OrdersVar::$introForUser  = '母红包';
+        \Prj\Misc\OrdersVar::$introForCoder = 'investParent';
+
+        $ret = $this->give_prepare_parent($user, $investment, $investmentExpires, 1);
+        if ($ret !== '') {
+            $this->give_rollback_parent($user);
+            throw new \Sooh\Base\ErrException(self::errSendParentError);
+        } else {
+            $totalAmount     = $this->getAmountByInvestment($investment, $investmentExpires);//红包总额
+            $totalNum        = $this->getNumByInvestment($totalAmount);// 红包总个数
+            $arrResultAmount = $this->shardingAmountOrderNum($totalAmount, $totalNum);//子红包总金额
+
+            $arrChild = [];
+            foreach ($arrResultAmount as $v) {
+                $arrChild[] = [
+                    'pid'    => $this->voucherIds[0],
+                    'amount' => $v,
+                ];
+            }
+
+            $retChild = VouchersInterim::insertForParent($arrChild);
+            if ($retChild == false) {
+                $this->give_rollback_parent($user);
+                throw new \Sooh\Base\ErrException(self::errSendParentError);
+            }
+
+            $this->give_confirm($user);
+            try {
+                $user->update();
+            } catch (\Exception $e) {
+                //TODO
+            }
+            $voucherId = $this->voucherIds;
+
+            try {
+                \Prj\Message\Message::run(
+                    [
+                        'event'        => 'red_share_packet',
+                        'num_packet'   => '1',
+                        'num_money'    => $this->getAmountLast()[0] / 100,
+                        'num_deadline' => 30
+                    ],
+                    ['phone' => $user->getField('phone'), 'userId' => $userId]
+                );
+            } catch (\Exception $e) {
+                var_log($e->getMessage(), 'Send RedPacketForShare Message Error:' . $e->getMessage());
+            }
+
+            try {
+                \Prj\Message\Message::run(
+                    [
+                        'event'        => 'red_gifted_packet',
+                        'num_packet'   => $totalNum,
+                        'num_deadline' => 120,
+                    ],
+                    ['phone' => $user->getField('phone'), 'userId' => $userId]
+                );
+            } catch (\Exception $e) {
+                var_log($e->getMessage(), 'Send RedPacketForShareParent Message Error');
+            }
+
+            return ['type' => 'investParent', 'amount' => $this->getAmountLast()[0], 'id' => $voucherId[0]];
+        }
+    }
+
+    /**
+     * 准备发放红包
+     * @param \Prj\Data\User $user              用户对象
+     * @param integer        $investment        投资额
+     * @param integer        $investmentExpires 投资期限
+     * @param int            $num               一次发放的数量
+     * @return string
+     * @throws \ErrorException
+     */
+    protected function give_prepare_parent($user, $investment, $investmentExpires, $num = 1)
+    {
+        $loger = \Sooh\Base\Log\Data::getInstance();
+        //		$cur    = $user->getField('redPacket');
+        $userId = $user->userId;
+        for ($i = 0; $i < $num; $i++) {
+            list($expire, $amount, $type) = [
+                ['end' => \Sooh\Base\Time::getInstance()->timestamp(5)],
+                $this->getAmountByInvestment($investment, $investmentExpires),
+                \Prj\Consts\Voucher::type_share
+            ];
+            $tmp = \Prj\Data\Vouchers::newForUser($userId, $type, $amount, $expire);
+            if ($tmp != null) {
+                try {
+                    $tmp->update();
+                    $this->vouchersLast[] = $tmp;
+                    $this->voucherIds[]   = $tmp->getField('voucherId');
+                    $this->amountLast[]   = $amount;
+                } catch (\Exception $e) {
+                    $loger->error("error on give voucher to user:{$user->userId} on " . \Prj\Misc\OrdersVar::$introForCoder . " : " . $e->getMessage());
+                    return $e->getMessage();
+                }
+            }
+        }
+        //		if($this->setStatus!=\Prj\Consts\Voucher::status_wait)$user->setField('redPacket', $cur + array_sum($this->amountLast));
+        return '';
+    }
+
+    /**
+     * 回滚准备发放的红包
+     * @param \Prj\Data\User $user 用户对象
+     * @return string
+     * @throws \ErrorException
+     */
+    public function give_rollback_parent($user)
+    {
+        $loger = \Sooh\Base\Log\Data::getInstance();
+        foreach ($this->vouchersLast as $tmp) {
+            $err = $this->updateStatusAndSave($tmp, \Prj\Consts\Voucher::status_abandon);
+            if ($err !== '') {
+                $loger->error("error on give voucher to user:{$user->userId} on " . \Prj\Misc\OrdersVar::$introForCoder . " : $err ");
+            }
+        }
+        return '';
+    }
+
+    /**
+     * 设置券状态
+     * @param \Prj\Data\Vouchers $item
+     * @param int                $status
+     * @return string error-message
+     */
+    private function updateStatusAndSave($item, $status)
+    {
+        try {
+            $item->setField('statusCode', $status);
+            $item->update();
+            return '';
+        } catch (\ErrorException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * 发放子红包
+     * @param string $uniqueId  openId
+     * @param string $voucherId voucherId
+     * @throws \ErrorException
+     * @throws \Sooh\Base\ErrException
+     */
+    //	public function giveChild($userId, $voucherId)
+    public function giveChild($uniqueId, $voucherId)
+    {
+        if ($this->shareFromInvestment != 1) {
+            throw new \Sooh\Base\ErrException('分享红包已经关闭了', 201001);
+        }
+
+        ////		$dbWechatBindPhone = \Prj\Data\WechatBindPhone::getCopy($uniqueId);
+        //		$dbWechatBindPhone = \Prj\Data\WechatBindPhone::getCopy($uniqueId);
+        //		$dbWechatBindPhone->load();
+        //		if ($dbWechatBindPhone->exists()) {
+        //			$phone = $dbWechatBindPhone->getField('phone');
+        //			$userId = $dbWechatBindPhone->getField('userId');
+        //		} else {
+        //			throw new \Sooh\Base\ErrException(self::errSendChildEmptyError, 201001);
+        //		}
+
+        $arr_wechat_bind_info = \Prj\Data\WechatBindPhone::getLastUser($uniqueId);
+        if (empty($arr_wechat_bind_info[0])) {
+            throw new \Sooh\Base\ErrException(self::errSendChildEmptyError, 201001);
+        } else {
+            list($phone, $userId, $is_today) = $arr_wechat_bind_info;
+        }
+
+        $user = \Prj\Data\User::getCopy($userId);
+        $user->load();
+        if ($user->exists() === false) {
+            throw new \Sooh\Base\ErrException(self::errAccountNotExist);
+        }
+
+        if (!$user->lock(__CLASS__ . ':' . __FUNCTION__ . '(' . \Sooh\Base\Time::getInstance()->timestamp() . ')')) {
+            throw new \Sooh\Base\ErrException(self::errFrequentOperation, 400);
+        }
+
+        \Prj\Misc\OrdersVar::$introForUser  = '分享红包';
+        \Prj\Misc\OrdersVar::$introForCoder = 'investChild';
+
+        $_ret = $this->give_prepare_child($voucherId, $uniqueId);
+        //		$_ret = $this->give_prepare_child($voucherId, $userId);
+
+        if (is_array($_ret)) {
+            $amount         = $_ret['amount'];
+            $pid            = $_ret['pid'];//母红包ID
+            $childVoucherId = $_ret['voucherId'];//子红包ID
+            $dtExpired      = \Sooh\Base\Time::getInstance()->timestamp(self::childDayExpired);
+
+            //主表中插入新的记录
+            $ret = $this->give_prepare_child_to_voucher($user, $amount, $childVoucherId, $uniqueId, $pid, 1);
+            //            $ret = $this->give_prepare_child_to_voucher($user, $amount, $childVoucherId, $pid, 1);
+            if ($ret !== '') {
+                $this->give_rollback_child_to_voucher($user);
+                $this->give_rollback_child();
+                $user->unlock();
+                throw new \Sooh\Base\ErrException(self::errSendChildEmptyError, 201001);
+            } else {
+                try {
+                    $user->update();
+                } catch (\Exception $e) {
+                    $this->give_rollback_child_to_voucher($user);
+                    $this->give_rollback_child();
+                    $user->unlock();
+                    throw new \Sooh\Base\ErrException(self::errSendChildEmptyError, 201001);
+                    //TODO
+                }
+                $confirmRet = $this->give_confirm_child($childVoucherId);
+                if ($confirmRet) {
+                    $this->give_confirm_child_to_voucher($user);
+                } else {
+                    $this->give_rollback_child_to_voucher($user);
+                    $this->give_rollback_child();
+                    $user->unlock();
+                    throw new \Sooh\Base\ErrException(self::errSendChildEmptyError, 201001);
+                }
+                //				$voucherId = $this->voucherIds;
+
+                try {
+                    \Prj\Message\Message::run(
+                        [
+                            'event'        => 'red_share_packet',
+                            'num_packet'   => '1',
+                            'num_money'    => $amount,
+                            'num_deadline' => 30
+                        ],
+                        ['phone' => $user->getField('phone'), 'userId' => $userId]
+                    );
+                } catch (\Exception $e) {
+                    var_log($e->getMessage(), 'Send RedPacketForShare Message Error');
+                }
+                $user->unlock();
+                return [
+                    'type'      => 'investChild',
+                    'amount'    => $amount,
+                    'id'        => $childVoucherId,
+                    'pid'       => $pid,
+                    'dtExpired' => $dtExpired
+                ];
+            }
+        } else {
+            $this->give_rollback_child($_ret);
+            $user->unlock();
+            if (is_string($_ret)) {
+                if ($_ret == self::errReceiveMostOneDayError) {
+                    throw new \Sooh\Base\ErrException($_ret, 201004);
+                } elseif ($_ret == self::errSendChildReceivedError) {
+                    throw new \Sooh\Base\ErrException($_ret, 201003);
+                } elseif ($_ret == self::errSendChildExpiredError) {
+                    throw new \Sooh\Base\ErrException($_ret, 201002);
+                } elseif ($_ret == self::errSendChildEmptyError) {
+                    throw new \Sooh\Base\ErrException($_ret, 201001);
+                }
+                throw new \Sooh\Base\ErrException($_ret);
+            }
+            throw new \Sooh\Base\ErrException(self::errSendChildEmptyError, 201001);
+        }
+    }
+
+    /**
+     * 准备领取红包(检查与锁表)
+     * @param string $pid      pid
+     * @param string $uniqueId uniqueId
+     * @return bool|string
+     * @throws \ErrorException
+     * @throws \Exception
+     */
+    //	protected function give_prepare_child($pid, $userId)
+    protected function give_prepare_child($pid, $uniqueId)
+    {
+        //此人是否领取过
+        $_ret = \Prj\Data\Vouchers::findOne([
+            'uniqueId'    => $uniqueId,
+            'pid'         => $pid,
+            'voucherType' => \Prj\Consts\Voucher::type_real
+        ]);
+        //		$_ret = \Prj\Data\Vouchers::findOne(['userId' => $userId, 'pid' => $pid, 'voucherType' => \Prj\Consts\Voucher::type_real]);
+        if ($_ret) {
+            return self::errSendChildReceivedError;
+        }
+        //是否超过每日限制
+        $_totalNum = \Prj\Data\Vouchers::loopGetRecordsCount([
+            'uniqueId'   => $uniqueId,
+            'codeCreate' => 'investChild',
+            'createYmd'  => \Sooh\Base\Time::getInstance()->YmdFull
+        ]);
+        //		$_totalNum = \Prj\Data\Vouchers::loopGetRecordsCount(['userId' => $userId, 'codeCreate' => 'investChild', 'createYmd' => \Sooh\Base\Time::getInstance()->YmdFull]);
+        if ($_totalNum >= self::maxNumOneDay) {
+            return self::errReceiveMostOneDayError;
+        }
+
+        $rs = \Prj\Data\VouchersInterim::findOne($pid);
+        if ($rs === 0) {
+            return self::errSendChildExpiredError;
+        } elseif ($rs === false) {
+            return self::errSendChildEmptyError;
+        } else {
+            $tmp = \Prj\Data\VouchersInterim::getCopy($rs['voucherId']);
+            $tmp->load();
+            if ($tmp->exists()) {
+                $tmp->setField('isLock', 2);
+                if ($tmp->update() == 0) {
+                    //锁定失败，已被占用
+                    return self::errSendChildEmptyError;
+                } else {
+                    $this->giveChildStep   = 1;
+                    $this->tmpChildVoucher = $tmp;
+                    return $rs;
+                }
+            }
+        }
+        return self::errSendChildEmptyError;
+    }
+
+    /**
+     * 重置所有状态为初始状态
+     */
+    protected function give_rollback_child($interimVoucher = null)
+    {
+        if ($this->giveChildStep == 1) {
+            //解锁临时表,释放临时表记录
+            $interimVoucher = $this->tmpChildVoucher;
+            $interimVoucher->setField('isLock', 1);
+            $interimVoucher->update();
+        }
+
+        if ($this->giveChildStep == 2) {
+            //
+        }
+    }
+
+    /**
+     * 提交所有状态-更改临时表中子红包的状态
+     */
+    protected function give_confirm_child($childVoucherId)
+    {
+        $ret = \Prj\Data\VouchersInterim::useOne($childVoucherId);
+        if ($ret) {
+            return $ret;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 写入主表的子红包前
+     * @param \Prj\Data\User $user       user
+     * @param string         $amount     金额
+     * @param string         $vouchersId 券ID
+     * @param string         $pid        母券ID
+     * @param int            $num        发送数目
+     * @return string
+     * @throws \Sooh\Base\ErrException
+     */
+    //    protected function give_prepare_child_to_voucher($user, $amount, $vouchersId, $pid, $num = 1)
+    protected function give_prepare_child_to_voucher($user, $amount, $vouchersId, $uniqueId, $pid, $num = 1)
+    {
+        $loger  = \Sooh\Base\Log\Data::getInstance();
+        $cur    = $user->getField('redPacket');
+        $userId = $user->userId;
+        for ($i = 0; $i < $num; $i++) {
+            if ($this->shareFromInvestment) {
+                list($expire, $amount, $type) = [
+                    ['end' => \Sooh\Base\Time::getInstance()->timestamp(self::childDayExpired)],
+                    $amount,
+                    \Prj\Consts\Voucher::type_real
+                ];
+            } else {
+                throw new \Sooh\Base\ErrException('分享送红包已经关闭了', 201001);
+            }
+
+            $tmp = \Prj\Data\Vouchers::newForUserForChild($userId, $type, $amount, $vouchersId, $pid, $uniqueId, $expire);
+            //            $tmp = \Prj\Data\Vouchers::newForUserForChild($userId, $type, $amount, $vouchersId, $pid, $expire);
+            if ($tmp != null) {
+                try {
+                    $tmp->update();
+                    $this->vouchersLast[] = $tmp;
+                    $this->voucherIds[]   = $tmp->getField('voucherId');
+                    $this->amountLast[]   = $amount;
+                } catch (\Exception $e) {
+                    $loger->error("error on give voucher to user:{$user->userId} on " . \Prj\Misc\OrdersVar::$introForCoder . " : " . $e->getMessage());
+                    return $e->getMessage();
+                }
+            }
+        }
+        if ($this->setStatus != \Prj\Consts\Voucher::status_wait) {
+            $user->setField('redPacket', $cur + array_sum($this->amountLast));
+        }
+        return '';
+    }
+
+    /**
+     * 回滚主表子红包状态
+     * @param $user
+     */
+    protected function give_rollback_child_to_voucher($user)
+    {
+        $loger = \Sooh\Base\Log\Data::getInstance();
+        foreach ($this->vouchersLast as $tmp) {
+            //			$err = $this->updateStatusAndSave($tmp, \Prj\Consts\Voucher::status_abandon);
+            $err = '';
+            try {
+                $tmp->delete();
+            } catch (\ErrorException $e) {
+                $err = $e->getMessage();
+            }
+            if ($err !== '') {
+                $loger->error("error on give voucher to user:{$user->userId} on " . \Prj\Misc\OrdersVar::$introForCoder . " : $err ");
+            }
+        }
+
+        $cur = $user->getField('redPacket');
+        if ($this->setStatus != \Prj\Consts\Voucher::status_wait) {
+            $user->setField('redPacket', $cur - array_sum($this->amountLast));
+            $user->update();
+        }
+        return '';
+    }
+
+    /**
+     * 提交发放的红包
+     * @param \Prj\Data\User $user 用户对象
+     * @return string
+     */
+    public function give_confirm_child_to_voucher($user)
+    {
+        $loger = \Sooh\Base\Log\Data::getInstance();
+        foreach ($this->vouchersLast as $tmp) {
+            $status = \Prj\Consts\Voucher::status_unuse;
+            if (!empty($this->setStatus))
+                $status = $this->setStatus;
+            $err = $this->updateStatusAndSave($tmp, $status);
+            if ($err !== '') {
+                $loger->error("error on give voucher to user:{$user->userId} on " . \Prj\Misc\OrdersVar::$introForCoder . " : $err ");
+            }
+        }
+        return '';
+    }
+
+    /**
+     * 获取额度
+     * @return int
+     */
+    public function getAmount()
+    {
+        return parent::getRand($this->registerRule);
+    }
+
+    /**
+     * 根据投资额确定投资额度
+     * @param integer $investment        净投资额（不含红包）
+     * @param integer $investmentExpires 投资期限、自然天数
+     * @return int
+     */
+    protected function getAmountByInvestment($investment, $investmentExpires)
+    {
+        //		$x = $investment * $investmentExpires / 36000;
+        $x   = $investment / 1200;
+        $ret = floor(6.7453 * log($x) - 30.013) * 100;
+        if ($ret <= 100) {
+            return 100;
+        } elseif ($ret >= 3500) {
+            return 3500;
+        } else {
+            return $ret;
+        }
+        //		if ($x <= 80) {
+        //			return 300;
+        //		} elseif ($x >= 8000) {
+        //			return 10000;
+        //		} else {
+        //			return floor(6.7453 * log($x) - 30.013) * 100;
+        //		}
+    }
+
+    /**
+     * 根据母红包额度确定子红包数量
+     * @param integer $voucherAmount 母红包额度
+     * @return int
+     * @throws \Sooh\Base\ErrException
+     */
+    public function getNumByInvestment($voucherAmount)
+    {
+        if ($voucherAmount < 1000) {
+            return 3;
+        } elseif ($voucherAmount > 10000) {
+            return 20;
+        } else {
+            if (function_exists('exp')) {
+                return round(3.4225 * exp(0.000179 * $voucherAmount));
+            }
+            throw new \Sooh\Base\ErrException('server not support Mathematical Functions!');
+        }
+        return 3;
+    }
+
+    /**
+     * 切分金额，根据总金额和总数量
+     * @param integer $totalAmount 总金额
+     * @param integer $totalNum    总数量
+     * @param array   $result      初始为数组
+     * @return array
+     */
+    protected function shardingAmountOrderNum($totalAmount, $totalNum, $result = [])
+    {
+        /**
+         * 使用递归完成最简单的红包切分
+         * 优点：简单、移动、快速
+         * 缺点：非常大的概率出现较大额红包，红包金额差距大！
+         * 改进：加入波动配置，根据配置计算金额波动
+         */
+        $totalAmount = intval($totalAmount);
+        $totalNum    = intval($totalNum);
+        if ($totalAmount == 0 || $totalNum == 0 || ($totalAmount < $totalNum)) {
+            return false;
+        }
+
+        //等额1分也是爱
+        if ($totalAmount == $totalNum) {
+            $result = [];
+            for ($i = 0; $i < $totalNum; $i++) {
+                $result[] = 1;
+            }
+            return $result;
+        }
+
+        //最后一个红包
+        if ($totalNum == 1) {
+            array_push($result, $totalAmount);
+            shuffle($result);
+            return $result;
+        }
+
+        $meanAmount = floor($totalAmount * 2 / $totalNum);
+        $mineAmount = mt_rand(1, $meanAmount);
+        array_push($result, $mineAmount);
+        return $this->shardingAmountOrderNum(($totalAmount - $mineAmount), ($totalNum - 1), $result);
+        //
+        //		/**
+        //		 * 变量定义：totalAmount:总金额; totalNum:总数量; remainAmount:剩余金额; remainNum:剩余数量；maxAmount：最大金额；minAmount：最小金额；
+        //		 * result 保存结果数组
+        //		 */
+        //		//金额随机概率
+        //		$arrRand = [''];
+        //
+        //		$minAmount = 1;//非必定最小金额
+        //		$remainAmount = $totalAmount;//剩余金额
+        //		$remainNum = $totalNum;//剩余数量
+        //
+        //		$result = [];//保存结果数组
+        //		$shareOutNum = 0;//已经切分的数量
+        //		while ($totalNum >= 1) {
+        //			$shareOutNum++;
+        //			$totalNum--;
+        //		}
+    }
+
+    /**
+     * 发放时的参数
+     * @return array [day-expired, amount, limits, type]
+     * @throws \Sooh\Base\ErrException
+     */
+    protected function iniForGiven()
+    {
+        if ($this->registerOn) {
+            return [2, $this->getAmount(), '', \Prj\Consts\Voucher::type_real];
+        }
+        throw new \Sooh\Base\ErrException('分享送红包已经关闭了', 201001);
+    }
+}

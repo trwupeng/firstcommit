@@ -1,0 +1,159 @@
+<div class="bjui-pageContent">
+    <h6 style="color: red">警告:本界面用于解锁用户,过程不可逆,请务必谨慎使用.</h6>
+
+    <style>
+        .bankcard{margin: 20px;padding: 10px;border: 1px solid lightgray;width: 220px;height: 120px;border-radius: 10px;}
+        .bankcard div{margin-bottom: 5px;}
+    </style>
+
+    <table class="table table-bordered" style="margin-top:10px;">
+        <thead>
+        <tr>
+            <?php
+            if($this->header){
+                foreach($this->header as $v){
+                    echo '<th width="'.$v[1].'">';
+                    echo $v[0];
+                    echo '</th>';
+                }
+            }
+            ?>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php
+        if($this->userList){
+            foreach($this->userList as $v){
+                echo '<tr>';
+                foreach($v as $vv){
+                    echo '<td>';
+                    echo $vv;
+                    echo '</td>';
+                }
+                echo '<td>';
+                echo \Prj\Misc\View::doUrlTo('查询','解锁用户',\Sooh\Base\Tools::uri(['userId'=>$v['userId']],'unlockUser'),'manage_userUnbindCard_unlockuser');
+                echo ' ';
+                echo \Prj\Misc\View::btnAjax('解锁用户',\Sooh\Base\Tools::uri(['userId'=>$v['userId']],'doUnlockUser'),'该操作不可逆,确定解锁该用户?');
+                echo '</td>';
+                echo '</tr>';
+            }
+        }
+        ?>
+        </tbody>
+
+    </table>
+
+<?php
+    if(!$this->userList){
+        echo '<div style="margin: 10px;color:blue">';
+        echo '暂无被锁用户';
+        echo '</div>';
+    }
+    $userInfo = $this->userInfo;
+    if($userInfo){
+        foreach($userInfo as $k=>$v){
+            echo '<div style="margin-top: 10px;">';
+            echo $k.':'.$v;
+            echo '</div>';
+        }
+    }
+
+    $cardList = $this->cardList;
+    $num = 0;
+    if($this->error){
+        echo "<div style='margin: 10px;color: red'>";
+        echo $this->error;
+        echo "</div>";
+    }
+    if($cardList){
+        foreach($cardList as $k=>$v){
+            $num ++;
+            echo "<div class='bankcard'>";
+            echo "<div>银行:".$v['bankId']."</div>";
+            echo "<div>卡号:".$v['bankCard']."</div>";
+            echo "<div>预留号码:".$v['phone']."</div>";
+            echo \Prj\Misc\View::btnAjax('解绑',\Sooh\Base\Tools::uri(['_pkey_val_'=>$v['_pkey_val_']],'unbind'),'解绑过程不可逆,确定执行解绑操作?');
+            echo "</div>";
+        }
+    }
+    ?>
+    <?php if($this->tallyList){ ?>
+    <hr>
+    <h4>最近10条流水明细:</h4>
+    <table class="table table-bordered" style="margin-top:10px;">
+        <thead>
+        <tr>
+            <?php
+            if($this->tallyHeader){
+                foreach($this->tallyHeader as $v){
+                    echo '<th width="'.$v[1].'">';
+                    echo $v[0];
+                    echo '</th>';
+                }
+            }
+            ?>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php
+        if($this->tallyList){
+            foreach($this->tallyList as $v){
+                echo '<tr>';
+                foreach($v as $vv){
+                    echo '<td>';
+                    echo $vv;
+                    echo '</td>';
+                }
+
+                echo '</tr>';
+            }
+        }
+        ?>
+        </tbody>
+
+    </table>
+    <?php } ?>
+
+    <?php if($this->investList){ ?>
+        <hr>
+        <h4>最近10条订单明细:</h4>
+        <table class="table table-bordered" style="margin-top:10px;">
+            <thead>
+            <tr>
+                <?php
+                if($this->investHeader){
+                    foreach($this->investHeader as $v){
+                        echo '<th width="'.$v[1].'">';
+                        echo $v[0];
+                        echo '</th>';
+                    }
+                }
+                ?>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <?php
+            if($this->investList){
+                foreach($this->investList as $v){
+                    echo '<tr>';
+                    foreach($v as $vv){
+                        echo '<td>';
+                        echo $vv;
+                        echo '</td>';
+                    }
+
+                    echo '</tr>';
+                }
+            }
+            ?>
+            </tbody>
+
+        </table>
+    <?php } ?>
+</div>

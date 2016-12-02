@@ -1,0 +1,122 @@
+html {
+    font-size: 60px;
+    margin: 0 auto;
+    color:#333;
+    min-width: 320px;
+    max-width: 640px;
+}
+
+body {
+    background-image: url(../img/hongbao_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.remind {
+    width: 5.7167rem;
+    height: 0.6917rem;
+    line-height: 0.6917rem;
+    margin: 0 auto;
+    margin-top: 0.5rem;
+}
+
+.remind .laba {
+    width: 0.3917rem;
+    height: 0.3917rem;
+    padding: 0.15rem 0;
+    float: left;
+    line-height: 0.6917rem;
+    margin-right: 0.1rem;
+}
+
+.remind .laba img {
+    width: 0.3917rem;
+    height: 0.3917rem;
+    display: block;
+}
+
+.remind .kuangkuang {
+    width: 4.9967rem;
+    height: 0.6917rem;
+    background: url(../img/kuangkuang.png) no-repeat;
+    background-size: cover;
+    float: left;
+    font-size: 0.3rem;
+    color: #ff6666;
+    padding-left: 0.2203rem;
+}
+
+.hongbao_after {
+    width: 5.7167rem;
+    height: 5.8167rem;
+    background: url(../img/hongbao-1.png) no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+    margin-top: 0.8rem;
+    overflow: hidden;
+}
+
+.hongbao_after .time {
+    width: 3.7rem;
+    height: 1.8083rem;
+    margin: 0 auto;
+    margin-top: 0.5417rem;
+}
+
+.hongbao_after .time .money {
+    height: 1.35rem;
+    line-height: 1.35rem;
+    border-bottom: 1px dashed #de2c2c;
+    text-align: center;
+    font-size: 1rem;
+    color: #de2c2c;
+    margin-bottom: 0.1rem;
+}
+
+.hongbao_after .time .money span {
+    font-size: 0.4rem;
+}
+
+.hongbao_after .time .date {
+    font-size: 0.2667rem;
+    color: #666;
+}
+
+.hongbao_after .number {
+    font-size: 0.2667rem;
+    color: #fff;
+    margin-top: 1.75rem;
+    text-align: center;
+}
+
+.hongbao_after .number span {
+    color: #ffcc66;
+}
+
+.hongbao_after .use {
+    font-size: 0.2667rem;
+    color: #fff;
+    margin-top: 0.2083rem;
+    text-align: center;
+}
+
+.skip {
+    width: 5.7167rem;
+    height: 0.8333rem;
+    margin: 0 auto;
+    margin-top: 0.1rem;
+}
+
+.skip .btn {
+    width: 5.7167rem;
+    height: 0.8333rem;
+    background: #de2c2c;
+    line-height: 0.8333rem;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 0.3333rem;
+    color: #fff;
+    border: 1px solid #de2c2c;
+    font-weight: bold;
+    outline: none;
+}

@@ -1,0 +1,34 @@
+<div class="bjui-pageContent">
+    <div class="bjui-doc">
+
+            <form action="<?php echo \Sooh\Base\Tools::uri([], 'grant') ?>" data-toggle="validate">
+                <table class="table-condensed" >
+                    <tr>
+                        <td><label class="x100">手机号码：</label></td>
+                        <td> <input type="text" name="phone" data-rule="required" placeholder=""><?php echo $this->phone; ?></td>
+                    </tr>
+                    <tr>
+                        <td width="100"><label class="x100">电影票兑换码：</label></td>
+                        <td><input type="text" name="ticketSerialNo" data-rule="required;" placeholder=""></td>
+                    </tr>
+                    <tr>
+                        <td><label class="x100">短信内容：</label></td>
+                        <td><textarea cols="60" rows="4" data-toggle="autoheight" data-rule="required" name="msg"><?php echo $this->msg; ?></textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <p class="text-center"><button type="submit" class="btn-default">提 交</button></p>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </form>
+    </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

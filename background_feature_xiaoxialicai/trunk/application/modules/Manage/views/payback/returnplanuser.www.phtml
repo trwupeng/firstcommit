@@ -1,0 +1,111 @@
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1),'index'); ?>" method="post" id="wares-exportChecked" style="display: none;">
+</form>
+<div class="bjui-pageHeader">
+    <?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	// echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+    ?>
+	<div class="pull-right">
+
+
+
+		<div class="btn-group" style="display: none">
+
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <li><a  href="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1,'where'=>$this->where),'index'); ?>">导出全部</a></li>
+                        <li><a class="wares-export" style="cursor: pointer">导出<span style="color: red">选中</span></a></li>
+                        <li>
+                            <?php //echo \Prj\Misc\View::btnCheckAjaxInDatagrid('回款确认',\Sooh\Base\Tools::uri(null, 'returnFund')); ?>
+                        </li>
+                    </ul>
+        </div>
+        <script>
+            /*
+             构造表单 post 方法 提交
+            */
+
+            var ids = new Array();
+            $('.wares-export').click(function(){
+                if(ids.length==0)
+                {
+                    $(document).alertmsg('error', '无选中选项');
+                    return false;
+                }
+                $('#wares-exportChecked').html('');
+                for(var i in ids)
+                {
+                    var reg = /function[.]*/;
+                    if(reg.exec(ids[i])!=null)
+                    {
+                        continue;
+                    }
+                    $('#wares-exportChecked').append("<input type='hidden' name='ids[]' value='"+ids[i]+"'>");
+                }
+                $('#wares-exportChecked').submit();
+                //window.location.href="/index.php?__=manage/managers/index&__EXCEL__=1&ids="+ids;
+                return false;
+            });
+        </script>
+	</div>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+
+				$headers = $this->headers;
+				foreach($headers as $k=>$v){
+					echo "<th width=\"".$v[1]."\" >".$v[0]."</th>";//data-order-field="operation" align="center" //
+				}
+
+				?>
+                <!--<th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>-->
+                <th width="30"><?php echo \Prj\Misc\View::thCheckBox(); ?></th>
+                <th width="210">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+			<?php
+            $statusColor = [
+                \Prj\Consts\Wares::status_abandon=>'red',
+                \Prj\Consts\Wares::status_new=>'orange',
+                \Prj\Consts\Wares::status_ready=>'',
+                \Prj\Consts\Wares::status_open=>'green',
+                \Prj\Consts\Wares::status_go=>'',
+            ];
+			$records = $this->records;
+			if(!empty($records)){
+				foreach($records as $r){
+                   echo "<tr>";
+                    foreach($r as $v)
+                    {
+                        echo "<td>";
+                        echo $v;
+                        echo "</td>";
+                    }
+                    echo "<td>";
+                    $pkey = \Prj\Misc\View::encodePkey([
+                        'ordersId'=>$r['ordersId'],
+                        'rid'=>$r['id'],
+                        'ahead'=>$this->ahead,
+                    ]);
+                    echo \Prj\Misc\View::trCheckBox($pkey);
+                    echo "</td>";
+                    echo "<td>";
+                    if($this->ahead){
+                        echo \Prj\Misc\View::btnEditInDatagrid('提前回款确认',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'returnFund'),["height"=>'410']);
+                    }else{
+                        echo \Prj\Misc\View::btnEditInDatagrid('回款确认',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'returnFund'),["height"=>'410']);
+                    }
+                    echo " ";
+                    //echo \Prj\Misc\View::btnDefaultInDatagrid('用户回款',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'confirm'));
+                    echo "</td>";
+                   echo "</tr>";
+				}
+			}
+			?>
+       </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

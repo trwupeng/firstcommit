@@ -1,0 +1,73 @@
+<?php $randNum = rand(1000,9999); ?>
+<div class="bjui-pageHeader">
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    $randNum = rand(1000,9999);
+    echo $renderer->formForExport(Sooh\Base\Tools::uri([],'index'),$randNum);
+    // echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+
+    echo  $renderer->getSearchStandard(
+        \Sooh\Base\Form\Broker::getCopy('default'),
+        $renderer->getBatchArea('', \Sooh\Base\Tools::uri(array('__EXCEL__'=>1,'where'=>$this->where),'index'), null)
+    );
+    ?>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true"
+           data-toggle="tablefixed">
+        <thead>
+        <tr><?php
+            $header = $this->header;
+            if(!empty($header))
+            {
+                foreach ($header as $k => $v) {
+                    echo "<th width = '" . $v . "'>";
+                    echo $k;
+                    echo "</th>";
+                }
+            }
+
+            ?>
+            <th width="30"><?php echo \Prj\Misc\View::thCheckBox(); ?></th>
+            <th width="100">操作</th>
+        </tr>
+        <tr>
+            <?php
+            if(!empty($this->sum)){
+                foreach($this->sum as $v){
+                    echo "<th>";
+                    echo $v;
+                    echo "</th>";
+                }
+            }
+            ?>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $rs = $this->rs;
+        if (!empty($rs)) {
+            foreach ($rs as $r) {
+                $_pkey_val_ = \Prj\Misc\View::encodePkey(['id'=>current($r),'ordersType'=>\Prj\Consts\OrderType::investment]);
+                echo "<tr>";
+                $diffField = $r['diffField'];
+                unset($r['diffField']);
+                foreach ($r as $k => $v) {
+                    echo $k=='diff'||in_array($k,$diffField)?"<td style='color: red'>":"<td>";
+                    echo $v;
+                    echo "</td>";
+                }
+                echo '<td>'.\Prj\Misc\View::trCheckBox().'</td>';
+                echo "<td>";
+                echo \Prj\Misc\View::btnEditInDatagrid('审核',Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_val_],'doCheck'));
+                echo "</td>";
+                echo "</tr>";
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

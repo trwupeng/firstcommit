@@ -1,0 +1,96 @@
+<div class="bjui-pageContent">
+	<h6 style="color: red">警告:本界面用于互换手机号（串号时）,过程不可逆,请务必谨慎使用.</h6>
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+
+	echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+
+	$ret = $this->ret;
+	if (!empty($ret)) {
+		echo <<<EOT
+<div style="color:red;">
+	<h3>【警告！】：必须满足以下所有条件才可进行交换手机号</h3>
+	<ol>
+		<li style="font-size:20px;">* 有且只有一方成功绑卡；</li>
+		<li style="font-size:20px;">* 成功绑卡用户的<span style="color:blue; font-size:21px; font-weight:bolder;" title="绑定银行卡时填写的手机号">绑卡手机号</span>是另一个用户的<span style="color:blue; font-size:21px; font-weight:bolder;" title="用户注册、登录时的手机号">登录手机号</span>；</li>
+	</ol><br />
+	<i style="margin-top:10px; margin-bottom:10px;">就此工具本身而言，可以不仅仅用在串号的情况下使用，当且仅当您对此换号机制足够熟悉的情况下！</i><br />
+</div>
+	<br />
+EOT;
+
+		echo <<<EOT
+<table border="1 cellpadding=0 cellspacing=0">
+	<thead>
+		<tr>
+			<th>用户ID</th>
+			<th>登录手机号</th>
+			<th>绑定的银行卡用的手机号</th>
+			<th>绑定银行卡的状态</th>
+			<th>上级邀请人</th>
+			<th>上上级邀请人</th>
+			<th>顶级邀请人</th>
+			<th>他邀请的人数</th>
+		</tr>
+	</thead>
+<tbody>
+EOT;
+		foreach ($ret as $k => $v) {
+			echo '<tr>';
+			echo '<td>';
+			echo $v['userId'];
+			echo '</td>';
+			echo '<td>';
+			echo $v['phone'];
+			echo '</td>';
+			echo '<td>';
+			echo $v['phoneBankCard'];
+			echo '</td>';
+			echo '<td>';
+			switch ($v['statusCode'] + 0) {
+				case 0:
+					echo '失败';
+					break;
+				case 16:
+					echo '成功';
+					break;
+				default:
+					echo $v['statusCode'];
+					break;
+			}
+			echo '</td>';
+			echo '<td>';
+			echo $v['inviteByUser'];
+			echo '</td>';
+			echo '<td>';
+			echo isset($v['inviteByParent']) ? $v['inviteByParent'] : '';
+			echo '</td>';
+			echo '<td>';
+			echo isset($v['inviteByRoot']) ? $v['inviteByRoot'] : '';
+			echo '</td>';
+			echo '<td>';
+			echo isset($v['myInviteCount']) ? $v['myInviteCount'] : '';
+			echo '</td>';
+			echo '</tr>';
+		}
+		echo '</tbody>';
+		echo '</table>';
+	}
+
+	if (isset($this->_pkey_val_)) {
+		echo '<br />';
+		echo '<br />';
+		echo '<br />';
+		echo \Prj\Misc\View::btnAjax('交换手机号(更新向下的邀请关系)', \Sooh\Base\Tools::uri(['_pkey_val_' => $this->_pkey_val_], 'swapUser'), '互换手机号（串号时）,过程不可逆,确定执行交换操作?');
+		echo '<span>&nbsp;&nbsp;*交换时会交换他向下的邀请关系（仅在他邀请的人数>0有影响）</span>';
+		echo '<br />';
+		echo '<br />';
+		echo \Prj\Misc\View::btnAjax('交换手机号(不更新向下的邀请关系)', \Sooh\Base\Tools::uri(['_pkey_val_' => $this->_pkey_val_, 'swapInvite' => '1'], 'swapUser'), '互换手机号（串号时）,过程不可逆,确定执行交换操作?');
+		echo '<span>&nbsp;&nbsp;*交换时不会交换他向下的邀请关系</span>';
+	}
+	?>
+	<style>
+		.bankcard{margin: 20px;padding: 10px;border: 1px solid lightgray;width: 220px;height: 120px;border-radius: 10px;}
+		.bankcard div{margin-bottom: 5px;}
+	</style>
+</div>

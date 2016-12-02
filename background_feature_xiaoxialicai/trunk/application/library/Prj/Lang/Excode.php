@@ -1,0 +1,19 @@
+<?php
+return array(
+  'group_batch_error'=>'group_batch_error',//分组或批次错误
+  'excode_not_left'=>'excode_not_left',//兑换码已领完
+  'excode_missing_expired'=>'excode_missing_expired',//兑换码过期
+  'excode_error'=>'excode_error',//兑换码不正确,请输入正确的兑换码
+  'only_fetch_one'=>'only_fetch_one',//兑换码只能领用一次
+  'excode_used'=>'excode_used',//兑换码已使用
+  'excode_dberror'=>'excode_dberror',//兑换码数据库故障
+  'try_fetch_samegrp'=>'try_fetch_samegrp',//已经领取过同类的
+  'try_fetch_other'=>'try_fetch_other',//尝试领取其他人的
+  'excode_change_success'=>'excode_change_success',//恭喜您，你已兑换成功，请到奖品列表查看
+  'excode_to_redpacket_title'=>'excode_to_redpacket_title',//兑换码换取了红包
+  'excode_to_redpacket_content'=>'excode_to_redpacket_content',//你已用兑换码换取了红包，尽请查看
+  'batch_unfound'=>'batch_unfound',//未找到此批次信息的记录
+  'reward_format_wrong'=>'reward_format_wrong',//奖励格式不对
+  'prem_error'=>'prem_error',//参数错误
+  'record_unfound'=>'record_unfound',//未找到记录
+);

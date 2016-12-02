@@ -1,0 +1,20 @@
+<?php
+$this->htmlHeadPart('<!-- head part -->');
+echo $this->renderInc('head');
+$r = $this->info;
+$url = \Sooh\Base\Tools::uri(['came_from'=>'phone'], 'login', 'oauth', 'index');
+echo \Sooh\Base\Form\Base::renderFormTag($url);
+echo 'username:<input type=text name=login_name value=""><br>';
+echo 'password:<input type=text name=password value=""><br>';
+echo \Sooh\Base\Form\Base::renderFormButton('login', $type);
+
+$scope = array_unique(explode(',', $r['scope']));
+echo '<div>';
+foreach($scope as $v){
+    echo "<label><input type='checkbox' name='scope[]' value='{$v}' />{$v}</label>";
+}
+echo '</div>';
+echo '</form>';
+
+?>
+</html>

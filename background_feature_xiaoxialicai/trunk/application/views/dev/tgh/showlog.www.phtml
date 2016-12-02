@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>日志查看</title>
+</head>
+<body>
+<script src="/js/jquery-1.11.3.min.js"></script>
+<div class="log"></div>
+<button class="start" style="position: fixed;right: 0;top: 0;width: 190px;height: 70px;line-height: 30px;text-align: center">开始监听</button>
+<button class="refresh" style="position: fixed;left: 0;top: 0;width: 190px;height: 70px;line-height: 30px;text-align: center">刷新</button>
+<script>
+    $(function(){
+        var start = false;
+        var refresh = function(){
+            $.post("/index.php?__=index/dev/tgh_getLogCon",{},function(data){
+                $('.log').html(data);
+            });
+        }
+
+        
+        refresh();
+
+
+        var set = {};
+
+        $('.start').click(function(){
+            if(!start){
+                set = setInterval(function(){
+                    $.post("/index.php?__=index/dev/tgh_getLogLen",{},function(data){
+                        console.log(data);
+                        if(data.refresh)refresh();
+                    });
+                },2000);
+                $(this).html('停止监听');
+                start = true;
+            }else{
+                clearInterval(set);
+                $(this).html('开始监听');
+                start = false;
+            }
+        });
+
+        $('.refresh').click(function(){
+            refresh();
+        });
+    });
+
+</script>
+</body>
+</html>

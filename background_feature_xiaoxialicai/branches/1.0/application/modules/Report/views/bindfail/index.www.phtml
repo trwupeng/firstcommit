@@ -1,0 +1,65 @@
+<div class="bjui-pageHeader">
+    <form  id="pagerForm" method="get" action="<?php echo \Sooh\Base\Tools::uri([], 'index'); ?>" data-toggle="ajaxsearch">
+                <input type="hidden" name="__formguid__" value="default" />
+                <input type="hidden" name="pageSize" value="<?php echo $this->pagesize; ?>">
+                <input type="hidden" name="pageCurrent" value="<?php echo $this->pageid; ?>">
+                <label>日期：</label>
+                <input type="text" data-toggle="datepicker" name="createYmd" data-rule="required" value="<?php echo ($this->createYmd ? $this->createYmd : date('Y-m-d')); ?>" size="18" />
+                <button type="submit" class="btn btn-green">查询</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <lable>当日绑卡没有成功过的用户绑卡失败所有原因</lable>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+        <tr>
+            <?php
+            if(!empty($this->headers)) {
+                foreach($this->headers as $k => $v) {
+                    ?>
+                    <th width="<?php echo $v; ?>"><?php echo $k; ?></th>
+                    <?php
+                }
+            }
+            ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        if(!empty($this->records)) {
+            foreach($this->records as $r) {
+                echo "<tr><td>";
+                echo implode('</td><td>', $r);
+                echo "</td></tr>";
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <?php
+                $pager = $this->pager;
+                $r = explode(',', $pager->enumPagesize);
+                foreach($r as $v){
+                    $str .= "<option value=\"$v\">$v</option>";
+                }
+                echo $str;
+                ?>
+            </select>
+        </div>
+        <span>&nbsp;条，共 <?php echo $pager->total; ?> 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="<?php echo $pager->total; ?>" data-page-size="<?php echo $pager->page_size; ?>" data-page-current="<?php $pager->pageid(); ?>"></div>
+
+</div>

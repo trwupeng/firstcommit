@@ -1,0 +1,14 @@
+确保global文件有以下配置
+$GLOBALS['CONF']['payGWCmd'] = array(
+    //'http://10.1.1.60:8080/backgrount_payment/service/service',
+    'http://xxx.xxx.xxx.xxx/wsx/'
+);
+
+定时任务:
+每小时01分启动,之后10分钟一次,扫描失败的订单尝试解冻
+筛选的条件:
+1.商品处在上架募集中
+2.订单符合以下条件
+***       'descCreate'为'#网关错误回滚#'
+***       'orderStatus'小于0
+***       'unfreeze'为0或4

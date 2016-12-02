@@ -1,0 +1,55 @@
+
+
+
+<div class="bjui-pageHeader">
+        <a class="btn btn-default"  type="button" href="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__' => 1, 'taskId' => $this->taskId), 'dialog'); ?>">导出</a>
+<!--        <button type="button" class="btn-orange" onclick="$('#test-myurl-url').html($('#test-myurl-form').attr('action').replacePlh($('#test-myurl-url').closest('.unitBox')))">动态赋值</button>-->
+
+    <?php
+        $form = \Sooh\Base\Form\Broker::getCopy('default');
+        $str = $form->renderDefault();
+        $str = $form->renderFormTag('data-toggle="ajaxsearch" id="pagerForm" ').$str;
+        $str .= "</form>";
+        echo $str;
+    ?>
+
+
+</div>
+
+<div class="bjui-pageContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+        <tr>
+            <?php
+            $headers=$this->headers;
+            foreach($headers as $k=>$v){
+                echo "<th width=\"$v\">$k</th>";
+            }
+
+            ?>
+
+
+            <!-- <th width="100">操作</th> -->
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $records=$this->records;
+        if (!empty($records)){
+            foreach ($records as $r){
+                $_pkey_ = $r['_pkey_val_'];
+                unset($r['_pkey_val_']);
+
+                echo "<tr data-id=\"$_pkey_\">";
+                echo '<td>'.implode('</td><td>', $r).'</td>';
+                echo '</tr>';
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+
+</div>
+<div class="bjui-pageFooter">
+    <?php echo \Prj\Misc\View::pagerStandard($this->pager);?>
+</div>

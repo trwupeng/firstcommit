@@ -1,0 +1,29 @@
+<div class="pageContent">
+
+	<div class="pageFormContent" layoutH="58">
+		<table border="0" width="100%">
+			<?php
+			$records = $this->records;
+			foreach ($records as $v) {
+				echo '<tr>';
+				echo '<td>ID</td>';
+				echo "<td style='text-align:left' valign='top'>" . $v['managerId'] . "</td>";
+				echo '<td>事件</td>';
+				echo "<td style='text-align:left' valign='top'>" . $v['evt'] . "</td>";
+				echo '</tr>';
+			}
+			?>
+		</table>
+	</div>
+	<div class="formBar">
+		<ul>
+			<li>
+				<div class="button">
+					<div class="buttonContent">
+						<button type="button" class="close">关闭</button>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

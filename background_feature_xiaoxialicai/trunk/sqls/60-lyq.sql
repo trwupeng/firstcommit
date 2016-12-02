@@ -1,0 +1,17 @@
+USE `db_p2p`;
+
+CREATE TABLE `tb_shortened_url_0` (
+	`shortId` CHAR (20) NOT NULL COMMENT '短链名',
+	`contractId` BIGINT (20) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'contractId',
+	`copartnerName` VARCHAR (80) NOT NULL DEFAULT '' COMMENT '短链位置',
+	`instruction` VARCHAR (255) NOT NULL DEFAULT '' COMMENT '说明',
+	`createTime` BIGINT (20) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建时间',
+	`status` TINYINT (3) NOT NULL DEFAULT 1 COMMENT '状态位',
+	PRIMARY KEY (`shortId`),
+	INDEX USING BTREE (`contractId`)
+) ENGINE = MyISAM DEFAULT CHARACTER
+SET = utf8 COMMENT = '短链表' CHECKSUM = 0 DELAY_KEY_WRITE = 0;
+
+INSERT INTO db_p2p.tb_config
+VALUES
+	('dbsql.ver', 60) ON DUPLICATE KEY UPDATE v = 60;

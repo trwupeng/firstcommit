@@ -1,0 +1,3 @@
+菜单文件里面添加
+/application/library/Prj/Acl/manage.php
+'客服.用户新浪余额' => ['manage', 'usercheck', 'index', [], []],

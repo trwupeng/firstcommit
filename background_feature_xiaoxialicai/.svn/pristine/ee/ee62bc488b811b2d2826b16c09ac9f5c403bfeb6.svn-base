@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+html{ font-size:60px;}
+body{ background:#ededed;}
+
+.banner{ width:100%; margin-bottom:0.55rem;}
+.banner img{ width:100%; display:block;}
+
+.tel_info{ width:100%; margin:0 auto; color:#3b3b3b; font-size:0.25rem; text-align:center; margin-bottom:0.25rem;}
+.border_line{ width:5.1111rem; height:0.7333rem; line-height:0.7333rem; margin:0 auto; margin-bottom:0.3333rem;}
+.input01{ width:5.1rem; height:0.7222rem; border:1px solid #838383; border-radius:3px; margin:0 auto; display:block; text-align:center; font-size:0.2333rem; color:#3b3b3b;}
+
+.submit{ width:3.9333rem; height:0.7222rem; line-height:0.7222rem;  margin:0 auto; margin-bottom:0.55rem;}
+.submit .btn{ width:3.9333rem; height:0.7222rem; margin:0 auto; text-align:center; display:block;background:#ef8b89; border-radius:3px; font-size:0.2667rem; color:#ffffff; border:1px solid #ef8b89; }
+.submit .btn_highlight{ width:3.9333rem; height:0.7222rem; margin:0 auto; text-align:center; display:block;background:#e53d3a; border-radius:3px; font-size:0.2667rem; color:#ffffff; border:1px solid #e53d3a; }
+
+
+
+.qianghongbao{ width:6.1056rem; margin:0 auto;}
+.title{ width:100%; height:0.2667rem;}
+.title .left,.title .right{ width:1.9780rem; height:1px; border-top:1px dashed #9e9e9e; float:left; margin-top:0.1167rem;}
+.title .center{ width:2.15rem; height:0.2667rem; line-height:0.2667rem; color:#7e7e7e; font-size:0.25rem; float:left; text-align:center;}
+.list{ width:100%; /*margin-bottom:0.25rem;*/}
+.list li{ height:0.5556rem; padding:0.2944rem 0; border-bottom:1px dashed #9e9e9e; }
+.list li.first{ padding:0.1722rem 0 0.2944rem 0;}
+.list li .left{ float:left;}
+.list li .left .pic{ width:0.55rem; height:0.55rem; float:left; margin-right:0.0833rem;}
+.list li .left .pic img{width:0.55rem; height:0.55rem; display:block;}
+.xiangqing{ width:2.5rem; color:#7e7e7e; font-size:0.2167rem; float:left;}
+.list li .right{ float:right; color:#e53d3a; font-size:0.25rem;height:0.5556rem; line-height:0.5556rem;}
+
+.shade{ width:6.9rem; height:13rem; background:rgba(0,0,0,0.7); position:fixed; left:0; top:0; z-index:2; overflow:hidden; display:none;}
+.reg{ width:4.8278rem; height:6.5556rem; background:url(../images/bg.png) no-repeat; background-size: cover; margin:0 auto; margin-top:1.8556rem;  overflow:hidden; position:relative;}
+.hongbao{ width:4.8278rem; height:1.0722rem; line-height:1.0722rem; text-align:center; font-size:0.3rem; color:#fff; font-weight:bold; margin-bottom:0.4rem; }
+.close{ width:0.2611rem; height:0.2556rem; position:absolute; top:0.2rem; right:0.2167rem; z-index:3;}
+.close img{ width:0.2611rem; height:0.2556rem; display:block; }
+.money{ width:2.7333rem; height:0.6389rem; margin:0 auto; margin-bottom:0.3rem; }
+.money img{ width:2.7333rem; height:0.6389rem; display:block;}
+.zhanghu{ width:100%; margin:0 auto; text-align:center; color:#7e7e7e; font-size:0.2167rem; margin-bottom:0.4667rem;}
+.kuang{ width:4.25rem; height:0.7333rem; margin:0 auto; margin-bottom:0.35rem;}
+.input02{ width:2.3833rem; height:0.3rem; line-height:0.3rem; padding:0.2111rem 0; border:1px solid #838383; border-radius:3px; float:left; display:block; text-align:center; font-size:0.2333rem;}
+.yzm{ width:1.6444rem; height:0.73rem; line-height:0.6rem; border:3px solid #e53d3a; border-radius:3px; float:right; display:block; text-align:center; font-size:0.2333rem; color:#e53d3a; background:#fff; }
+.yzm_gray{  width:1.6444rem; height:0.73rem; line-height:0.6rem; border:3px solid #838383; border-radius:3px; float:right; display:block; text-align:center; font-size:0.2333rem; color:#838383; background:#fff;}
+.income{ width:4.25rem; height:0.7333rem; line-height:0.7333rem; margin:0 auto; margin-bottom:0.2667rem;}
+.input03{ width:4.2389rem; height:0.7222rem; line-height:0.7222rem; margin:0 auto; display:block; background:#e53d3a; color:#fff; border-radius:3px; border:1px solid #e53d3a; font-size:0.2667rem; }
+.agreement{ width:100%; margin:0 auto; color:#3b3b3b; font-size:0.2rem; text-align:center;}
+.agreement a{ color: #e53d3a;}
+.tk{ width:2.5rem; height:0.7333rem; line-height:0.7333rem; background:rgba(0,0,0,0.7); border-radius:3px; text-align:center; font-size:0.2333rem; color:#fff; position:absolute; left:50%; margin-left:-1.25rem; top:50%; margin-top:-0.15rem; display:none;}
+
+.shade_modifytel{ width:6.9rem; height:13rem; background:rgba(0,0,0,0.7); position:fixed; left:0; top:0; z-index:2; overflow:hidden;}
+.modify{ width:5.5rem; height:5rem; background:#fff; border-radius:5px; margin:0 auto; overflow:hidden; margin-top:2.5rem; position: relative;}
+.current_num{ width:100%; margin:0 auto; text-align:center; font-size:0.25rem; color:#3b3b3b; margin-top:1.1778rem; margin-bottom:0.25rem;}
+.modify .close{  width:0.2611rem; height:0.2556rem; position:absolute; top:0.2rem; right:0.2167rem; z-index:3;}
+.border_line01{ width:5.1111rem; height:0.7333rem; line-height:0.7333rem; margin:0 auto; margin-bottom:0.3333rem;}
+.input04{ width:5.1rem; height:0.7222rem; border:1px solid #838383; border-radius:3px; margin:0 auto; display:block; text-align:center; font-size:0.2333rem; color:#3b3b3b;}
+
+.submit01{ width:3.9333rem; height:0.7222rem; line-height:0.7222rem;  margin:0 auto; margin-bottom:0.55rem;}
+.submit01 input{ width:3.9333rem; height:0.7222rem; margin:0 auto; text-align:center; display:block;background:#ef8b89; border-radius:3px; font-size:0.2667rem; color:#ffffff; border:1px solid #ef8b89; }
+.submit01 .btn{ width:3.9333rem; height:0.7222rem; margin:0 auto; text-align:center; display:block;background:#ef8b89; border-radius:3px; font-size:0.2667rem; color:#ffffff; border:1px solid #ef8b89; }
+.submit01 .btn_highlight{ width:3.9333rem; height:0.7222rem; margin:0 auto; text-align:center; display:block;background:#e53d3a; border-radius:3px; font-size:0.2667rem; color:#ffffff; border:1px solid #e53d3a; }
+
+.explain{ width:100%; margin:0 auto; text-align:center; font-size:0.2333rem; color:#7e7e7e;}
+
+.xianjin,.next_zhanghu{ width:100%; margin:0 auto; font-size:0.25rem; color:#7e7e7e; text-align:center; margin-bottom:0.15rem;}
+.xianjin .tel,.next_zhanghu .tel01,.next_zhanghu a{ color:#e53d3a;}
+

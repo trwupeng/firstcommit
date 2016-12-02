@@ -1,0 +1,35 @@
+    <style>
+        .we{
+            margin-top: 50px;
+        }
+        img.foot{
+            position: absolute;
+            bottom: 0;
+            margin-bottom: 0;
+            width: 100%;
+        }
+    </style>
+
+	<table class="table" width="100%" layoutH="138">
+		<tr><th width="20%">最后登入时间</th><td><?php echo $this->data['ymd']; ?></td></tr>
+		<tr><th width="20%">最后登入IP</th><td><?php echo $this->data['ip']; ?></td></tr>
+	</table>
+	<br><br><br>
+	<center>
+	<fieldset style="width:400px;margin-left:100px;"><legend>猜您想去</legend>
+		<ul>
+
+			<li><a href="/report/rptdailybasic/recent?" data-toggle="navtab" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" 
+				   data-title="日报整合版">看：日报（整合版）</a></li>
+			<li><a href="/report/rptdailybasic/recent2?" data-toggle="navtab" data-reload-warn="本页已有打开的内容，确定将刷新本页内容，是否继续？" 
+				   data-title="日报数字版">看：日报（数字版）</a></li>
+			<!--<li><a href="/manage/copartners/index?">加渠道</a></li>-->
+			<!--<li><a href="">改密码</a></li>-->
+			<br><br>
+		</ul>
+	</fieldset>
+	</center>
+
+    <div>
+<!--        <img class="foot" src="/images/welcome-foot.png" />-->
+    </div>

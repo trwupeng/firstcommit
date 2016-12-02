@@ -1,0 +1,60 @@
+# 系统升级
+
+## 更新记录
+
+| 时间    | 更新人 | 更新内容   
+| ------- | ----- | ---------------------
+|2016-6-6 | 王宁  | 建立文档    
+
+## 简介
+
+虽说是事件中心，但处理流程实际上是：
+
+【平台】 ---通过ice，udp协议，日志数据--->【记录日志（lib\services\loger）】---如果是需要处理的事件--->【事件处理（lib\services\triggers）】
+
+在事件处理中：
+
+1. 具体的处理逻辑功能是放在lib\services\evts\具体的对应类中
+2. 原则上：短信，极光尽量在事件处理中完成
+3. 注意，注意: 事件是另起的任务在跑，所以，用户更新类操作，都要retry，一般3次即可。
+
+## 三步走实现fcgi模式的ice调用（第四步是部署）
+
+### 1）参照 ice-slice目录下的文件增删改接口定义
+
+具体略
+
+### 2）写ice框架代码
+
+	slice2java --output-dir src/ ice-slice/evtcenter.ice
+	slice2php --output-dir ice-phplibs/service-interfaces/ ice-slice/logcenter.ice
+
+生成的php框架代码要改两个地方：
+
+a）跳过自动加载
+
+	 if(!interface_exists('sooh_services_evtcenter_triggers')) 
+	这种全部要改成
+	 if(!interface_exists('sooh_services_evtcenter_triggers',false))
+
+b）少了个global
+
+	在文件开头部分
+    global $sooh_services_evtcenter__t_triggersPrx;
+	这个样子的代码前面加上
+	global $IcePHP__t_string;
+
+生成的java框架代码里，只缺少实现代码：xxxI.java，参照已有代码改写一下，然后用下面的语句编译：
+
+	在 /var/www/SoohIce下面执行
+	find  src -name "*.java" > javas.txt; javac  -d ice-java-bin -extdirs ice-java-bin/libs @javas.txt;  cd ice-java-bin; jar cvfm s.jar META-INF/manifest.mf *; cd ..
+
+
+
+### 3）写调用和具体功能实现代码
+
+按照Lib\Services\其他的service类的方式写实现代码；
+对于事件额外处理，除了参照着改service类，还要参照着改Lib\Services\evts\对应的类；
+然后再在Lib\Services\Rpcservices的fetchini中设置接口的配置（设置使用的是哪个模式，父一级的package名是什么）
+
+### 最后参照《ICE系统说明》里的步骤配置重启

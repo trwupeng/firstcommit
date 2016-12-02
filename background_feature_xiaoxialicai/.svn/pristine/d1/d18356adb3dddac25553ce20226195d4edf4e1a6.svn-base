@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * 新用户阶段奖励 : 注意购买金额被强制改成1了
+ *
+ * @author wang.ning
+ */
+class NewbieStepbonus
+{
+    public static function run($view, $request, $response = null)
+    {
+        $redPacketForRegister = -1;
+        $redPacketForFirstBind = -1;
+        $redPacketForFirstcharge = -1;
+        $redPacketForFirstBuy = -1;
+        $userId = \Sooh\Base\Session\Data::getInstance()->get('accountId');
+        var_log($userId,'userId>>>>>>>>>>');
+
+        $initRedPacketForRegister = \Prj\Data\Config::get('REGISTER_RED_AMOUNT')-0;
+        $initRacketForFirstBind = \Prj\Data\Config::get('BIND_FIRST_RED_AMOUNT')[0]-0;
+        $initRacketForFirstcharge = \Prj\Data\Config::get('CHARGE_FIRST_RED_AMOUNT')[0]-0;
+        $initRacketForFirstBuy = 1000;
+
+        if (empty($userId)) {
+
+        }else{
+            $user = \Prj\Data\User::getCopy($userId);
+            $user->load();
+            if(!$user->exists()){
+                return $view->assign('code',400);
+            }else{
+                $tmp = \Prj\Data\Vouchers::getCopy($userId);
+                $db = $tmp->db();
+                $tbname = $tmp->tbname();
+                $rs = $db->getRecord($tbname, 'amount', ['codeCreate' => 'register', 'userId' => $userId]);
+                $redPacketForRegister = $rs['amount']-0;
+                if($user->getField('ymdBindcard')>0){
+                    $rs = $db->getRecord($tbname, 'amount', ['codeCreate' => 'firstBind', 'userId' => $userId]);
+                    $redPacketForFirstBind = $rs['amount']-0;
+                    if($user->getField('ymdFirstCharge')>0){
+                        $rs = $db->getRecord($tbname, 'amount', ['codeCreate' => 'firstcharge', 'userId' => $userId]);
+                        $redPacketForFirstcharge = $rs['amount']-0;
+                        if($user->getField('ymdFirstBuy')>0){
+                            $rs = $db->getRecord($tbname, 'amount', ['codeCreate' => 'firstBuy', 'userId' => $userId]);
+                            $redPacketForFirstBuy = $rs['amount']-0;
+                        }
+                    }
+                }
+            }
+        }
+        /*
+        'register'=>'加入小虾，丰富奖品任你拿',
+        'bind'=>'请给我们一个机会为你打钱',
+        'recharge'=>'您充值的每一分钱都将由新浪支付托管',
+        'invest'=>'很多奖励，只有第一次才会有的',
+        */
+       $noticeArr = \Prj\Data\Config::get('NewbieStepbonus');
+        if(empty($noticeArr))$noticeArr = \Prj\Consts\NewbieStepbonus::$notice;
+        $view->assign('NewbieStepbonus', [
+            "registerRedPackage" => [
+                'init'=>$initRedPacketForRegister,
+                'amount'=>$redPacketForRegister,
+                'notice'=>$noticeArr['register'],
+                ],
+            "bindCardRedPackage" => [
+                'init'=>$initRacketForFirstBind,
+                'amount'=>$redPacketForFirstBind,
+                'notice'=>$noticeArr['bind'],
+                ],
+            "rechargeRedPackage" => [
+                'init'=>$initRacketForFirstcharge,
+                'amount'=>$redPacketForFirstcharge,
+                'notice'=>$noticeArr['recharge'],
+                ],
+            "invesRedPackage" => [
+                'init'=>$initRacketForFirstBuy,
+                'amount'=>$redPacketForFirstBuy,
+                'notice'=>$noticeArr['invest'],
+                ],
+        ]);
+        if(!empty($userId)){
+            $view->assign('phone',$user->getField('phone'));
+        }
+
+    }
+}

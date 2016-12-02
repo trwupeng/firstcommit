@@ -1,0 +1,60 @@
+
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1),'edit'); ?>" method="post" id="contracts-exportChecked" style="display: none;">
+</form>
+<div class="bjui-pageContent">
+<?php 
+$rs=$this->rs;
+//var_log($rs,'>>>>>>>>>>');
+foreach ($rs as $r){
+   
+//   if($r['value']=='1'){
+//      // echo '<td><input type="text" value="是">'.$r['des'].'</td>';
+//      echo '<td>';
+//      echo $r['des'].':';
+//      echo '<select name="some" data-toggle="selectpicker"><option value="name1">否</option>
+//               <option value="name2">是</option></select>';
+//      echo '</td>'.'<br>';
+//   }elseif($r['value']=='0'){
+//       echo '<td>';
+//       echo $r['des'].':';
+//       echo '<select name="some" data-toggle="selectpicker"><option value="name1">是</option>
+//              <option value="name2">否</option></select>';
+//       echo '</td>'.'<br>';
+ // }
+  if(strlen($r['value'])<10 && strlen($r['value'])>1){
+      echo '<td>';
+      echo $r['des'].':';
+      //echo $r['value'];
+      echo '<input type="text" value="'.($r['value']/100).'">';
+      echo '</td>'.'<br>';
+  }elseif (strlen($r['value'])=='10'){
+      echo '<td>';
+      echo $r['des'].':';
+      echo '<input type="text" data-toggle="datepicker" value="'.\Prj\Misc\View::fmtYmd($r['value']).'">';
+      //echo \Prj\Misc\View::fmtYmd($r['value']);
+      echo '</td>'.'<br>';
+  }else{
+      echo '<td>';
+      echo $r['des'].':';
+      echo '<input type="text" value="'.$r['value'].'">';
+      echo '</td>'.'<br>';
+  }
+   echo '<br>';
+ 
+}
+
+
+?>
+
+</div>
+
+
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <?php $doit=$this->type=='edit'?'通过':'保存'; 
+        //var_log($doit,'doit>>>>>>>>>>');
+        ?>
+       <!--   <li><button type="submit" class="btn-green" data-icon="save"><?php echo $doit?></button></li>-->
+    </ul>
+</div>

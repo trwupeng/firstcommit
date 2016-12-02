@@ -1,0 +1,24 @@
+<div class="bjui-pageContent">
+    <form action="<?php echo \Sooh\Base\Tools::uri() ?>" id="j_custom_form" data-toggle="validate" data-alertmsg="false">
+        <input type="hidden" name="custom.id" value="edce142bc2ed4ec6b623aacaf602a4de">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+				<?php
+				$form = \Sooh\Base\Form\Broker::getCopy('default');
+				$renderer = new \Prj\Misc\FormRenderer;
+				$form->setRenderer($renderer);
+
+				$tmp = $form->renderDefault("\n".'<tr><td><label  class="control-label x85">{capt}：</label></td><td>{input}&nbsp;</td></tr>');
+				$tmp = str_replace('<input ', '<input style="width:500px"', $tmp);
+				echo str_replace("class=\"control-label", "style=\"width:200px\" class=\"control-label", $tmp);
+				?>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>小虾理财注册页a</title>
+	<link type="text/css" rel="stylesheet" href="css/common.css"/>
+	<?php
+	//加载css
+	$cssFiles = $this->cssFiles;
+	if (!empty($cssFiles)) {
+		if (is_array($cssFiles)) {
+			foreach ($cssFiles as $v) {
+				echo '<link type="text/css" rel="stylesheet" href="' . $v . '" />';
+			}
+		} else {
+			echo '<link type="text/css" rel="stylesheet" href="' . $cssFiles . '" />';
+		}
+	}
+
+	//加载js
+	$jsFiles = $this->jsFiles;
+	if (!empty($jsFiles)) {
+		if (is_array($jsFiles)) {
+			foreach ($jsFiles as $v) {
+				echo '<script src="' . $v . '"></script>';
+			}
+		} else {
+			echo '<script src="' . $jsFiles . '"></script';
+		}
+	}
+	?>
+	<script src="js/common.js"></script>
+
+	<h1>推广-注册页</h1>
+</head>
+<body>
+<table>
+	<form action="" method="get">
+		<input type="hidden" name="clientType" value="<?php echo $this->clientType; ?>">
+		<input type="hidden" name="contractId" value="<?php echo $this->contractId; ?>">
+		<input type="hidden" name="clientId" value="<?php echo $this->clientId ?>">
+		<input type="hidden" name="clientSecret" value="<?php echo $this->clientSecret ?>">
+		<input type="hidden" name="protocol" value="2">
+		<input type="hidden" name="contractData" value="">
+		<tbody>
+		<tr>
+			<td>手机号：</td>
+			<td><input type="text" name="phone"></td>
+		</tr>
+		<tr>
+			<td>短信验证码：</td>
+			<td><input type="text" name="smsCode"></td>
+		</tr>
+		<tr>
+			<td>密码：</td>
+			<td><input type="text" name="password"></td>
+		</tr>
+		<tr>
+			<td>邀请码：</td>
+			<td><input type="text" name="invitationCode"></td>
+		</tr>
+		<tr>
+			<td class="button"><input type="button" id="ajaxSubmit" value="提交"></td>
+		</tr>
+		</tbody>
+	</form>
+</table>
+<script type="text/javascript">
+	$('#ajaxSubmit').click(function () {
+		var data = $('form').serializeArray();
+
+		$.getJSON(fmtUrl('oauth/webReg', 'www'), validateForms(data), function (data) {
+			console.log(data.msg);
+		});
+
+	});
+</script>
+</body>
+</html>

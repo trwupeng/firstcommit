@@ -1,0 +1,21 @@
+# Configuration file (06/03/16 18:31:25.989)
+
+# Server configuration
+Ice.Admin.ServerId=XXMsg201
+Ice.Admin.Endpoints=tcp -h localhost
+Ice.ProgramName=XXMsg201
+# Object adapter bysmsAdapter
+bysmsAdapter.Endpoints=udp -h 10.144.152.146
+bysmsAdapter.AdapterId=XXMsg201.bysmsAdapter
+bysmsAdapter.ReplicaGroupId=XXAdaptersMS
+# Object adapter bypushAdapter
+bypushAdapter.Endpoints=udp -h 10.144.152.146
+bypushAdapter.AdapterId=XXMsg201.bypushAdapter
+bypushAdapter.ReplicaGroupId=XXAdaptersMP
+# Server descriptor properties
+Ice.ThreadPool.Client.Size=4
+Ice.ThreadPool.Server.SizeMax=30
+Ice.ThreadPool.Server.Size=10
+Ice.StdErr=ice-writable/iceNodes/node100/XXMsg201.err
+Ice.StdOut=ice-writable/iceNodes/node100/XXMsg201.out
+Ice.Default.Locator=SzcIceGrid/Locator:tcp -h 127.0.0.1 -p 4061

@@ -1,0 +1,14 @@
+<div class="bjui-pageContent">
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+
+	if (isset($this->_pkey_val_)) {
+		echo '<br />';
+		echo '<br />';
+		echo '<br />';
+		echo \Prj\Misc\View::btnAjax('立即扣款', \Sooh\Base\Tools::uri(['_pkey_val_' => $this->_pkey_val_], 'chargeback'), '扣款过程不可逆,确定执行扣款操作?');
+		echo '<span>&nbsp;&nbsp;*立即扣款，等待网关处理</span>';
+	}
+	?>
+</div>

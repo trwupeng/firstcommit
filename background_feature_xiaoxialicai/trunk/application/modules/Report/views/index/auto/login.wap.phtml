@@ -1,0 +1,50 @@
+
+<script src="/BJUI/js/jquery-1.7.2.min.js"></script>
+<center><div defh="150" class="panel" style="display: block;width:400px;">
+		<div class="panelHeader"><div class="panelHeaderContent"><h1 style="cursor: move;">登入</h1></div></div>
+		<div class="panelContent" style="padding-bottom:26px;">
+			<script>
+				function myRetChk(arg){
+					if(arg.statusCode==DWZ.statusCode.ok){
+						window.location.href='index.php';
+					}else{
+						alert(arg.message);
+					}
+				}
+				api_host= '<?php echo \Sooh\Base\Tools::uri(null,'validimg','index')?>';
+
+				function check(){
+					var url = '<?php echo \Sooh\Base\Tools::uri(null,'index','index')?>';
+					$.post(url,{"u":$("[name='u']").val(),"p":$("[name='p']").val()},function(data){
+						if(data['statusCode']==200)
+						{
+							window.location.href=url;
+						}
+						else
+						{
+							$("#warn").html(data['message']);
+						}
+					});
+					return false;
+				}
+			</script>
+	<div class="pageContent">
+		<form id="frmLogin" method="post" action="<?php echo \Sooh\Base\Tools::uri()?>" class="pageForm" onsubmit="return check()">
+			<div class="pageFormContent" layouth="58">
+				<div class="unit">账号：<input size="20" name="u" class="required" type="text" placeholder="输入账号" ></div>
+				<div class="unit">密码：<input size="20" name="p" class="required" type="password" placeholder="输入密码" ></div>
+				<!--<div class="unit">验证：<input size="5" name="valid" class="required" id="validCodeImg" type="text" placeholder="输入校验码" >
+				<img id="validCodeImg" src="<?php echo \Sooh\Base\Tools::uri(array('rand'=>rand(1000000,9999999)),'validimg','index')?>"  onclick="this.src=api_host+'&'+Math.random();">
+				</div>-->
+				<!--<a href="#" onclick="document.getElementById('validCodeImg').src=api_host+'&'+Math.random();">看不清，换一张</a>-->
+			</div>
+			<div class="button" style="float:none">
+				<div class="buttonContent" style="float:none"><button type="submit">　　　　　　 　登入　　　 　　　</button></div>
+			</div>
+			<div style="color:red" id="warn"></div>
+		</form>
+	</div>
+</div>
+<div class="panelFooter"><div class="panelFooterContent"></div></div>
+</div>
+	</center>

@@ -1,0 +1,30 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" method="get" action="<?php echo \Sooh\Base\Tools::uri([], 'phone'); ?>"
+          data-toggle="ajaxsearch">
+        <lable>手机号：</lable>
+        <input id="phone" type="text" name="phone" value="<?php echo $this->phone; ?>"/>
+        <button type="submit" class="btn btn-green">查询</button>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped">
+        <tbody>
+        <?php
+        $rs = $this->rs;
+        if (!empty($rs)) {
+            echo "<td>";
+            echo $rs;
+            echo "</td>";
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="bjui-pageFooter">
+    <ul>
+        <li>
+            <button type="button" class="btn-close" data-icon="close">取消</button>
+        </li>
+    </ul>
+</div>

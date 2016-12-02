@@ -1,0 +1,20 @@
+<?php
+$done = $this->CardBound;
+
+if(!empty($done)){
+	\Prj\Misc\View::realUrl($this->returnUrl,true);
+	
+}else{
+	$this->htmlHeadPart('<!-- head part -->');
+	echo $this->renderInc('head');
+	if($this->code!=200){
+		echo "<font color=red>".$this->msg."</font><br>";
+	}
+		
+	$frm = \Sooh\Base\Form\Broker::getCopy('default');
+	echo "<table>";
+	echo $frm->renderFormTag();
+	echo $frm->renderDefault();
+	echo $frm->renderSubmit('绑卡');
+	echo '</form></table>';
+}

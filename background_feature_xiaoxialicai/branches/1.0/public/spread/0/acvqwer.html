@@ -1,0 +1,43 @@
+<!DOCTYPE html><!--STATUS OK-->
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta content="always" name="referrer">
+    <script src="/conf/static.js"></script>
+    <script>
+        $globals.loadConf();
+        $globals.dl('js', 'jquery');
+        $globals.dl('js', 'common');
+//        $globals.dl('css', 'common');
+    </script>
+</head>
+<body>
+<span id="tst" class="sample"></span>
+<script>
+    $globals.onLoaded = function () {
+
+        $.getJSON($globals.urlJson('loger/openpage', {tst: "中文2"}, 'api'), function (data) {
+            console.log(data);
+        });
+
+        $.getJSON($globals.urlJsonp('loger/openpage', {target: "test"}, 'api'), function (json) {
+            console.log(json);
+        });
+
+        $.getJSON($globals.urlJsonp('contract/channel1', {shortId: 'acvqwer'}, 'api'), function (data) {
+            if (data.code == 200) {
+                $globals.contractId = data.contractId.toString();
+                addCookie('contractId', $globals.contractId, 24 * 3, $globals.cookieDomain);
+
+                var url = $globals.urls['api'] + 'spread/' + $globals.contractId.substr(0, 4) + '/' + $globals.contractId.substr(4) + '.html';
+                window.location.href = url;
+            } else {
+                alert(data.msg);
+            }
+        });
+    };
+</script>
+</body>
+</html>
+</html>

@@ -1,0 +1,41 @@
+<?php
+$errorMsg = $this->errorMsg;
+if ($errorMsg) {
+	die($errorMsg);
+}
+?>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script src="/conf/static.js"></script>
+	<script>
+		$globals.loadConf();
+		$globals.dl('js', 'jquery');
+		$globals.dl('js', 'common');
+		$globals.dl('css', 'common');
+	</script>
+	<link rel="stylesheet" href="/spread/Movehtml/css/hongbao_after.css">
+	<title>APP红包——领取后</title>
+</head>
+
+<body>
+<div class="remind">
+	<div class="laba"><img src="/spread/Movehtml/img/iconfont-laba.png"></div>
+	<div class="kuangkuang">恭喜您！已获得小虾理财红包！</div>
+</div>
+<div class="hongbao_after">
+	<div class="time">
+		<div class="money"><span>¥</span><?php echo $this->amount / 100; ?></div>
+		<p class="date">有效期至<?php echo date('Y年m月d日 H:i', strtotime($this->expired)); ?></p>
+	</div>
+	<p class="number">红包已放至账户 &nbsp;&nbsp;<span><?php echo $this->phone; ?></span></p>
+	<p class="use">登录App即可使用</p>
+
+</div>
+<div class="skip">
+	<input type="button" value="前往XXX(待定)" class="btn"/>
+</div>
+</body>
+</html>

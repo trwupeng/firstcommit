@@ -1,0 +1,131 @@
+<?php $randNum = rand(1000,9999); ?>
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1),'returnPlan'); ?>" method="post" id="wares-exportChecked-<?php echo $randNum; ?>" style="display: none;">
+</form>
+<div class="bjui-pageHeader" style="">
+    <?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	//echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+    ?>
+	<div class="pull-right">
+
+
+
+		<div class="btn-group" style="display: none">
+
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <li><a  href="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1,'where'=>$this->where),'returnPlan'); ?>">导出全部</a></li>
+                        <li><a class="wares-export" style="cursor: pointer">导出<span style="color: red">选中</span></a></li> -->
+                        <!--
+                        <li class="divider"></li>
+                        <li><?php echo \Prj\Misc\View::btnDelChooseInDatagrid('xxx'); ?></li>
+                        -->
+                    </ul>
+        </div>
+        <script>
+            /*
+             构造表单 post 方法 提交
+            */
+
+            var ids = new Array();
+            $('.wares-export').click(function(){
+                if(ids.length==0)
+                {
+                    $(document).alertmsg('error', '无选中选项');
+                    return false;
+                }
+               // $.CurrentNavtab.find('#dom-id')
+                $('#wares-exportChecked').html('');
+                for(var i in ids)
+                {
+                    var reg = /function[.]*/;
+                    if(reg.exec(ids[i])!=null)
+                    {
+                        continue;
+                    }
+                    $('#wares-exportChecked').append("<input type='hidden' name='ids[]' value='"+ids[i]+"'>");
+                }
+                $('#wares-exportChecked').submit();
+                //window.location.href="/index.php?__=manage/managers/index&__EXCEL__=1&ids="+ids;
+                return false;
+            });
+        </script>
+	</div>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+
+				$headers = $this->headers;
+				foreach($headers as $k=>$v){
+					echo "<th width=\"".$v[1]."\" >".$v[0]."</th>";//data-order-field="operation" align="center" //
+				}
+
+				?>
+                <!--<th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>-->
+                <th width="30"><?php echo \Prj\Misc\View::thCheckBox(); ?></th>
+                <th width="200">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+			<?php
+            $statusColor = [
+                \Prj\Consts\Wares::status_abandon=>'red',
+                \Prj\Consts\Wares::status_new=>'orange',
+                \Prj\Consts\Wares::status_ready=>'',
+                \Prj\Consts\Wares::status_open=>'green',
+                \Prj\Consts\Wares::status_go=>'',
+            ];
+			$records = $this->records;
+			if(!empty($records)){
+				foreach($records as $r){
+                    $isPay = $r['_isPay'];
+                    $ahead = $r['_ahead'];
+                    $status = $r['_status'];
+                    $remitStatus = $r['_remitStatus'];
+                    unset($r['_status']);
+                    unset($r['_isPay']);
+                    unset($r['_ahead']);
+                    unset($r['_remitStatus']);
+                   echo "<tr>";
+                    foreach($r as $v)
+                    {
+                        echo "<td>";
+                        echo $v;
+                        echo "</td>";
+                    }
+                    echo "<td>";
+                   // var_log($r,'r>>>');
+                    $pkey = \Prj\Misc\View::encodePkey(['id'=>$r['id'],'waresId'=>$r['waresId'],'ymd'=>$r['planDateYmd'],'interest'=>$r['interest'],'amount'=>$r['amount'],'ahead'=>$ahead,'confirmSN'=>$r['sn']]);
+                    echo \Prj\Misc\View::trCheckBox($pkey);
+                    echo "</td>";
+                    echo "<td>";
+
+                   // if($remitStatus!=\Prj\Consts\PayGW::success){
+                        echo \Prj\Misc\View::btnEditInDatagrid('企业户打款给借款人(正常)',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'remit'),'','','btn-red').' ';
+                        //todo 先禁掉 echo \Prj\Misc\View::btnEditInDatagrid('企业户打款给借款人(提前)',\Sooh\Base\Tools::uri(['_pkey'=>$pkey,'ahead'=>1],'remit'),'','','btn-red').' ';
+                   // }else{
+                        if(!$isPay){
+                            if(!$ahead){
+                                echo \Prj\Misc\View::btnEditInDatagrid('借款人还款',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'confirm'));
+                            }else{
+                                //todo 先禁掉  echo \Prj\Misc\View::btnEditInDatagrid('借款人提前还款',\Sooh\Base\Tools::uri(['_pkey'=>$pkey,'ahead'=>1],'confirm'));
+                            }
+                        }else{
+                            echo " ";
+                            //if($r['batchId'])
+                            echo \Prj\Misc\View::btnDefaultInDatagrid('用户回款',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'returnplanuser'));
+                            echo " ";
+                            if( $status!=\Prj\Consts\PayGW::abondon)echo \Prj\Misc\View::btnAjax('用户批量回款',\Sooh\Base\Tools::uri(['_pkey'=>$pkey],'returnplanuserAll'),'确认用户批量回款?');
+                        }
+                   // }
+                    echo "</td>";
+                   echo "</tr>";
+				}
+			}
+			?>
+       </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

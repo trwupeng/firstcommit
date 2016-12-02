@@ -1,0 +1,25 @@
+
+发放奖励道具增加开关
+===
+## 更新内容 
+* 发放奖励之前，检查此道具是否被关闭，关闭则不发放
+* 只增加了首次登录app时发放奖励的开关，默认为打开
+
+## 实现
+* `db->config` 增加配置`ITEM_GIVE_SWITCH`
+  内容大致为：
+```php
+    //example-首次打开某个开关前，一定要经过严格的测试
+    protected $switchExample = [
+        'NewFirstLoginAppRedPacket' => 1,
+        'NewRegisterRedPacket' => 1,
+        'NewFirstBindRedPacket' => 1,
+        'NewFirstBuyRedPacket' => 1,
+        'NewFirstBuyForInviteRedPacket' => 1,
+        'NewFirstChargeRedPacket' => 1,
+        'NewFinallyOrderRedPacket' => 1,
+    ];//开关
+```
+*  配置说明：将道具值设为非1代表关闭，没有或者未设置则代表打开
+## 注意事项
+* 首次打开某个开关前，一定要经过严格的测试

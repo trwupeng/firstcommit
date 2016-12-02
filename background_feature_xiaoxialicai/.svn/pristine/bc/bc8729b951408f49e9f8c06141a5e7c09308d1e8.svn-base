@@ -1,0 +1,110 @@
+<style>
+    *{
+        font-size: 12px;
+        color:#3b3b3b;
+        font-family: 微软雅黑;
+    }
+    table{
+        width: 100% !important;
+        border-collapse: collapse;
+    }
+    td{
+        border: 1px solid #E0E0E0;
+        padding: 8px;
+        text-align: center;
+    }
+    h1{
+        font-size: 13px;
+    }
+    a{
+        text-decoration: none;
+        color:#E53D3A;
+    }
+    .title{
+        background-color: #fff0ee;
+        width: 40%;
+    }
+
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<?php
+$view = $this->view;
+?>
+<div style="width: 100%">
+    <h1>项目详情</h1>
+    <div>
+        <span>
+            <?php echo $this->data['a']; ?>
+        </span>
+    </div>
+    <h1>借款人信息</h1>
+    <div>
+        <table>
+            <?php
+            /**
+             * 车贷模板
+             */
+            $tag = 'b';
+            unset($view::$_allTabs[$tag]['fields']['idCard']);
+            foreach($view::$_allTabs[$tag]['fields'] as $k=>$v){
+                echo '<tr>';
+                echo '<td class="title">';
+                echo $v;
+                echo '</td>';
+                echo '<td>';
+                echo $this->data[$tag][$k];
+                echo '</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+    </div>
+    <h1>抵押物信息</h1>
+    <div>
+        <table>
+            <?php
+            $tag = 'c';
+            foreach($view::$_allTabs[$tag]['fields'] as $k=>$v){
+                echo '<tr>';
+                echo '<td class="title">';
+                echo $v;
+                echo '</td>';
+                echo '<td>';
+                echo $this->data[$tag][$k];
+                echo '</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+    </div>
+    <h1>安全审核</h1>
+    <div>
+        <table>
+            <tr>
+                <td class="title">审核资料</td>
+                <td class="title">审核人员</td>
+                <td class="title">明细</td>
+            </tr>
+            <?php
+            $tag = 'd';
+            foreach($view::$_allTabs[$tag]['fields'] as $k=>$v){
+                echo '<tr>';
+                echo '<td>';
+                echo $v['title'];
+                echo '</td>';
+                echo '<td>';
+                echo $this->data[$tag][$k]['name'];
+                echo '</td>';
+                echo '<td>';
+                echo '<a href="jump_'.$k.'">查看</a>';
+                echo '</td>';
+                echo '</tr>';
+            }
+            ?>
+        </table>
+    </div>
+</div>

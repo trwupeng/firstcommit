@@ -1,0 +1,322 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>小虾理财</title>
+	<meta name="viewport" id="viewport"
+	      content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="stylesheet" href="/share/css/wap-1.css">
+	<link rel="stylesheet" href="/share/css/hongbao.css">
+	<link rel="stylesheet" href="/share/css/unclaimed.css">
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="/share/js/wap.js"></script>
+	<script type="text/javascript">
+	</script>
+</head>
+<body>
+<div class="banner"><img src="/share/images/banner.png"></div>
+<div class="original htmlconent">
+	<div class="tel_info">请输入领取现金红包的手机号码</div>
+	<div class="border_line">
+	   <input type="tel" maxlength="11" class="input01 validatePhone" id="input01">
+	</div>
+	<div class="submit">
+	    <input type="button" value="确定" class="btn" id="submit">
+	</div>
+</div>
+
+<div class="received" style="display:none;" id="received">
+	<div class="info">
+		<p class="money">￥<span>10.00</span></p>
+		<p class="valid" style="margin-top:0.5rem;">有效期至：2015年10月12日  23:59:59</p>
+	</div>
+	<p class="xianjin">现金红包已存放入<span class="tel">13800000001</span>的账户中<a href="javascript">修改&gt;</a></p>
+	<div class="goto">
+		<input type="button" value="前往小虾理财" class="btn">
+	</div>
+</div>
+<div class="received_more" style="display:none;" id="received_more">
+	<div class="info">
+		<span class="tubiao"><img src="/share/images/tubiao.png"></span>
+		<p class="money">￥<span>10.00</span></p>
+		<p class="valid">有效期至：2015年10月12日  23:59:59</p>
+	</div>
+	<p class="xianjin">现金红包已存放入<span class="tel">13800000001</span>的账户中<a href="javascript">修改&gt;</a></p>
+	<div class="goto">
+		<input type="button" value="前往小虾理财" class="btn">
+	</div>
+</div>
+<div class="limit" style="display:none;" id="limit">
+	<div class="limit_hongbao"></div>
+	<p class="most">每天最多可领取5个分享红包</p>
+	<div class="goto">
+		<input type="button" value="前往小虾理财" class="btn">
+	</div>
+</div>
+<div class="finish" style="display:none;" id="finish">
+	<div class="finish_hongbao"></div>
+	<p class="nomatter">没抢到红包？没关系</p>
+	<p class="more">前往小虾理财，更多红包等着你</p>
+	<div class="goto">
+		<input type="button" value="前往小虾理财" class="btn">
+	</div>
+</div>
+<div class="overdue" style="display:none;" id="overdue">
+	<div class="overdue_hongbao"></div>
+	<p class="nomatter">没抢到红包？没关系</p>
+	<p class="more">前往小虾理财，更多红包等着你</p>
+	<div class="goto">
+		<input type="button" value="前往小虾理财" class="btn">
+	</div>
+</div>
+
+<div class="qianghongbao">
+	<div class="title">
+		<div class="left"></div>
+		<div class="center">看看谁抢了红包</div>
+		<div class="right"></div>
+	</div>
+</div>
+
+<div class="shade_modifytel" style="display: none;">
+	<div class="modify">
+		<div class="current_num">当前手机号码：<span>
+			</span></div>
+		<div class="border_line01">
+			<input type="tel" maxlength="11" class="input04 validatePhoneUpd" placeholder="请输入新的手机号码">
+		</div>
+		<div class="submit01">
+			<input type="button" value="确定" id="changePhone" class="btn01">
+		</div>
+		<p class="explain">说明：下次领取的福利将自动发放入新帐号</p>
+		<div class="close"><img src="/share/images/close01.png"></div>
+		<div class="tk"></div>
+	</div>
+</div>
+
+<div class="shade" style="display: none;">
+	<div class="reg">
+		<div class="hongbao">小虾理财现金红包
+			<div class="close"><img src="/share/images/close.png"></div>
+		</div>
+		<div class="money"><img src="/share/images/tishi.png"></div>
+		<p class="zhanghu">输入验证码，把红包收进账户</p>
+
+		<div class="kuang">
+			<input type="tel" placeholder="请输入验证码" class="input02" maxlength="6" id="yzm_input">
+			<input type="button" value="获取验证码" class="yzm" id="yzm_btn">
+		</div>
+		<div class="income">
+			<input type="button" value="收进账户" class="input03" id="income">
+		</div>
+		<p class="agreement">同意<a href="javascript:;">《注册协议》</a></p>
+
+		<div class="tk"></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+	var number = 60, timer;
+	$(function () {
+		$('body').delegate('#updPhone', 'click', function() {
+			$('.shade_modifytel').find('.modify>.current_num>span').text(gPhone);
+			$('.shade_modifytel').show();
+		});
+
+		$('.validatePhoneUpd').blur(function() {
+			var _val = $(this).val();
+			if (checkPhone(_val)) {
+				$("#changePhone").attr("disabled",false);
+				$("#changePhone").removeClass('btn');
+				$("#changePhone").addClass("btn_highlight");
+			}
+		});
+
+		$('body').delegate('#changePhone', 'click', function(){
+			var phone = $('.validatePhoneUpd').val();
+			if (checkPhone(phone)) {
+				$.ajax({
+					type: 'GET',
+					url: '/index.php?__=public/updPhone&__VIEW__=json',
+					data: {'phone':phone},
+					success: function(data) {
+						if (data.code == 200) {
+							$('.received_more').find('.xianjin').remove();
+							var _content = '<p class="xianjin">本次现金红包已存放入<span class="tel">' + phone + '</span>的账户中</p>';
+							_content += '<p class="next_zhanghu">下一次福利发放至<span class="tel01">' + phone + '</span>的账户中 <a href="javascript:void(0);" id="updPhone">修改&gt;</a></p>';
+							$('.received_more').find('.info').after(_content);
+
+							gPhone = phone;
+							$('.validatePhoneUpd').val('');
+							$('.shade_modifytel').hide();
+						} else {
+							showTK('修改失败，请稍后再试');
+						}
+					},
+					error: function(data) {
+						showTK('修改失败，请稍后再试');
+					}
+				});
+			} else {
+				showTK('手机号不正确');
+			}
+		});
+
+
+		$('.close').click(function() {
+			$('.shade, .shade_modifytel').hide();
+		});
+
+		$('.validatePhone').blur(function () {
+			var _val = $(this).val();
+			if (checkPhone(_val)) {
+				$("#submit").attr("disabled",false);
+				$("#submit").removeClass('btn');
+				$("#submit").addClass("btn_highlight");
+			}
+		});
+
+		$('#submit,#income').click(function () {
+			var phone = $('.validatePhone').val();
+			var smscode = $('#yzm_input').val();
+			var voucherId = getParameter('id');
+			if (checkPhone(phone) && voucherId) {
+				$.ajax({
+					type: 'GET',
+					url: '/index.php?__=public/receiveVoucher&__VIEW__=json',
+					data: {'id':voucherId,'phone':phone,'smscode':smscode},
+					success: function(data) {
+						if (data.code == 200) {
+							$('.htmlconent').hide();
+							var receive = $('.received');
+							receive.find('.info>.money>span').text(data.amount);
+							receive.find('.info>.valid').text('有效期至：' + data.dtExpired);
+							receive.find('.xianjin>.tel').text(phone);
+							if (data.isReg) {
+								$('.shade').hide();
+							}
+							$("div[class$='received']").show();
+						} else if (data.code == 201001) {
+							//红包已经领完了
+							$('.htmlconent').hide();
+							$("div[class$='finish']").show();
+						} else if (data.code == 201002) {
+							//红包已经过期
+							$('.htmlconent').hide();
+							$("div[class$='overdue']").show();
+//						} else if (data.code ==  201003) {
+//							//您已经领取过了
+//
+//							$('.htmlconent').hide();
+//							$("div[class$='received_more']").show();
+						} else if (data.code == 201004) {
+							//领过太多红包了
+							$('.htmlconent').hide();
+							$("div[class$='limit']").show();
+						} else if (data.code == 202001) {
+							//发送短信验证码成功了
+							$('.htmlconent').hide();
+							$('.shade').show();
+							timer = setInterval(sleepss,1000);
+						} else if (data.code == 202002) {
+							//发送短信验证码失败了
+							$('.htmlconent').hide();
+							$('.shade').show();
+							showTK('验证码发送失败，请稍后再试');
+						}
+					},
+					error: function(data) {
+					}
+				});
+			}
+		});
+
+		$('#yzm_btn').click(function() {
+			var phone = $('.validatePhone').val();
+			if (checkPhone(phone)) {
+				$.ajax({
+					type: 'GET',
+					url: '/index.php?__=oauth/sendInvalidcode&__VIEW__=json',
+					data: {'phone':phone},
+					success: function(data) {
+						if (data.code == 200) {
+							showTK('发送短信验证码成功');
+						} else {
+							showTK('发送失败请重试');
+						}
+						timer = setInterval(sleepss,1000);
+					},
+					error: function() {
+						showTK('发送失败请重试');
+					}
+				});
+			}
+		});
+	});
+
+	function isEmpty(str) {
+		if ((str == null) || (str.length == 0)) return true;
+		else return (false);
+	}
+
+	function isDigit(s) {
+		var patrn = /^\d+(\.\d+)?$/;
+		if (!patrn.exec(s)) return false
+		return true
+	}
+
+	function isMobile(s) {
+		var patrn = /^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i;
+		if (!patrn.exec(s)) return false
+		return true
+	}
+
+	function checkPhone(val) {
+		if (!isEmpty(val)) {
+			if (isDigit(val)) {
+				if (val.length != 11 || !isMobile(val)) {
+					return false
+				} else {
+					return true;
+				}
+			}
+		}
+		return false
+	}
+
+	function getParameter(paramName) {
+		var searchString = window.location.search.substring(1), i, val, params = searchString.split("&");
+		for (i = 0; i < params.length; i++) {
+			val = params[i].split("=");
+			if (val[0] == paramName) {
+				return decodeURIComponent(val[1]);
+			}
+		}
+		return null;
+	}
+
+	function showTK(msg) {
+		$('.tk').show();
+		$(".tk").html(msg);
+		setTimeout("$('.tk').fadeOut(2000)", 2000);
+	}
+
+	//发送短信后倒计时
+	function sleepss(){
+		number--;
+		if(number<=0){
+			clearInterval(timer);
+			$("#yzm_btn").attr("disabled",false);
+			$("#yzm_btn").removeClass();
+			$("#yzm_btn").addClass("yzm");
+			$("#yzm_btn").val("重获验证码");
+		} else  {
+			$("#yzm_btn").removeClass();
+			$("#yzm_btn").addClass("yzm_gray");
+			$("#yzm_btn").val("剩余" + number +"秒");
+			$("#yzm_btn").attr("disabled",true);
+		}
+	};
+</script>
+</html>

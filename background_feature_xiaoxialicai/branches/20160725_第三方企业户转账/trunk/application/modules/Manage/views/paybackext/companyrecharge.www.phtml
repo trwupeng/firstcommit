@@ -1,0 +1,17 @@
+<div class="bjui-pageContent">
+    金额(元):
+    <input class="conmpanyrecharge-amount" type="text" name="amount" />
+    <button class="conmpanyrecharge-submit">充值</button>
+    <script>
+        $(function(){
+            $('.conmpanyrecharge-submit').click(function(){
+                var amount = $('.conmpanyrecharge-amount').val();
+                if(!amount){
+                    return alert('请输入金额!');
+                }
+                window.open("<?php echo \Sooh\Base\Tools::uri([],'companyRecharge'); ?>amount="+amount);
+            });
+        });
+    </script>
+</div>
+

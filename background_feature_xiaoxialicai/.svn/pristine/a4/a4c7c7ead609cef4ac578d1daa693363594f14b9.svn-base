@@ -1,0 +1,97 @@
+<?php $rand = rand(1000,9999); ?>
+<div class="bjui-pageContent rand_<?php echo $rand; ?>">
+    <!--
+    <a href="/manage/assetc/check?" class="btn btn-default" data-toggle="ajaxload" data-target="#myLoadDiv1">单击加载内容</a>
+    <div id="myLoadDiv1" ></div>
+    -->
+    <script>
+        <?php
+             if($this->FormOp=='修改'){
+                $jsid = '修改';
+            }else{
+                $jsid = 'manage_warese_edit';
+            }
+        ?>
+        $("[name='viewTPL']").change(function(e){
+            console.log(this.value);
+            <?php
+            if($this->type=='check'){
+                echo 'return;';
+            }
+            ?>
+            $(this).navtab({id:'<?php echo $jsid; ?>', url:'<?php echo \Sooh\Base\Tools::uri(['_pkey_val_'=>$this->_pkey_val_],'edit'); ?>&viewTPL='+this.value, title:'<?php echo $this->FormOp; ?>'});
+        });
+        $("[name='assetId']").change(function(e){
+            console.log(this.value);
+            $(this).navtab({id:'<?php echo $jsid; ?>', url:'<?php echo \Sooh\Base\Tools::uri(['_pkey_val_'=>$this->_pkey_val_],'edit'); ?>&assetId='+this.value, title:'<?php echo $this->FormOp; ?>'});
+        });
+        //$this->editor->inputShow()
+    </script>
+
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->getEditStandard(\Sooh\Base\Form\Broker::getCopy('default'),4,$this->editor->inputShow());
+    ?>
+
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <?php $doit = $this->type=='check'||$this->type=='checkSale'?'通过':'保存'; ?>
+        <li><button type="submit" class="btn-green" data-icon="save"><?php echo $doit; ?></button></li>
+        <?php if($this->type=='check'||$this->type=='checkSale'){ ?>
+        <li><a type="button" class="btn btn-default" href="<?php echo \Sooh\Base\Tools::uri(array('_pkey_val_'=>$this->_pkey_val_,'type'=>$this->type),'reject'); ?>" data-toggle="doajax" data-confirm-msg="确定要驳回吗？">驳回</a></li>
+        <?php } ?>
+    </ul>
+</div>
+
+
+<script>
+    var addNDays=function(date,n){
+        var time=date.getTime();
+        var newTime=time+n*24*60*60*1000;
+        return new Date(newTime);
+    };
+    var fillYmdPayPlan = function(){
+        var num = $("[name='deadLine']").val();
+        var unit = $("[name='dlUnit']").val();
+        var startYmd = $("[name='timeStartPlan']").val();
+        var days = unit=='月'?num*30:num;
+        var timeObj = new Date(startYmd);
+        var newTimeObj = addNDays(timeObj,days);
+        var endYmd = newTimeObj.getFullYear()+'-'+(newTimeObj.getMonth()+1)+'-'+newTimeObj.getDate();
+        $("[name='ymdPayPlan']").val(endYmd);
+    }
+    $("[name='deadLine']").blur(function(e){
+        //$("[name='ymdPayPlan']").val('1234');
+        fillYmdPayPlan();
+    });
+    $("[name='dlUnit']").change(function(e){
+        fillYmdPayPlan();
+    });
+    $("[name='timeStartPlan']").blur(function(e){
+        //$("[name='ymdPayPlan']").val('1234');
+        fillYmdPayPlan();
+    });
+    var management_trans = '<?php echo \Prj\Data\Config::get('management_trans')-0; ?>';
+    var management_confirm = '<?php echo \Prj\Data\Config::get('management_confirm')-0; ?>';
+    $(".rand_<?php echo $rand; ?> [name='amount']").blur(function(e){
+        managementFull();
+    });
+    $(".rand_<?php echo $rand; ?> [name='amount']").keyup(function(){
+        managementFull();
+    });
+
+    var managementFull = function(){
+        var amount  = $(".rand_<?php echo $rand; ?> [name='amount']").val();
+        $(".rand_<?php echo $rand; ?> [name='managementTrans']").val(Math.round(amount*management_trans*100)/100);
+        $(".rand_<?php echo $rand; ?> [name='managementConfirm']").val(Math.round(amount*management_confirm*100)/100);
+    }
+
+    $(".rand_<?php echo $rand; ?>").bind('keypress',function(e){
+        if(e.keyCode==13){
+            //alert('禁止使用');
+            return false;
+        }
+    });
+</script>

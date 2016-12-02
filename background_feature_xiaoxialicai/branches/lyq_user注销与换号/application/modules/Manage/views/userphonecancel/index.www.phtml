@@ -1,0 +1,54 @@
+<div class="bjui-pageContent">
+	<h6 style="color: red">警告:本界面用于注销/冻结手机号（旧号码不在可用）,过程不可逆,请务必谨慎使用.</h6>
+	<?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+	$code = $this->_code;
+
+	switch($code) {
+		case 200:
+			//可以执行交换
+			$phone = $this->phone;
+			echo <<<EOT
+<div style="color:red;">
+	<h4>【警告】：注销/冻结手机号过程不可逆，请再次确认要注销/冻结的手机号</h4>
+	<fieldset>
+		<legend>请再次确认手机号</legend>
+		<p>
+			<label><b>注销/冻结手机号：</b>{$phone}</label>
+		</p>
+	</fieldset>
+</div>
+EOT;
+			echo '<p>';
+			echo \Prj\Misc\View::btnAjax('注销手机号', \Sooh\Base\Tools::uri(['_pkey_val_' => $this->_pkey_val_], 'cancelPhone'), '注销手机号,过程不可逆,确定执行注销操作?');
+            echo '&nbsp;&nbsp;注销后原手机号不存在';
+            echo '<br />';
+            echo \Prj\Misc\View::btnAjax('冻结手机号', \Sooh\Base\Tools::uri(['_pkey_val_' => $this->_pkey_val_], 'freezePhone'), '冻结手机号,过程不可逆,确定执行冻结操作?');
+            echo '&nbsp;&nbsp;冻结后帐号无法登录';
+            echo '</p>';
+			break;
+		case 400:
+			//手机号不符合要求
+			echo '<p>';
+			echo '手机号不存在！';
+			echo '</p>';
+			break;
+	}
+	?>
+	<style>
+		fieldset {
+			width: 400px;
+			margin-top: 40px;
+			text-align: center;
+		}
+		legend {
+			display: block;
+			margin-bottom: 20px;
+		}
+		table {
+			margin: 0 auto;
+		}
+		th,td{border:1px solid black;}
+	</style>
+</div>

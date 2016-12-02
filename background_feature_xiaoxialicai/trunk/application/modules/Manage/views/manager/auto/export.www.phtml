@@ -1,0 +1,9 @@
+<div class="pull-right">
+    <div class="btn-group">
+        <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+        <ul class="dropdown-menu right" role="menu">
+            <li><a  href="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>'all','where'=>$this->where),'downExecel'); ?>">导出全部</a></li>
+            <li><a class="excel-export" style="cursor: pointer">导出<span style="color: red">选中</span></a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,801 @@
+<?php
+namespace Prj\Wares;
+/**
+ * Created by PhpStorm.
+ * User: tang.gaohang
+ * Date: 2016/4/11
+ * Time: 17:46
+ */
+
+class Wares {
+
+    protected function DB(){
+        return \Sooh\DB\Broker::getInstance();
+    }
+
+    public static function getCopy(){
+        return new self();
+    }
+
+    public static function setSortVal(\Prj\Data\Wares $wares){
+        $tags = $wares->getField('tags');
+        $sortval = 0;
+        switch (true){
+            case (strpos($tags,'新手')!==false && strpos($tags,'活动')!==false) : $sortval = 1100;break;
+            case strpos($tags,'活动')!==false : $sortval = 1000;break;
+            case strpos($tags,'新手')!==false : $sortval = 100;break;
+        }
+        $wares->setField('sortval',$sortval);
+    }
+
+    public function sendDayInterest($id){
+        $tbname = 'tb_dayInterest_0';
+        $dayWhere = ['sn'=>$id];
+        $dayInter = $this->DB()->getRecord($tbname,'*',$dayWhere);
+        if(empty($dayInter)){
+            // return $this->returnError('系统错误:流水不存在');
+            return $this->returnError(\Prj\Lang\Broker::getMsg('check.sn_missing'));
+        }else{
+            $userId = $dayInter['userId'];
+            $amount = $dayInter['amount'];
+            $sn = $dayInter['sn'];
+            if($dayInter['statusCode']==1){
+                // return $this->returnError('已经支付过');
+                return $this->returnError(\Prj\Lang\Broker::getMsg('check.check_over'));
+            }else{
+                $user = \Prj\Data\User::getCopy($userId);
+                $user->load();
+                if(!$user->exists()){
+                    // return $this->returnError('系统错误:用户不存在');
+                    return $this->returnError(\Prj\Lang\Broker::getMsg('check.user_notfound'));
+                }else{
+                    if(!$user->lock(__CLASS__.' '.__METHOD__.' SN:'.$sn)){
+                        var_log('[warning]第一次锁定失败');
+                        $user->reload();
+                        if(!$user->lock(__CLASS__.' '.__METHOD__.' SN:'.$sn)){
+                            // return $this->returnError('系统错误:锁定用户失败');
+                            return $this->returnError(\Prj\Lang\Broker::getMsg('check.user_lock_fail'));
+
+                        }
+                    }
+                    \Prj\Misc\OrdersVar::$introForUser = date('Y年m月d日',strtotime($dayInter['ymd'])).'存钱罐利息';
+                    \Prj\Misc\OrdersVar::$introForCoder = 'dayInterest_'.$sn.'_'.$dayInter['ymd'];
+                    $tally = \Prj\Data\WalletTally::addTally($userId,$user->getField('wallet'),$amount,0,$sn,\Prj\Consts\OrderType::dayInterest);
+                    if(empty($tally)){
+                        // return $this->returnError('系统错误:添加流水失败');
+                        $user->unlock();
+                        return $this->returnError(\Prj\Lang\Broker::getMsg('check.sn_add_fail'));
+                    }else{
+                        $tally->setField('statusCode',\Prj\Consts\Tally::status_new);
+                        $user->setField('wallet',$user->getField('wallet')+$amount);
+                        try{
+                            $tally->update();
+                        }catch (\ErrorException $e){
+                            var_log('[error]'.__CLASS__.' '.__METHOD__.' '.$e->getMessage());
+                            $user->unlock();
+                            // return $this->returnError('系统错误:更新流水表失败');
+                            return $this->returnError(\Prj\Lang\Broker::getMsg('check.sn_upd_fail'));
+                        }
+
+                        try{
+                            $ret = $this->DB()->updRecords($tbname,['statusCode'=>1,'tallyId'=>$tally->getPKey()['tallyId']],$dayWhere);
+                        }catch (\ErrorException $e){
+                            var_log('[error]'.__CLASS__.' '.__METHOD__.' '.$e->getMessage());
+                            $user->unlock();
+                            $tally->setField('statusCode',\Prj\Consts\Tally::status_abandon);
+                            $tally->update();
+                            // return $this->returnError('系统错误:更新存钱罐表失败');
+                            return $this->returnError(\Prj\Lang\Broker::getMsg('check.saving_pot_upd_fail'));
+                        }
+
+                        try{
+                            $user->update();
+
+                        }catch (\ErrorException $e){
+                            var_log('[error]'.__CLASS__.' '.__METHOD__.' '.$e->getMessage());
+                            $user->unlock();
+                            $tally->setField('statusCode',\Prj\Consts\Tally::status_abandon);
+                            $tally->update();
+                            $ret = $this->DB()->updRecords($tbname,['statusCode'=>0,'tallyId'=>0],$dayWhere);
+                            // return $this->returnError('系统错误:更新用户表失败');
+                            return $this->returnError(\Prj\Lang\Broker::getMsg('check.userform_upd_fail'));
+                        }
+
+	                    \Prj\Message\Message::run(
+		                    [
+			                    'event' => 'saving_money',
+			                    'saving_pot_money' => $amount / 100,
+			                    'brand' => \Prj\Message\Message::MSG_BRAND,
+		                    ],
+		                    ['userId' => $userId]
+	                    );
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 批量更新订单还款计划
+     * @param $waresId
+     * @return string|void
+     * @throws \ErrorException
+     */
+    public function updateReturnPlan($waresId){
+        $ware = \Prj\Data\Wares::getCopy($waresId);
+        $ware->load();
+        // if($ware->getField('statusCode')!=\Prj\Consts\Wares::status_go)return $this->returnError("该标的尚未募集结束");
+        //if($ware->getField('statusCode')!=\Prj\Consts\Wares::status_go)return $this->returnError(\Prj\Lang\Broker::getMsg('wares.amountreal_notend'));
+        if(!in_array($ware->getField('statusCode') , [\Prj\Consts\Wares::status_go,\Prj\Consts\Wares::status_return]))return $this->returnError(\Prj\Lang\Broker::getMsg('wares.amountreal_notend'));
+        // if($error = $ware->createReturnPlan())return $this->returnError($error);
+        //更新名下所有订单
+        $rs = \Prj\Data\Investment::loopFindRecords(['waresId'=>$waresId,'orderStatus'=>[\Prj\Consts\OrderStatus::payed,\Prj\Consts\OrderStatus::going]]);
+        $num = 0;
+        if(!empty($rs))
+        {
+            foreach($rs as $k=>$v)
+            {
+                error_log('updateReturnPlan#'.$v['ordersId'].'#已经处理了'.$num.'单#开始更新还款计划...');
+                $tempInvest = \Prj\Data\Investment::getCopy($v['ordersId']);
+                $tempInvest->load();
+                $error = $tempInvest->createReturnPlan();
+                if (!$error) {
+                    $num++;
+                    try{
+                        //推送
+                        $user = \Prj\Data\User::getCopy($v['userId']);
+                        $user->load();
+                        $phone = $user->getField('phone');
+                        /*
+                        $ret = \Prj\Message\Message::run(
+                            [
+                                'event' => 'look_ok',
+                                'pro_name' => $ware->getField('waresName'),
+                                'time_all' => 24,
+                                'brand' => \Prj\Message\Message::MSG_BRAND,
+                                'cont_ok' => '投资记录'
+                            ],
+                            ['phone' => $phone]
+                        );
+                        $ret1 = \Prj\Message\Message::run(
+                            [
+                                'event' => 'money_start',
+                                'pro_name' => $tempInvest->getField('waresName'),
+                                'touzi_money' => ($tempInvest->getField('amount') + $tempInvest->getField('amountExt')) / 100,
+                                'money_back' => '房贷'
+                            ],
+                            ['userId' => $v['userId']]
+                        );
+                        */
+                    }catch (\ErrorException $e){
+
+                    }
+                } else {
+                    //var_log($v['ordersId'] . ':' . $error, 'createReturnPlan>>>>>>>>>');
+                }
+            }
+
+        }
+        return '更新总计'.$num.'条，其中0条失败，'.$num.'条成功';
+        //$this->returnOK('更新了'.$num.'条订单[确保订单支付成功以后更新还款计划]');
+    }
+
+    protected function returnError($msg,$code=400){
+        throw new \ErrorException($msg,$code);
+    }
+
+    protected function returnOK($msg){
+        return $msg;
+    }
+
+    public function     returnFundAll($id,$waresId,$confirmSN,$ahead){
+        $ware = \Prj\Data\Wares::getCopy($waresId);
+        $ware->load();
+        $wareRP = \Prj\ReturnPlan\All01\ReturnPlan::createPlan($ware->getField('returnPlan'));
+        $warePlan = $wareRP->getPlanById($id);
+        $borrowerId = $ware->getField('borrowerId');
+        $borrower = \Prj\Data\User::getCopy($borrowerId);
+        $borrower->load();
+        if(!$borrower->exists()){
+            return $this->returnError('不存在的借款人#'.$borrowerId);
+            $borrowerName = '';
+        }else{
+            $borrowerName = $borrower->getField('nickname');
+        }
+
+        $investList = \Prj\Data\Investment::loopFindRecords(['waresId' => $waresId, 'orderStatus]' => \Prj\Consts\OrderStatus::payed]);
+
+
+        if(!empty($investList)){
+            $num = 0;
+            foreach($investList as $v){
+                $invest = \Prj\Data\Investment::getCopy($v['ordersId']);
+                $invest->load();
+                $ordersId = $v['ordersId'];
+                $userId = $v['userId'];
+                if(empty($v['returnPlan'])) {
+                    $rp = \Prj\ReturnPlan\Std01\ReturnPlan::calendar($v['ordersId']);
+                } else {
+                    $rp = \Prj\ReturnPlan\Std01\ReturnPlan::createPlan($v['returnPlan'],$invest);
+                }
+                $plan = $rp->getPlanById($id);
+                if(empty($plan)){
+                    $failedData[] = $ordersId;
+                    continue;
+                }else{
+                    if($plan['isPay']==1 || $plan['status']==\Prj\Consts\PayGW::accept ){ //
+                        continue;
+                    }else{
+                        $rpInit[$ordersId] = $rp->decode();
+                        if($ahead){ //---提前还款
+                            $realPayInterest = 0;
+                            $aheadInterestArr = $rp->getAheadInterest($plan['id']);
+                            $aheadInterest = $aheadInterestArr['ahead'];
+                            foreach($aheadInterest as $k=>$v){
+                                $plan[$k] = $v;
+                                $realPayInterest+=$v;
+                            }
+
+                            $amount = $invest->getField('amount');
+                            $amountExt = $invest->getField('amountExt');
+                            $realPayArr['realPayInterest'] = $realPayInterest;
+                            $realPayArr['realPayAmount']  =   $amount + $amountExt;
+                            $realPayArr['interestSub'] = $aheadInterestArr['interestSub'];
+                        }else{ //---正常还款
+                            $realPayArr['realPayInterest'] = $plan['interestStatic'] + $plan['interestAdd'] +
+                                $plan['interestExt'] + $plan['interestFloat'] ;
+                            $realPayArr['realPayAmount']  =   $plan['amount'] + $plan['amountExt'];
+                            $realPayArr['interestSub'] = $plan['interestSub'];
+                        }
+                        $num++;
+                        $tmp = [
+                            'cmd'=>'returnFund',
+                            'confirmSN'=>$confirmSN,
+                            'ordersId'=>$ordersId,
+                            'waresId'=>$waresId,
+                            'userId'=>$userId,
+                            'amount'=>$realPayArr['realPayAmount'],
+                            'interest'=>$realPayArr['realPayInterest'],
+                            'interestSub'=>$realPayArr['interestSub'],
+                            'borrowerId'=>$borrowerId,
+                            'borrowerName'=>$borrowerName
+                        ];
+                        //$rp->updatePlanByMonth('sn',$sn,$plan['planDateYmd']);
+                        $rp->updatePlanByMonth('realPayAmount',$realPayArr['realPayAmount'],$plan['planDateYmd']);
+                        $rp->updatePlanByMonth('realPayInterest',$realPayArr['realPayInterest'],$plan['planDateYmd']);
+                        $rp->updatePlanByMonth('realPayinterestSub',$realPayArr['interestSub']-0,$plan['planDateYmd']);
+                        $rp->updatePlanByMonth('exp','网关已受理',$plan['planDateYmd']);
+                        $rp->updatePlanByMonth('status',\Prj\Consts\PayGW::accept,$plan['planDateYmd']);
+                        if($ahead){
+                            $rp->updatePlanByMonth('ahead',1,$plan['planDateYmd']);
+                            $rp->updatePlanByMonth('exp','提前还款#网关已受理',$plan['planDateYmd']);
+                        }
+                        //todo 记录还款数据
+                        try{
+                            $fields = $rp->getPlanByMonth($plan['planDateYmd']);
+                            $fields['periods'] = $fields['id'];
+                            unset($fields['id']);
+                            $returnPlanData = \Prj\Data\ReturnPlan::add($fields,$userId);
+                        }catch (\ErrorException $e){
+                            error_log('error#returnFundAll#'.$fields['ordersId'].'#'.$fields['periods'].'#'.$e->getMessage());
+                            $failedData[] = $tmp;
+                            continue;
+                        }
+                        $rp->updatePlanByMonth('sn',$returnPlanData->getField('sn'),$plan['planDateYmd']);
+                        try{
+                            $invest->setField('returnPlan',$rp->decode());
+                            $invest->update();
+                        }catch (\ErrorException $e){
+                            $this->loger->error('returnPlanUserAll failed'.'#'.$e->getMessage());
+                            $failedData[] = $tmp;
+                            continue;
+                        }
+
+                        $sendData[] = $tmp;
+                    }
+                }
+            }
+            if(empty($sendData)){
+                if(empty($failedData)){
+                    return $this->returnOK('没有需要处理的订单');
+                }else{
+                    $num = count($failedData);
+                    return $this->returnOK("处理成功了 0 笔,失败了 $num 笔");
+                }
+            }
+
+            if($warePlan['waitNum']==null){
+                $wareRP->updatePlanByMonth('waitNum',count($sendData),$warePlan['planDateYmd']);
+            }
+            //参数发送给网关
+            //调用网关
+            $rpc = \Sooh\Base\Ini::getInstance()->get('noGW')?(self::getRpcDefault('PayGW')):\Sooh\Base\Rpc\Broker::factory('PayGW');
+            var_log($rpc,'rpc >>> ');
+            $sys = \Lib\Services\PayGW::getInstance($rpc , true);
+            $batchId = $warePlan['batchId'];
+            if(empty($batchId))$batchId = $this->_creatID();
+
+            $newApi = 1; //新网关的代码,注意不要更新到正式服
+
+            try {
+                $data = [
+                    $batchId,
+                    ['list'=>['waresId'=>$waresId,'confirmSN'=>$confirmSN]],
+                ];
+                if($newApi){
+                    $data = [$batchId , $waresId , $confirmSN];
+                    $ret = \Lib\Services\PayGWCmd::sendToPayGWCmd('repayment_returnFundBatch',$data);
+                }else{
+                    $ret = call_user_func_array([$sys,'returnFundBatch'],$data);
+                }
+                //$this->_view->assign('retAll', ['ret' => 'ok', 'got' => $ret]);
+            } catch (\Sooh\Base\ErrException $e) {
+                $code = $e->getCode();
+                if ($code == 400) {
+                    //return $this->returnError($e->getMessage());
+                } elseif ($code == 500) {
+                    $this->returnPlanUserAll_rollBack($rpInit);
+                    return $this->returnError($e->getMessage());
+                }
+                // return $this->returnError('gw_error');
+                //return $this->returnError(\Prj\Lang\Broker::getMsg('system.gw_error'));
+            }
+
+            if($ret['status'] == \Prj\Consts\PayGW::accept || $ret['status'] == \Prj\Consts\PayGW::success || ($newApi && $ret['code'] == 200)){
+                $wareRP->updatePlanByMonth('returnFundStatus',\Prj\Consts\PayGW::accept,$warePlan['planDateYmd']);
+                $wareRP->updatePlanByMonth('batchId',$batchId,$warePlan['planDateYmd']);
+
+                $wareRP->updatePlanByMonth('retryUrl1',\Prj\Misc\JavaService::$lastUrl,$warePlan['planDateYmd']);
+                $wareRP->updatePlanByMonth('retryBtnShow1',1,$warePlan['planDateYmd']);
+            }else{
+                $this->returnPlanUserAll_rollBack($rpInit);
+                $wareRP->updatePlanByMonth('returnFundStatus',\Prj\Consts\PayGW::failed,$warePlan['planDateYmd']);
+            }
+
+            try{
+                $returnPlan = $wareRP->decode();
+                if(empty($returnPlan['calendar']))throw new \ErrorException('还款计划异常');
+                $ware->setField('returnPlan',$returnPlan);
+                $ware->update();
+            }catch (\ErrorException $e){
+                var_log('[error]returnPlanUserAll 标的更新失败');
+            }
+
+        }else{
+            return $this->returnOK('没有需要处理的订单');
+        }
+        $numYes = count($sendData);
+        $numNo = count($failedData);
+        return $this->returnOK("处理成功了 $numYes 笔,失败了 $numNo 笔");
+    }
+
+    protected function _creatID(){return time() . rand(100000, 999999);}
+
+    protected function returnPlanUserAll_rollBack($rpInit){
+        if(!empty($rpInit)){
+            foreach($rpInit as $k=>$v){
+                $invest = \Prj\Data\Investment::getCopy($k);
+                $invest->load();
+                if($invest->exists()){
+                    $invest->setField('returnPlan',$v);
+                    try{
+                        $invest->update();
+                    }catch (\ErrorException $e){
+                        var_log('[error]returnPlanUserAll_rollBack 回滚失败# ordersId:'.$k);
+                    }
+                }
+            }
+        }
+    }
+
+    public static function getRpcDefault($serviceName)
+    {
+        if($serviceName==='Rpcservices' ||$serviceName==='SessionStorage'){
+            return null;
+        }
+        $flg = \Sooh\Base\Ini::getInstance()->get('RpcConfig.force');
+        if($flg!==null){
+            if($flg){
+                error_log('force rpc for '.$serviceName);
+                return \Sooh\Base\Rpc\Broker::factory($serviceName);
+            }else{
+                error_log('no rpc for '.$serviceName);
+                return null;
+            }
+        }else{
+            error_log('try rpc for '.$serviceName);
+            return \Sooh\Base\Rpc\Broker::factory($serviceName);
+        }
+    }
+
+    public function confirm(\Prj\Data\Wares $wares,$plan){
+        $ahead = $plan['ahead'];
+        $r = $wares->dump();
+        $rp = \Prj\ReturnPlan\All01\ReturnPlan::createPlan($wares->getField('returnPlan'),$wares);
+        if($r['payStatus']!=\Prj\Consts\PayGW::success)return $this->returnError('该标的尚未完成转账');
+        if(in_array($plan['status'],[\Prj\Consts\PayGW::accept,\Prj\Consts\PayGW::success]))
+            return $this->returnError(\Prj\Lang\Broker::getMsg('payback.Repeat_submit'));
+        if($plan['planDateYmd']>date('Ymd') && !$ahead)return $this->returnError('非法的还款日期');
+        $lastPlan = $rp->getPlanById($plan['id']-1);
+        if(!empty($lastPlan)){
+            if($lastPlan['isPay']==0){
+                return $this->returnError('上一期的款项尚未支付');
+            }
+            if($lastPlan['ahead']==1){
+                return $this->returnError('该项目已经申请提前还款');
+            }
+        }
+        $user = \Prj\Data\User::getCopy($r['borrowerId']);
+        $user->load();
+        if($user->exists()){
+            $borrowerName = $user->getField('nickname');
+        }
+
+        //todo 网关没这接口 if($plan['remitStatus']!=\Prj\Consts\PayGW::success)return $this->returnError('该借款人账户尚未打款');
+
+        //调用网关
+        $rpc = \Sooh\Base\Ini::getInstance()->get('noGW') ? self::getRpcDefault('PayGW') : \Sooh\Base\Rpc\Broker::factory('PayGW');
+        $sys = \Lib\Services\PayGW::getInstance($rpc , true);
+        $sn = $this->_creatID();
+        $where = [
+            'interest'=>$plan['interest'],
+            'amount'=>$plan['amount'],
+            'waresId'=>$r['waresId'],
+            'ymd'=>$plan['planDateYmd'],
+        ];
+        if($ahead){
+            $interestArr = $rp->getAheadInterest($plan['id']);
+            $interest = $interestArr['ahead'];
+            $formula = $interestArr['formula'];
+            var_log($interest,'interest>>>');
+
+            $where['interest'] = $interest;
+            $where['amount'] = $r['amount'];
+        }
+        $fields = [
+            'realPay'=>$plan['interest']+$plan['amount'],
+            'servicePay'=>$r['managementConfirm'],
+            'giftPay'=>0,
+        ];
+        var_log($ahead,'ahead >>> ');
+        //todo 修复  if($where['interest'] + $where['amount'] < $fields['realPay'] && !$ahead )return $this->returnError(\Prj\Lang\Broker::getMsg('payback.pay_over_realPay'));
+
+        try {
+            $data = [
+                'SN' => $sn,
+                'waresId' => $r['waresId'],
+                'amountPlan' => $where['interest'] + $where['amount'],
+                'amountReal' => $fields['realPay'],
+                'amountLeft' => 0,
+                'borrowerId' => $r['borrowerId'],
+                'borrowerName' => $borrowerName,
+                'borrowerTunnel'=>'auto',
+                'servicePay' => $fields['servicePay'], //佣金
+                'giftPay'=>$fields['giftPay'], //平台垫付
+            ];
+            var_log($data, '传给支付网关的参数：');
+            //return $this->returnError();
+            $ret = call_user_func_array([$sys, 'confirm'], $data);
+            //$this->_view->assign('retAll', ['ret' => 'ok', 'got' => $ret]);
+        } catch (\Sooh\Base\ErrException $e) {
+            $code = $e->getCode();
+            if ($code == 400) {
+                //return $this->returnError($e->getMessage());
+            } elseif ($code == 500) {
+                return $this->returnError($e->getMessage());
+            }
+            return $this->returnError('gw_error');
+        }
+        $logerError = "sn:$sn ";
+        if($ret['code']==400){
+            return $this->returnError('网关信息:'.$ret['reason']);
+        }
+
+        if ($ret['status'] == 1 || $ret['status'] == 8 ) {
+
+            if($plan['waitNum']==null){
+                $investList = \Prj\Data\Investment::loopFindRecords(['waresId' => $where['waresId'], 'orderStatus]' => \Prj\Consts\OrderStatus::payed]);
+                var_log(count($investList),'count >>> ');
+                $rp->updatePlanByMonth('waitNum', count($investList), $where['ymd']);
+            }
+            $rp->updatePlanByMonth('sn', $sn, $where['ymd']);
+            $rp->updatePlanByMonth('exp', '网关已受理', $where['ymd']);
+            if($ahead){
+                $rp->updatePlanByMonth('ahead', '1', $where['ymd']);
+                $rp->updatePlanByMonth('compensatePay', $fields['compensatePay'], $where['ymd']);
+
+            }
+
+
+            $rp->updatePlanByMonth('servicePay', $fields['servicePay'], $where['ymd']);
+            $rp->updatePlanByMonth('giftPay', $fields['giftPay'], $where['ymd']);
+
+            $rp->updatePlanByMonth('status', \Prj\Consts\PayGW::accept, $where['ymd']);
+            $rp->updatePlanByMonth('realPay', $fields['realPay']+$fields['servicePay'], $where['ymd']);
+
+            //todo 记录retryUrl
+            $rp->updatePlanByMonth('retryUrl', \Prj\Misc\JavaService::$lastUrl, $where['ymd']);
+            $rp->updatePlanByMonth('retryBtnShow', 1, $where['ymd']);
+
+            try {
+                $wares->setField('returnPlan', $rp->decode());
+                $wares->update();
+            } catch (\ErrorException $e) {
+                $this->loger->error($logerError.$e->getMessage());
+                return $this->returnError('数据库错误，请联系运维:'.$e->getMessage());
+            }
+
+            if(\Sooh\Base\Ini::getInstance()->get('noGW'))
+            {
+                //todo 自我回调
+                $url = \Sooh\Base\Ini::getInstance()->get('RpcConfig')['urls'][0];
+                //$sn,$waresId,$status
+                $data = [
+                    'sn'=>$sn,
+                    'waresId'=>$where['waresId'],
+                    'status'=>'success',
+                    'msg'=>'success',
+                ];
+                $time = time();
+                $url.=('&service=PayGW&cmd=confirmResult&dt='.$time.'&sign='.md5($time.'asgdfw4872hfhjksdhr8732trsj').'&args='.json_encode($data));
+                $result = \Prj\Tool\Func::curl_post($url);
+                var_log($result,'企业还款自我回调>>>>>>>>>>>>>>>>>>>>>>>');
+            }
+
+            //$this->closeAndReloadPage();
+            return $this->returnOK('处理成功');
+        } elseif ($ret['status'] == 4) {
+            //$rp->updatePlanByMonth('sn', $sn, $where['ymd']);
+            $rp->updatePlanByMonth('exp', $ret['reason'], $where['ymd']);
+            $rp->updatePlanByMonth('status', \Prj\Consts\PayGW::failed, $where['ymd']);
+            //$rp->updatePlanByMonth('realPay', $fields['realPay'], $where['ymd']);
+            //$rp->updatePlanByMonth('realDateYmd', \Sooh\Base\Time::getInstance()->YmdFull, $where['ymd']);
+            try {
+                $wares->setField('returnPlan', $rp->decode());
+                $wares->update();
+            } catch (\ErrorException $e) {
+                $this->loger->error($logerError);
+                return $this->returnError('数据库错误，请联系运维:'.$e->getMessage());
+            }
+            return $this->returnError('处理失败');
+        } else {
+            //return $this->returnError('网关错误(未知的状态)');
+            return $this->returnError(\Prj\Lang\Broker::getMsg('system.gw_error'));
+        }
+        return $this->returnError(\Prj\Lang\Broker::getMsg('payback.intercept'));
+    }
+
+    public static function checkAmount($userId,$total){
+        $ret = \Lib\Services\PayGWCmd::sendToPayGWCmd('queryBalance',[$userId]);
+        $need = round(($ret['data']['availableBalance'] - 0)*100);
+        error_log('###autoConfirm#借款人资金情况#need:'.$total.'/remain:'.$need);
+        if($total > $need)throw new \ErrorException('借款人资金余额不足:'.$total.'>'.$need);
+    }
+
+
+    public static function doConfirm($sn,$realPay,$giftPay,$servicePay,$ymd,$ahead = 0,$compensatePay = 0,\Prj\Data\Wares $wares){
+        if(!\Sooh\Base\Ini::getInstance()->get('noGW'))self::checkAmount($wares->getField('borrowerId'),$realPay + $servicePay + $compensatePay);
+        $waresId = $wares->getField('waresId');
+        $that = self::getCopy();
+        if($sn == 0)$sn = (new self())->_creatID();
+        $data = [
+            $sn,
+            $waresId,
+            $realPay, //支付本息
+            $giftPay, //平台垫付
+            $servicePay, //手续费
+        ];
+        $ret = \Lib\Services\PayGWCmd::sendToPayGWCmd('repayment_confirm',$data);
+        $rp = \Prj\ReturnPlan\All01\ReturnPlan::createPlan($wares->getField('returnPlan'),$wares);
+        $plan = $rp->getPlanByMonth($ymd);
+        if(empty($plan))$that->_throwError('系统错误:无效的还款计划');
+        if($ret['code'] == 200){
+            if($plan['waitNum']==null){
+                $investList = \Prj\Data\Investment::loopFindRecords(['waresId' => $waresId, 'orderStatus]' => \Prj\Consts\OrderStatus::payed]);
+                var_log(count($investList),'count >>> ');
+                $rp->updatePlanByMonth('waitNum', count($investList), $ymd);
+            }
+            $rp->updatePlanByMonth('sn', $sn, $ymd);
+            $rp->updatePlanByMonth('exp', '网关已受理', $ymd);
+            if($ahead){
+                $rp->updatePlanByMonth('ahead', '1',$ymd);
+                $rp->updatePlanByMonth('compensatePay', $compensatePay,$ymd);
+            }
+
+            $rp->updatePlanByMonth('servicePay', $servicePay, $ymd);
+            $rp->updatePlanByMonth('giftPay', $giftPay,$ymd);
+
+            $rp->updatePlanByMonth('status', \Prj\Consts\PayGW::accept, $ymd);
+            $rp->updatePlanByMonth('realPay', $realPay+$servicePay, $ymd);
+
+            //todo 记录retryUrl
+            $rp->updatePlanByMonth('retryUrl', \Prj\Misc\JavaService::$lastUrl, $ymd);
+            $rp->updatePlanByMonth('retryBtnShow', 1,$ymd);
+            $returnPlan = $rp->decode();
+            if(empty($returnPlan['calendar']))throw new \ErrorException('还款计划异常#'.__Line__);
+            $wares->setField('returnPlan', $returnPlan);
+            $wares->update();
+
+            if(\Sooh\Base\Ini::getInstance()->get('noGW'))
+            {
+                // 自我回调
+                /*
+                $url = \Sooh\Base\Ini::getInstance()->get('RpcConfig')['urls'][0];
+
+                $data = [
+                    'sn'=>$sn,
+                    'waresId'=>$waresId,
+                    'status'=>'success',
+                    'msg'=>'success',
+                ];
+                $time = time();
+                $url.=('&service=PayGW&cmd=confirmResult&dt='.$time.'&sign='.md5($time.'asgdfw4872hfhjksdhr8732trsj').'&args='.json_encode($data));
+                $result = \Prj\Tool\Func::curl_post($url);
+                var_log($result,'企业还款自我回调>>>>>>>>>>>>>>>>>>>>>>>');
+                */
+            }
+        }else{
+            $rp->updatePlanByMonth('exp', $ret['msg'], $ymd);
+            $rp->updatePlanByMonth('status', \Prj\Consts\PayGW::failed, $ymd);
+
+            $returnPlan = $rp->decode();
+            if(empty($returnPlan['calendar']))throw new \ErrorException('还款计划异常');
+            $wares->setField('returnPlan', $returnPlan);
+            $wares->update();
+
+            $that->_throwError('网关处理失败#'.$ret['msg']);
+        }
+    }
+
+    protected function _throwError($msg){
+        throw new \ErrorException($msg);
+    }
+
+    public static function updatePlanWhenTransOver($waresId){
+        $where = [
+            'waresId'=>$waresId,
+            'orderStatus'=>\Prj\Consts\OrderStatus::waiting,
+        ];
+        $count = \Prj\Data\Investment::loopGetRecordsCount($where);
+        error_log('updatePlanWhenTransOver#'.$waresId.'#剩余'.$count.'笔订单等待处理');
+        if($count === 0){
+            var_log('满标转账结束 waresId:'.$waresId);
+            $ware = \Prj\Data\Wares::getCopy($waresId);
+            $ware->load();
+            if(!$ware->exists()){
+                var_log('更新还款计划失败 waresId:'.$waresId.' 商品不存在');
+                return false;
+            }
+
+            if($ware->getField('payStatus')!=\Prj\Consts\PayGW::success){
+                //todo 记录对账资料
+                try{
+                    var_log('>>> 记录放款对账资料 >>> ');
+                    $data = $ware->dump();
+                    $data['sn'] = $data['paySn'];
+                    \Prj\Check\DayLoan::addRecords($data);
+
+                    var_log('>>> 记录借款人流水 >>> ');
+                    $borrowerId = $ware->getField('borrowerId');
+                    $borrower = \Prj\Data\User::getCopy($borrowerId);
+                    $borrower->load();
+                    if($borrower->exists()){
+                        \Prj\Misc\OrdersVar::$introForUser = '标的_'.$ware->getField('waresName').'_成功放款';
+                        \Prj\Misc\OrdersVar::$introForCoder = 'waresId_'.$ware->getField('waresId').'_loan';
+                        $tally = \Prj\Data\WalletTally::addTally($borrowerId,$borrower->getField('wallet'),$ware->getField('amount')-$ware->getField('managementTrans'),0,$ware->getField('paySn'),\Prj\Consts\OrderType::loan);
+                        if($tally){
+                            $borrower->setField('wallet',$borrower->getField('wallet') + $ware->getField('amount')-$ware->getField('managementTrans'));
+                            try{
+                                $tally->updStatus(\Prj\Consts\Tally::status_new)->update();
+                                try{
+                                    $borrower->update();
+                                }catch (\ErrorException $e){
+                                    $tally->updStatus(\Prj\Consts\Tally::status_abandon)->update();
+                                    error_log('>>> 借款人金额更新失败 >>>');
+                                }
+                            }catch (\ErrorException $e){
+                                error_log('>>> 借款人流水更新失败 >>>');
+                            }
+                        }
+                    }
+                }catch (\ErrorException $e){
+                    var_log('[warning]记录对账数据失败');
+                }
+
+                $ware->setField('statusCode',\Prj\Consts\Wares::status_return);//status_go
+                $ware->setField('payStatus',\Prj\Consts\PayGW::success);
+                $ware->setField('payYmd',date('YmdHis'));
+                try{
+                    $ware->setField('retryBtnShow',0);
+                }catch (\ErrorException $e){
+                    error_log('error#'.$waresId.'#'.$e->getMessage());
+                }
+                //todo 更新标的还款计划
+                try{
+                    $returnPlan = \Prj\ReturnPlan\All01\ReturnPlan::calendar($ware);
+                    $ware->setField('exp',"订单全部处理完成");
+                    $ware->setField('nextConfirmYmd',$returnPlan->getYmdNext());
+                    $ware->setField('returnPlan',$returnPlan->decode());
+                    $ware->update();
+                }catch (\ErrorException $e){
+                    var_log('[error]transResult create returnPlan failed#'.$waresId.'# '.$e->getMessage());
+                }
+            }
+
+            //todo 批量更新还款计划
+            $ware->reload();
+            try{
+                $ret = self::getCopy()->updateReturnPlan($waresId);
+            }catch (\ErrorException $e){
+                var_log('[error]满标转账更新还款计划 >>> '.$e->getMessage());
+            }
+            var_log('[warning]还款计划更新情况 >>> '.$ret);
+
+        }else{
+            return false;
+        }
+    }
+
+    public static function setReminWares(\Prj\Data\User $user,$waresId , $open = 1){
+        $wares = \Prj\Data\Wares::getCopy($waresId);
+        $wares->load();
+        if(!self::canSetRemindWares($wares,$user)){
+            $ret = self::$error;
+            if($ret == 'error_time'){
+                $ret = $open? 'error_time_open': 'error_time_close';
+            }
+            return $ret;
+        }
+        $remind = $user->getField('remindWares');
+        if(empty($remind)){
+            $remind = [
+                $waresId => $open
+            ];
+        }else{
+            if(count($remind)>10){
+                unset($remind[current(array_keys($remind))]);
+            }
+            $remind[$waresId] = $open;
+        }
+        $user->setField('remindWares',$remind);
+    }
+
+    public static function isReminWares(\Prj\Data\User $user,$waresId){
+        $remind = $user->getField('remindWares');
+        if(empty($remind)){
+            return 0;
+        }else{
+            return $remind[$waresId]-0;
+        }
+    }
+    public static $error ;
+    public static function canSetRemindWares(\Prj\Data\Wares $wares , \Prj\Data\User $user){
+        if($wares->getField('statusCode')!=\Prj\Consts\Wares::status_ready){
+            self::$error = 'error_status';
+            return 0;
+        }
+        $seconds = \Prj\Data\Config::get('wares_remind_second');
+        if(empty($seconds)){
+            self::$error = 'config_miss';
+            return 0;
+        }
+
+        $timeOut = strtotime($wares->getField('timeStartPlan'))-time(); //距离上架多久时间
+        if($timeOut <= $seconds){
+            self::$error = 'error_time';
+            return 0;
+        }else{
+            $remindWares = $user->getField('remindWares');
+            if(is_array($remindWares)){
+                error_log('1>>>');
+                if($remindWares[$wares->getField('waresId')] == 3){
+                    self::$error = 'have_push';
+                    return 0;
+                }
+            }
+            return 1;
+        }
+        //return 0;
+    }
+
+}

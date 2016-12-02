@@ -1,0 +1,115 @@
+# 标的排序
+
+## 更新记录
+
+| 时间    | 更新人 | 更新内容                             |
+| ------- | ----- | :--------------------------------   |
+|2016-5-30  | 汤高航  | 1.0 建立文档                             |
+
+## 分析设计：
+
+为了标的更加清晰明了的展示,需要对标的重新排序,以及对待上架标的的展示数量控制
+
+系统关键要点如下：
+
+
+1.对符合条件的标的进行实时权值**sortval**更新,符合排序规则  
+2.通过定时任务的辅助,控制等待上架的标的的展示最大值,控制是否展示**statusCode1**  
+**3.新排序对旧标不适用**  
+4.权值定义规则:
+
+	protected function getSort(){
+        $statusCode = $this->getField('statusCode');
+        $tags = $this->getField('tags');
+        switch($statusCode){
+            case \Prj\Consts\Wares::status_open :$first = 9;break; //未满标的
+            case \Prj\Consts\Wares::status_ready :$first = 8;break; //等待上架
+            case \Prj\Consts\Wares::status_go :$first = 7;break; //已满
+            case \Prj\Consts\Wares::status_return :$first = 6;break; //还款中
+            case \Prj\Consts\Wares::status_ahead :$first = 5;break; //已还清 提前还款
+            case \Prj\Consts\Wares::status_close :$first = 5;break; //已还清
+            default : $first = 1;
+        }
+        if($statusCode == \Prj\Consts\Wares::status_open){
+            switch (true){
+                case (strpos($tags,'新手')!==false && strpos($tags,'活动')!==false) : $second = 9;break;
+                case strpos($tags,'活动')!==false : $second = 8;break;
+                case strpos($tags,'新手')!==false : $second = 7;break;
+                default : $second = 6;
+            }
+            $time = $this->getField('timeStartReal');
+        }else{
+            $second = 0;
+            switch($statusCode){
+                case \Prj\Consts\Wares::status_ready :$time = $this->getField('timeStartPlan');break; //等待上架
+                case \Prj\Consts\Wares::status_go :$time = $this->getField('timeEndReal');break; //已满
+                case \Prj\Consts\Wares::status_return :$time = $this->getField('payYmd');break; //还款中
+                case \Prj\Consts\Wares::status_ahead :$time = date('YmdHis',strtotime($this->getField('lastPaybackYmd')));break; //已还清 提前还款
+                case \Prj\Consts\Wares::status_close :$time = date('YmdHis',strtotime($this->getField('lastPaybackYmd')));break; //已还清
+                default : $time = $this->getField('timeStartPlan');
+            }
+        }
+
+        return $first.$second.$time;
+    }
+
+## 系统设计
+
+### 主要的几个流程
+
+1.标的排序规则
+ 
+	1.总体排序：未满标的>等待上架>已满>还款中>已还清
+	2.未满的标的排序规则      
+	 根据标的类型进行排序：活动标+特定人群标>活动标(特殊期限、利率)>特定人群标(新手标、VIP标)>普通标
+	 相同类型的标的，按照上架时间降序排列（新的在上方）
+    3.等待上架，已满，还款中，已还清的排序规则
+     这些标的不再区分标的类型，只按照时间进行排序
+	等待上架：按照预计上架时间降序排列     
+	已满：根据满标时间降序排列      
+	还款中：根据放款时间降序排列
+	已还清：根据还清时间降序排列
+2.上标等待规则  
+
+	1.根据预计上架时间，提前X小时在理财列表中显示等待上架的标的
+	2.同一时间，最多显示Y个相同类型的等待上架的标的（防止同一类型的等待标的显示过多)
+	3.X和Y需要在后台可配
+
+	X单位为：小时(WARES_PLAN_HOURS)
+	X初始设置为：12小时
+	Y单位为：个(WARES_PLAN_NUM)
+	Y初始设置为：2个
+
+
+### 接口说明
+
+1.标的列表使用新的排序规则
+
+>financing/byshelf
+
+
+## 数据库设计
+	USE db_p2p;
+	
+	ALTER TABLE `tb_wares_0`
+	MODIFY COLUMN `sortval`  bigint NOT NULL DEFAULT 0 AFTER `waitInvestNum`;
+	
+	ALTER TABLE `tb_wares_0_ram`
+	MODIFY COLUMN `sortval`  bigint NOT NULL DEFAULT 0 AFTER `waitInvestNum`;
+	
+	ALTER TABLE `tb_wares_0`
+	ADD COLUMN `statusCode1`  tinyint NOT NULL DEFAULT 0 COMMENT '附加状态   -1不展示' AFTER `statusCode`;
+	
+	ALTER TABLE `tb_wares_0_ram`
+	ADD COLUMN `statusCode1`  tinyint NOT NULL DEFAULT 0 COMMENT '附加状态   -1不展示' AFTER `statusCode`;
+	
+	INSERT INTO `tb_config` (`k`, `v`, `intro`) VALUES ('WARES_PLAN_HOURS', '12', '#提前X小时在理财列表中显示等待上架的标的#单位小时');
+	INSERT INTO `tb_config_ram` (`k`, `v`, `intro`) VALUES ('WARES_PLAN_HOURS', '12', '#提前X小时在理财列表中显示等待上架的标的#单位小时');
+	
+	INSERT INTO `tb_config` (`k`, `v`, `intro`) VALUES ('WARES_PLAN_NUM', '2', '#最多显示Y个相同类型的等待上架的标的#');
+	INSERT INTO `tb_config_ram` (`k`, `v`, `intro`) VALUES ('WARES_PLAN_NUM', '2', '#最多显示Y个相同类型的等待上架的标的#');
+
+
+
+## 定时任务
+每5分钟检查一下，定时任务是 Crond/Standalone/CheckWaitWares.php

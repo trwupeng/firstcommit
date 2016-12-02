@@ -1,0 +1,43 @@
+<div class="bjui-pageHeader" >
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->getSearchStandard_without_endTag_form_div(\Sooh\Base\Form\Broker::getCopy('default'));
+    echo '</form>';   
+    ?>
+</div>
+
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+                $headers = $this->headers;
+                foreach ($headers as $k => $v) {
+                    echo "<th width=\"$v\">$k</th>";
+                }
+                ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (!empty($this->records)) {
+                foreach ($this->records as $r) {
+                    ?>
+                    <tr data-id="<?= $_pkey_val_ ?>">
+                        <td><?= $r['medalName'] ?></td>
+                        <td><?= $r['medalKey'] ?></td>
+                        <td><?php
+                            $medalReports = json_decode($r['medalReport'], true);
+                            foreach ($medalReports as $key => $value) {
+                                echo 'LV.' . $key . '获得人数：' . $value . '；完成率：' . sprintf('%.2f',$value/$buyNUsrAll*100) . '%<br /> ';
+                            }
+                            ?></td>
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager); ?></div>

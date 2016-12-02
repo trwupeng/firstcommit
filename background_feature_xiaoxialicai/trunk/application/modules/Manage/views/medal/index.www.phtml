@@ -1,0 +1,44 @@
+<script src="/js/common/checked.js"></script>
+<div class="bjui-pageHeader" >
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->getSearchStandard_without_endTag_form_div(\Sooh\Base\Form\Broker::getCopy('default'));
+    echo ' ' . \Prj\Misc\View::btnAddInDatagrid(\Sooh\Base\Tools::uri(null, 'edit'));
+    echo '</form>';
+    ?>
+</div>
+
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+                foreach ($this->headers as $k => $v) {
+                    echo "<th width=\"$v\">$k</th>"; //data-order-field="operation" align="center"
+                }
+                ?>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($res) {
+                foreach ($res as $key => $value) {
+                    $_pkey_ =  \Prj\Misc\View::encodePkey(array('loginname' => $value['id']));
+                    ?>
+            <tr>
+                <td><?php echo $value['key'];?></td>
+                <td><?php echo $value['name'];?></td>
+                <td><?php echo $value['serialNumber'];?></td>
+                <td><?php echo $value['description'];?></td>
+                <td><?php echo ($value['status'] == 1 ? '开启' : '关闭');?></td>
+                <td><?= \Prj\Misc\View::btnEditInDatagrid('编辑', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'edit'), '', 'data-height="800"'); ?></td>
+            </tr>
+                    <?php
+                }
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager); ?></div>

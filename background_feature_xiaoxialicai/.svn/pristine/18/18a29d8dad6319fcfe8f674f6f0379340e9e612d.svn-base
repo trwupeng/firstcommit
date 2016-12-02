@@ -1,0 +1,37 @@
+<div class="bjui-pageHeader"><?php
+	$renderer = new \Prj\Misc\FormRenderer;
+	echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+?>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+				$headers = $this->headers;
+				foreach($headers as $k=>$v){
+					echo "<th width=\"$v\">$k</th>";//data-order-field="operation" align="center"
+				}
+				?>
+            </tr>
+        </thead>
+        <tbody>
+			<?php
+			//$optionsStatus = $formSearch->item('_flgDisable_eq')->options->getPair();
+			$rights = $this->rightsEnum;
+			
+			$records = $this->records;
+			//var_dump($records);//tgh
+			if(!empty($records)){
+				foreach($records as $r){
+					$_pkey_ = $r['_pkey_val_'];
+					echo "<tr data-id=\"{$r['_pkey_val_']}\">";
+					unset($r['_pkey_val_']);
+					echo '<td>'.implode('</td><td>', $r)."</td>";
+					echo "</tr>\n";
+				}
+			}
+			?>
+       </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

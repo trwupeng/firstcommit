@@ -1,0 +1,29 @@
+<?php
+$this->htmlHeadPart('<!-- head part -->');
+echo $this->renderInc('head');
+
+$code = $this->code;
+
+if($code==200 || $code==400){
+	$order = $this->ordersDone;
+	if(!empty($order)){
+		echo "OrderID:".$order['ordersId']."<br>";
+		echo "OrderStatus:".$order['orderStatus']."<br>";
+		var_dump($order);
+	}else{
+		if($code==400){
+			echo "<font color=red>".$this->msg."</font><br>";
+		}
+		$frm = \Sooh\Base\Form\Broker::getCopy();
+		echo '<table>';
+		echo $frm->renderFormTag();
+		echo $frm->renderDefault();
+		echo $frm->renderSubmit('下单');
+		echo '</form></table>';
+
+	}
+}else{
+	\Prj\Misc\View::redirectIfNeeds($code,$this->returnUrl);  //错误码 跳转
+	
+}
+?>

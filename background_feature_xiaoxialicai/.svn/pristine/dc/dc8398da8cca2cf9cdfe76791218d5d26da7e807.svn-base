@@ -1,0 +1,482 @@
+<html>
+<head>
+    <title>工具合集</title>
+    <style>
+        body{font-family: 微软雅黑;background-color: #f7f7f7 ;padding: 0;margin: 0}
+        .prj{border: 1px solid #999999;padding: 0px 10px 10px 10px;float: left;margin: 5px; border-radius: 10px; background-color: white;height: 150px; }
+        .prj:hover{box-shadow: 1px 1px 10px gray;}
+        .prj .form{margin-bottom: 3px;}
+        .hide{display: none}
+        .noborder{border: none;color: red}
+        [jump-url]{cursor: pointer;text-decoration: underline}
+        .midlen{width: 70px}
+        .minlen{width: 30px}
+        .modal{background-color: rgba(201, 201, 201, 0.32);position: absolute;height: 100%;width: 100%;display: none;}
+        .modal .loading{width: 130px;height: 130px;margin:auto;margin-top: 350px;}
+    </style>
+</head>
+<body>
+<script src="/js/jquery-1.11.3.min.js"></script>
+
+<div class="modal">
+    <div class="loading">
+        <img src="http://www.8tgh.com/public/img/loading.gif" />
+    </div>
+</div>
+
+<div class="prj">
+    <h2>满标转账回调</h2>
+    <div class="form">
+        标的ID:<input class="input" name="waresId"/>
+    </div>
+    <div>
+        <button class="click" api="/index.php?__=dev/testTransResult">满标转账的回调</button>
+    </div>
+</div>
+
+<div class="prj" >
+    <h2>回本付息回调</h2>
+    <div class="form">
+        订单ID:<input class="input" name="ordersId"/>
+        流水ID:<input class="input" name="sn"/>
+    </div>
+    <div>
+        <button class="click" api="/index.php?__=dev/testReturnFund">回本付息的回调</button>
+    </div>
+</div>
+
+<div class="prj" >
+    <h2>批量回本付息</h2>
+    <div class="form">
+        商品ID:<input class="input" name="waresId"/>
+        confirmSN:<input class="input" name="confirmSN"/>
+    </div>
+    <div>
+        <button class="batchReturn" api="/index.php?__=dev/tgh_showReturn">批量回本付息的回调</button>
+    </div>
+</div>
+
+<div class="prj" >
+    <h2>标的默认还款计划</h2>
+    <div class="form">
+        标的ID:<input class="input" name="waresId"/>
+    </div>
+    <div>
+        <button class="jump" api="/index.php?__=dev/tgh_returnPlanByWaresId">标的默认还款计划</button>
+        <button class="jump" api="/index.php?__=index/dev/tgh_waresRealReturnPlan">实际还款计划</button>
+    </div>
+</div>
+
+<div class="prj">
+    <h2>订单默认还款计划</h2>
+    <div class="form">
+        订单ID:<input class="input" name="ordersId"/>
+    </div>
+    <div>
+        <button class="jump"  api="/index.php?__=dev/tgh_returnPlanByOrdersId">订单默认还款计划</button>
+        <button class="jump"  api="/index.php?__=dev/tgh_ordersRealReturnPlan">实际还款计划</button>
+    </div>
+</div>
+
+<div class="prj">
+    <h2>查看本地对账数据</h2>
+    <div class="form">
+        CMD:<select class="input" name="cmd">
+            <option value="DayRecharges">充值</option>
+            <option value="DayWithdraw">提现</option>
+            <option value="DayBuy">购买</option>
+            <option value="DayLoan">放款（借款人）</option>
+            <option value="DayPayback">还款（借款人）</option>
+            <option value="DayPaysplit">回款（投资人）</option>
+            <option value="DayManage">管理费</option>
+            <option value="DayInterest">存钱罐收益</option>
+        </select>
+        日期:<input class="input" name="ymd" value="<?php echo date('Ymd'); ?>"/>
+    </div>
+    <div>
+        <button class="jump"  api="/index.php?__=dev/tgh_dayWithdraw">查看本地对账数据</button>
+        <button class="jump"  api="/index.php?__=crond/paygw&__VIEW__=json">拉取对账数据</button>
+    </div>
+</div>
+
+<div class="prj">
+    <h2>登录</h2>
+    <div class="form">
+        手机号:<input class="input" name="phone" value="77712341234"/>
+        密码:<input class="input" name="password" value="123000"/>
+       <input class="input hide" name="clientId" value="1104878344"/>
+       <input class="input hide" name="clientSecret" value="s20vH9emKJ6BmT1Q"/>
+       <input class="input hide" name="clientType" value="903"/>
+       <input class="input hide" name="redirectUri" value="https://www.baidu.com/"/>
+    </div>
+    <div>
+        <button class="click" refresh="1" api="/index.php?__=oauth/applogin&__VIEW__=json" api_a="/index.php?__=passport/login&__VIEW__=json" api_a_args="info">登录</button>
+    </div>
+</div>
+
+<div class="prj">
+    <h2>充值</h2>
+    <div class="form">
+        金额(分):<input class="input" name="amount" value="201"/>
+        验证码:<input class="input" name="smsCode" value="123456"/>
+    </div>
+    <div>
+        <button class="click" api="/index.php?__=user/recharge&__VIEW__=json&cmd=recharge" api_a_args="info">获取验证码</button>
+        <button class="click" refresh="1" api="/index.php?__=user/recharge&__VIEW__=json&cmd=rechargecode" api_a_args="info">充值</button>
+        <button class="batchRecharge"  api="/index.php?__=user/recharge&__VIEW__=json">并发充值</button><span class="batchRechargeNum">0</span>
+        <button class="rechargeResult"  api="/index.php?__=user/recharge&__VIEW__=json">并发充值回调</button><span class="rechargeResultNum">0</span>
+        <button class="stop">停止</button>
+    </div>
+</div>
+
+
+<div class="prj" >
+    <h2>一键登录</h2>
+    <div class="form">
+        用户ID/手机号:<input class="input" name="userId"/>
+    </div>
+    <div>
+        <button class="click" api="/index.php?__=index/dev/loginone" refresh="1">一键登录</button>
+    </div>
+</div>
+
+<div class="prj" >
+    <h2>购买标的</h2>
+    <div class="show WARES_INFO" show-url="/index.php?__=user/addOrder&__VIEW__=json" data-key="wareInfo">
+        标的名称:<input class="showData input noborder" name="waresName" readonly />
+        标的余额(元):<input class="showData input noborder" name="remain" readonly data-type="money" />
+        标的状态:<input class="showData input noborder" name="statusCode"  readonly />
+    </div>
+    <div class="form">
+        标的ID:<input class="input" name="waresId"/>
+        支付密码:<input class="input" name="paypwd" value="123456"/>
+        金额(分):<input class="input" name="amount" value="10000"/>
+    </div>
+    <div>
+        <button class="click" api="/index.php?__=ordersnew/add&__VIEW__=json&cmd=buy" api_a="/index.php?__=ordersnew/add&__VIEW__=json&cmd=buypaypwd">购买</button>
+        <button class="jump" api="/index.php?__=user/addOrder&__VIEW__=json">查看标的 addOrderV1</button>
+        <button class="batchBuy" api="/index.php?__=user/addOrder&__VIEW__=json">批量购买</button><span class="batchBuy-num"></span>
+        <button class="jump" api="/index.php?__=financing/newDec">查看标的详情</button><span class="batchBuy-num"></span>
+        <button class="jump" api="/index.php?__=financing/byShelf&pageSize=1000">标的列表</button><span class="batchBuy-num"></span>
+    </div>
+</div>
+
+<div class="prj" >
+    <h2>个人账户</h2>
+    <div class="show INFO form" show-url="/index.php?__=user/info&__VIEW__=json&cmd=service" data-key="data">
+        用户ID:<input class="input noborder  midlen " name="userId" value="<?php echo \Sooh\Base\Session\Data::getInstance()->get('accountId'); ?>" readonly />
+        姓名:<input class="showData  noborder  midlen" name="nickname" readonly />
+        资产总额(元):<input class="showData  noborder midlen" name="totalAssets" readonly data-type="money"/>
+        累计获利(元):<input class="showData  noborder midlen" jump-url="/index.php?__=user/myReturnPlan&isPay=1"  name="interestTotal" readonly  data-type="money"/>
+        <br/>现金余额(元):<input class="showData noborder midlen" name="wallet" readonly  data-type="money"/>
+        持有资产(元):<input class="showData  noborder midlen" name="holdingAssets" readonly  data-type="money"/>
+        冻结金额(元):<input class="showData  noborder midlen" name="freezeAmount" readonly  data-type="money"/>
+        红包余额(元):<input class="showData  noborder midlen" jump-url="/index.php?__=index/user/redPacket&__VIEW__=json" name="redPacket" readonly  data-type="money"/>
+    </div>
+    <div>
+        <button class="jump" api="/index.php?__=dev/tgh_dbUser">用户详情</button>
+    </div>
+</div>
+
+<div class="prj" >
+    <h2>添加标的</h2>
+    <div class="form">
+        标的金额(分):<input class="input midlen" name="amount" value="20000"/>
+        标的期限:<input class="input minlen" name="deadLine" value="6"/><br>
+        期限单位:<select class="input " name="dlUnit" >
+            <option selected value="月">月</option>
+            <option value="天">天</option>
+        </select>
+        类型:<select class="input" name="shelfId" value="2000">
+            <option value="2000">房贷</option>
+            <option value="3000">车贷</option>
+        </select>
+    </div>
+    <div>
+        <button class="jump" api="/index.php?__=dev/tgh_addNewWare">添加标的</button>
+    </div>
+</div>
+
+<div class="prj">
+    <h3>按钮</h3>
+    <div>
+        <button class="jump" api="/index.php?__=index/dev/apidoc&" >接口文档</button>
+        <button class="jump" api="/index.php?__=manage/manager/index&" >后台</button>
+        <button class="jump" api="/index.php?__=index/dev/showtable&tb=tb_wares_0" >表字典</button>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        var pass = {};
+
+        var warn = function(str){
+            $('.modal').hide();
+            alert(str);
+        }
+
+        var getInput = function(prj){
+            var input = prj.find(".form .input");
+            var post = {};
+            input.each(function(){
+                post[$(this).attr('name')] = $(this).val();
+            });
+            return post;
+        }
+
+        var getArg = function(post){
+            var str = '';
+            for(var i in post){
+                str+=('&'+i+'='+post[i]);
+            }
+            return str;
+        }
+
+
+
+        var showData = function(cla,post){
+            var form = $('.show.'+cla);
+            $.post(form.attr('show-url'),post,function(e){
+                if(e.code==200){
+                    form.find('.showData').each(function(){
+                        var key = $(this).attr('name');
+                        if(form.attr('data-key')){
+                            var data = e[form.attr('data-key')];
+                        }else{
+                            var data = e;
+                        }
+                        var value =  data[key];
+                        var type = $(this).attr('data-type');
+                        if(type){
+                            switch (type){
+                                case 'money':value/=100;break;
+                            }
+                        }
+                        $(this).val(value);
+                    });
+                }
+            });
+        }
+
+        showData('INFO');
+
+        $('.click').click(function(){
+            $('.modal').show();
+            var click = this;
+            var prj = $(this).parent().parent();
+            var post = getInput(prj);
+
+            var clickPost = function(){
+                console.log(post);
+                $.post($(click).attr('api'),post,function(e){
+                    if(e.code==200){
+                        console.log(e);
+                        if($(click).attr('api_a')){
+                            var key = $(click).attr('api_a_args');
+
+                            if(key){
+                                if(e[key]){
+                                    for(var i in e[key]){
+                                        post[i] = e[key][i];
+                                    }
+                                }
+                            }else{
+                                if(e){
+                                    for(var i in e){
+                                        post[i] = e[i];
+                                    }
+                                }
+                            }
+
+                            $.post($(click).attr('api_a'),post ,function(data){
+                                console.log(data);
+                                if(data.code!=200){
+                                    warn(data.msg);
+                                }
+                            });
+                        }
+                        warn(e.code);
+                        if($(click).attr('refresh')){
+                            location.reload();
+                        }
+                    }else{
+                        warn(e.msg);
+                    }
+                });
+            }
+
+            if('waresId' in post){
+                $.post('index.php?__=dev/test1&__VIEW__=json&waresId='+post.waresId,'',function(e){
+                    post.uniqueOpId = e.r.uniqueOpId;
+                    clickPost();
+                });
+            }else{
+               clickPost();
+            }
+        });
+
+        $('.jump').click(function(){
+            var prj = $(this).parent().parent();
+            var post = getInput(prj);
+            window.open($(this).attr('api')+getArg(post));
+        });
+
+        $('.input').blur(function(){
+            var value = $(this).val();
+            var select = "[name='"+$(this).attr('name')+"']";
+            $(select).val(value);
+
+            if($(this).attr('name')=='waresId'){
+                showData('WARES_INFO',{'waresId':$(this).val()});
+            }
+        });
+
+        $('.input').keyup(function(){
+            var value = $(this).val();
+            var select = "[name='"+$(this).attr('name')+"']";
+            $(select).val(value);
+        });
+
+        $("[jump-url]").click(function(e){
+            window.open($(this).attr('jump-url'));
+        });
+
+        $(".batchBuy").click(function(e){
+            var click = this;
+            var prj = $(this).parent().parent();
+            var post = getInput(prj);
+            var code = 200;
+            var num = 0;
+            var doBuy = function(post){
+                $.post('index.php?__=dev/test1&__VIEW__=json&waresId='+post.waresId,'',function(e){
+                    post.uniqueOpId = e.r.uniqueOpId;
+                    console.log(post);
+
+                    $.post('/index.php?__=ordersnew/add&__VIEW__=json&cmd=buy',post,function(e){
+                        console.log(e.code);
+                        if(e.code == 200){
+                            post.orderId = e.orderId;
+                            $.post('/index.php?__=ordersnew/add&__VIEW__=json&cmd=buypaypwd',post,function(e){
+                                console.log(e.code);
+                                if(e.code==200){
+                                    num++;
+                                    $(".batchBuy-num").html(num);
+                                }else{
+
+                                }
+                                doBuy(post);
+                            });
+
+                        }else{
+                            alert(e.msg);
+                        }
+                    });
+
+
+                });
+            }
+            doBuy(post);
+        });
+        var stop = false;
+        $('.batchRecharge').click(function(){
+            var click = this;
+            var prj = $(this).parent().parent();
+            var post = getInput(prj);
+            var code = 200;
+            var max = 10000;
+            var num = 0;
+            var doBuy = function(post){
+                if(stop)return;
+                num ++;
+                $('.batchRechargeNum').html(num);
+                $.post('/index.php?__=user/recharge&__VIEW__=json&cmd=recharge',post,function(e){
+                    $.post('/index.php?__=user/recharge&__VIEW__=json&cmd=rechargecode',post,function(e){
+                        console.log(e.code);
+                    });
+                });
+                if(num < max){
+                    doBuy(post);
+                }else{
+                    alert('并发了'+num+'次');
+                }
+            }
+            doBuy(post);
+        });
+
+        $('.rechargeResult').click(function(){
+            var amount = 201;
+            var orders = {
+                <?php
+                $list = \Prj\Data\Recharges::loopAll(['orderStatus'=>2]);
+                foreach($list as $v){
+                    echo '"'.$v['ordersId'].'":"'.$v['amount'].'",';
+                }
+                echo '"123":100';
+                ?>
+            };
+            var resultNum = 0;
+            var rechargeResult = function(url){
+                $.post(url,[],function(e){
+                    console.log(e.data);
+                    resultNum++;
+                    $('.rechargeResultNum').html(resultNum);
+                });
+            }
+
+            var url = '/index.php?__=service/call&dt=1462277726&sign=dd0314160ab00c2ebb30eb44af72396a&service=PayGW&cmd=rechargeResult&args=';
+            for(var i in orders){
+                if(stop)return;
+                var orderId = i;
+                var amount = orders[i];
+                for(var k=0;k<3;k++){
+                    var args = '{"orderId":"'+orderId+'","amount":"'+amount+'","status":"success"}';
+                    rechargeResult(url+args);
+                }
+
+            }
+
+
+        });
+        $('.stop').click(function(e){
+            stop = true;
+        });
+        $('.batchReturn').click(function(e){
+            var click = this;
+            var prj = $(this).parent().parent();
+            var post = getInput(prj);
+            $.post($(click).attr('api'),post,function(e){
+                //console.log(e);
+                var list;
+                if(list = e.data.list){
+                    for(var i in list){
+                        var returnPost = {};
+                        returnPost['ordersId'] = list[i]['ordersId'];
+                        returnPost['sn'] = list[i]['SN'];
+                        //console.log(returnPost);continue;
+                        $.post('/index.php?__=dev/testReturnFund',returnPost,function(e){
+                            console.log(e);
+                        });
+                        $.post('/index.php?__=dev/testReturnFund',returnPost,function(e){
+                            console.log(e);
+                        });
+                    }
+                }
+            });
+        })
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

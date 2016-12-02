@@ -1,0 +1,69 @@
+<div class="bjui-pageHeader">
+    <div class="pull-right">
+        <button type="button" class="btn btn-green" data-toggle="navtab" data-id="unusednavtab" data-url="<?php echo \Sooh\Base\Tools::uri([], 'unused'); ?>" data-title="未发出的兑换码">未发出的兑换码</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-green" data-toggle="navtab" data-id="usednavtab" data-url="<?php echo \Sooh\Base\Tools::uri([], 'used'); ?>" data-title="已发出的兑换码">已发出的兑换码</button>&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-green" data-toggle="dialog" data-width="800" data-height="400" data-id="dialog-normal"   data-url="<?php echo  \Sooh\Base\Tools::uri([], 'grant');?>" data-title="给用户发电影票">给用户发电影票兑换码</button>
+    </div>
+</div>
+
+<div class="bjui-pageContent">
+    <div style="float:left; width:500px; ">
+        <form  id="pagerForm" method="post" action="<?php echo \Sooh\Base\Tools::uri([], fillup); ?>" data-toggle="ajaxsearch">
+            <button type="submit" name="btn_add" class="btn btn-green">下面文本框输入电影票兑换码每行一个--点我补仓</button><br/>
+            <br/>
+            <textarea name="tickets" cols="33" rows="30"><?php echo $this->tickets; ?></textarea>
+        </form>
+    </div>
+
+    <div style="float:left; margin-left:35px; width:800px; ">
+        <?php
+
+        if(!empty($this->errorTip)) {
+        ?>
+            <lable style="color:red"><?php echo $this->errorTip; ?></lable>
+        <?php
+        }else {
+        ?>
+            <label>添加成功数：<?php echo sizeof($this->addSuccessTickets); ?> 已存在数：<?php echo sizeof($this->existsTickets); ?> 添加失败：<?php echo sizeof($this->addFailedTickets);?></label>
+        <?php
+        }
+        ?>
+
+
+        <table class="table table-bordered table-hover"  >
+            <thead>
+                <tr>
+                    <th>电影票兑换码</th>
+                    <th>添加状态</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+                if(!empty($this->existsTickets)) {
+                    $html = '';
+                    foreach($this->existsTickets as $ticket){
+                        $html .= '<tr><td>'.$ticket.'</td><td style="color:red;">添加失败：此兑换码已经存在</td></tr>';
+                    }
+                    echo $html;
+                }
+                if(!empty($this->addFailedTickets)) {
+                    $html = '';
+                    foreach($this->addFailedTickets as $ticket){
+                        $html .= '<tr><td>'.$ticket.'</td><td style="color:#EA7500;">添加失败</td></tr>';
+                    }
+                    echo $html;
+                }
+                if(!empty($this->addSuccessTickets)) {
+                    $html = '';
+                    foreach($this->addSuccessTickets as $ticket){
+                        $html .= '<tr><td>'.$ticket.'</td><td style="color:green;">添加成功</td></tr>';
+                    }
+                    echo $html;
+                }
+
+
+            ?>
+            </tbody>
+        </table>
+    </div>
+</div>

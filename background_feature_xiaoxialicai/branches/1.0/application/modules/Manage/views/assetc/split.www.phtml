@@ -1,0 +1,22 @@
+<div class="bjui-pageContent">
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->callBack(\Sooh\Base\Tools::uri([],'splitresult'),1000,600);
+    echo $renderer->getEditStandard(\Sooh\Base\Form\Broker::getCopy('default'),1);
+    ?>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+        <?php var_log($this->type,'$this->type>>>>>>>>>'); if($this->type=='check'){
+            echo '<li>';
+            echo \Prj\Misc\View::btnAjax('通过',\Sooh\Base\Tools::uri(['_pkey_val_'=>$this->_pkey_val_,'do'=>'yes'],'docheck'));
+            echo '</li>';
+            echo '<li>';
+            echo \Prj\Misc\View::btnAjax('驳回',\Sooh\Base\Tools::uri(['_pkey_val_'=>$this->_pkey_val_,'do'=>'no'],'docheck'));
+            echo '</li>';
+        }else{ ?>
+        <li><button type="submit" class="btn-green" data-icon="save">拆分</button></li>
+        <?php } ?>
+    </ul>
+</div>

@@ -1,0 +1,52 @@
+<form action="<?php echo \Sooh\Base\Tools::uri(array('__EXCEL__'=>1, 'where'=>$this->where),'index'); ?>" method="post" id="contracts-exportChecked" style="display: none;">
+</form>
+<div style="line-height: 20px; text-align:center; color:red; font-size:14px;">
+    说明：营销类型是注册未绑卡时，筛选的日期是注册日期。营销类型是绑卡未购买时，筛选的日期是绑卡日期。 查找到记录时会显示保存按钮，点击保存将数据保存到数据表中,用于以后的短信营销和电话营销记录。
+</div>
+<div class="bjui-pageHeader"><?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    if(!empty($this->records)){
+        $btnStr =\Prj\Misc\View::btnAjax('保存记录',Sooh\Base\Tools::uri(['_pkey_val_'=>\Prj\Misc\View::encodePkey($this->where)],'saverecords'), '确定保存？');
+    }
+    echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'), '<div class="pull-right">'.$btnStr.'</div>');
+    ?>
+
+</div>
+<div class="bjui-pageContent tableContent" style="margin-top:20px;">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+        <tr>
+            <?php $headers=$this->headers;
+            foreach($headers as $k=>$v){
+                echo "<th width=\"$v\">$k</th>";
+            }
+            ?>
+<!--            <th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>-->
+            <th width="200">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $records=$this->records;
+        if (!empty($records)){
+            foreach ($records as $r){
+                $_pkey_ = $r['_pkey_'];
+                echo "<tr data-id=\"{$_pkey_}\">";
+                unset ($r['_pkey_']);
+                echo '<td>'.implode('</td><td>', $r).'</td>';
+
+//                echo '<td>';
+//                echo '<input type="checkbox" name="ids" data-toggle="icheck" value="'.$_pkey_.'">';
+//                echo '</td>';
+//                echo '<td>';
+//                echo \Prj\Misc\View::btnEditInDatagrid('upd',\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_]));;
+//                echo \Prj\Misc\View::btnDefaultInDatagrid('日分布',\Sooh\Base\Tools::uri(['_pkey_'=>$_pkey_],'contractdaily'));
+//                echo \Prj\Misc\View::btnDefaultInDatagrid('用户分布',\Sooh\Base\Tools::uri(['_pkey_'=>$_pkey_],'user'));
+                echo '</td>';
+                echo '</tr>'."\n";
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager);?></div>

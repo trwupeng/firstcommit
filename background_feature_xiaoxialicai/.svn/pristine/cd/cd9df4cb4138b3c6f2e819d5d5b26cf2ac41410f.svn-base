@@ -1,0 +1,14 @@
+<div class="bjui-pageContent">
+	<table class="table table-condensed table-hover" width="100%">
+		<tbody>
+			<tr><td><?php echo \Prj\Misc\View::btnEditInDatagrid('解绑银行卡', \Sooh\Base\Tools::uri([], 'unbindBankCard'));?></td><td>解除用户绑定的银行卡，要求用户可用余额是0</td></tr>
+			<tr><td><?php echo \Prj\Misc\View::btnEditInDatagrid('TODO', \Sooh\Base\Tools::uri([], 'todo'));?></td><td>...</td></tr>
+
+		</tbody>
+	</table>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

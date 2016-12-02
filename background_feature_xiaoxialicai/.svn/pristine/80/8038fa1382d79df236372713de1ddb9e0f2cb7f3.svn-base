@@ -1,0 +1,94 @@
+<script src="/js/common/checked.js"></script>
+<div class="bjui-pageHeader" >
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+    echo $renderer->getSearchStandard_without_endTag_form_div(\Sooh\Base\Form\Broker::getCopy('default'));
+    echo ' ' . \Prj\Misc\View::btnAddInDatagrid(\Sooh\Base\Tools::uri(null, 'edit'));
+    echo '</form>';
+    ?>
+    <?php
+    \Prj\Misc\View::exportBox(\Sooh\Base\Tools::uri(array('__EXCEL__' => 'all', 'where' => $this->where), 'downExcel'), \Sooh\Base\Tools::uri(array('__EXCEL__' => 'select'), 'downExcel'));
+    ?>
+</div>
+
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true" data-toggle="tablefixed">
+        <thead>
+            <tr><?php
+                $headers = $this->headers;
+                foreach ($headers as $k => $v) {
+                    echo "<th width=\"$v\">$k</th>"; //data-order-field="operation" align="center"
+                }
+                ?>
+                <!--<th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>-->
+                <th width="26"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if (!empty($this->records)) {
+                foreach ($this->records as $r) {
+                    $_pkey_val_ = \Prj\Misc\View::encodePkey(array('camefrom' => $r['camefrom'], 'loginname' => $r['loginName']));
+                    $urlArr = array(
+                        \Sooh\Base\Tools::uri(['_pkey_val' => $_pkey_], 'enable'),
+                        \Sooh\Base\Tools::uri(['_pkey_val' => $_pkey_], 'disable'),
+                    );
+                    $btnDisable = \Prj\Misc\View::btnDisableDatagrid($urlArr, $r[rights]);
+                    ?>
+                    <tr data-id="<?= $_pkey_val_ ?>">
+                        <td><?= $r['loginName'] ?></td>
+                        <td><?= $r['nickname'] ?></td>
+                        <td><?= $this->depts[$r['dept']] ?></td>
+                        <td><?= \Prj\Misc\View::fmtYmd($r['lastYmd']) ?></td>
+                        <td><?= $r['lastIP'] ?></td>
+                        <td></td>
+                        <td><?= $btnDisable ?></td>
+                        <td><?= \Prj\Misc\View::trCheckBox($_pkey_val_) ?></td>
+                        <td>
+                            <?= \Prj\Misc\View::btnEditInDatagrid('编辑', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'edit'), '', 'data-height="800"'); ?>
+                            <?= '<button class="btn-blue" data-id="pwdreset" data-toggle="dialog" data-url="' . \Sooh\Base\Tools::uri(['_pkey_val' => $_pkey_], 'pwdreset') . '">重置密码</button>';?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+            }
+            ?>
+            <?php
+            //$optionsStatus = $formSearch->item('_flgDisable_eq')->options->getPair();
+           /* $rights = $this->rightsEnum;
+
+            $records = $this->records;
+            //var_dump($records);//tgh
+            if (!empty($records)) {
+                foreach ($records as $r) {
+                    $_pkey_ = $r['_pkey_val_'];
+                    echo "<tr data-id=\"{$r['_pkey_val_']}\">";
+                    unset($r['_pkey_val_']);
+                    $urlArr = array(
+                        \Sooh\Base\Tools::uri(['_pkey_val' => $_pkey_], 'enable'),
+                        \Sooh\Base\Tools::uri(['_pkey_val' => $_pkey_], 'disable'),
+                    );
+                    $btnDisable = \Prj\Misc\View::btnDisableDatagrid($urlArr, $r[5]);
+                    unset($r[5]);
+                    echo '<td>' . implode('</td><td>', $r) . "</td>";
+                    echo '<td>' . $btnDisable . '</td>';
+                    echo '<td>'; //tgh
+                    echo '<input type="checkbox" name="ids" data-toggle="icheck" value="' . $_pkey_ . '">'; //tgh
+                    echo '</td>'; //tgh
+
+                    echo '<td>';
+                    //echo \Prj\Misc\View::btnDefaultInDatagrid('操作日志',\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'showlog'));
+                    echo \Prj\Misc\View::btnEditInDatagrid('编辑', \Sooh\Base\Tools::uri(['_pkey_val_' => $_pkey_], 'edit'), '', 'data-height="800"');
+                    //echo \Prj\Misc\View::btnDeleteInDatagrid(\Sooh\Base\Tools::uri(['_pkey_val_'=>$_pkey_],'delete'));
+                    echo '<button class="btn-blue" data-id="pwdreset" data-toggle="dialog" data-url="' . \Sooh\Base\Tools::uri(['_pkey_val' => $_pkey_], 'pwdreset') . '">重置密码</button>';
+                    echo '</td>';
+                    echo "</tr>\n";
+                }
+            }*/
+            ?>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter"><?php echo \Prj\Misc\View::pagerStandard($this->pager); ?></div>

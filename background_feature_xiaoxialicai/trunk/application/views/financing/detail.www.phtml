@@ -1,0 +1,216 @@
+<style>
+    *{
+        font-family: 微软雅黑;
+        color: #808080;
+    }
+    body{
+        background-color: #F4F4F4;
+    }
+    div{
+        //border: 1px solid #eaeaea;
+    }
+    .i-d-title{
+        border-bottom: 1px dashed lightgray;
+    }
+    .i-d-title em{
+        background-color: #E25453;
+        color: #ffffff;
+    }
+    .invest-details{
+        padding: 10px;
+        border: 1px solid #eaeaea;
+        background-color: #ffffff;
+    }
+    .invest-details-tabs{
+
+    }
+    ul{
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+    li{
+        display: inline-block;
+    }
+    em{
+        font-style:normal;
+        padding: 0 5 0 5;
+    }
+    .i-d-tabs-nav{
+        margin-top: 10px;
+    }
+    .i-d-tabs-nav li{
+        padding: 10px;
+    }
+    .nav-active
+    {
+        background-color: #ffffff;
+        border: 1px solid #eaeaea;
+        border-bottom: 0;
+    }
+    dl{
+        padding: 10px;
+        display: inline-block;
+    }
+    .i-d-c-left{
+        width: 600px;
+    }
+    .i-d-c-left li{
+        margin-bottom: 10px;
+    }
+    .i-d-c-right{
+        margin: 10px;
+        padding: 20px;
+        background-color: #F4F4F4;
+    }
+    .fl{
+        float:left;
+    }
+    .buy{
+        margin-top: 10px;
+    }
+    .buy input{
+        width: 100%;
+        padding: 10 20 10 20;
+        border: none;
+        cursor: pointer;
+
+    }
+    .buy input:hover{
+        color: #ffffff;
+        background-color: #E25453;
+    }
+
+</style>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(function(){
+        var color = "#ffffff";
+        $(".i-d-tabs-nav li").css('cursor','pointer');
+        $(".i-d-tabs-con div").hide();
+        $(".i-d-tabs-con div").css({"min-height":650,"background":color,"padding":20});
+        $(".i-d-tabs-con div.i-d-t-con-1").show();
+        $(".i-d-tabs-nav-1").addClass('nav-active');
+        $(".i-d-tabs-nav li").click(function(){
+            var id = $(this).attr('_index');
+            //$(".i-d-tabs-nav li").css('background','inherit');
+            //$(this).css('background',color);
+            $(".i-d-tabs-nav li").removeClass('nav-active');
+            $(this).addClass('nav-active');
+            $(".i-d-tabs-con div").hide();
+            $(".i-d-tabs-con div.i-d-t-con-"+id).show();
+        });
+    });
+
+    var buttonName = "<?php echo $this->buttonName; ?>";
+
+    $(function(){
+        $(".login").click(function(){
+            var url = "http://<?php echo $_SERVER['SERVER_NAME']; ?>/index.php?__=dev/loginOne";
+            $.post(url,'',function(data){
+                alert(data.accountId+' '+data.msg);
+            });
+        });
+    });
+</script>
+<?php
+$r = $this->financing;
+//var_log($r);
+$url = \Sooh\Base\Tools::uri(['waresId'=>$r['waresId']],'add','orders');
+$frm = \Sooh\Base\Form\Broker::getCopy()
+    ->init($url, 'get', \Sooh\Base\Form\Broker::type_c);
+
+$frm->addItem('amount', \Sooh\Base\Form\Item::factory('购买金额', '0', \Sooh\Base\Form\Item::text));
+$frm->addItem('uniqueOpId',$r['uniqueOpId']);
+if($this->code==400){
+    echo "<font color=red>".$this->msg."</font><br>";
+}
+?>
+<?php if(!empty($r)){ ?>
+<div><button class="login">登录</button></div>
+<div class="invest-details">
+    <div class="i-d-title">
+        <h2>
+            <em><?php echo \Prj\Consts\Wares::$typeNameArr[$r['mainType']]; ?></em>
+            <a class="title"><?php echo $r['waresName']; ?></a>
+        </h2>
+    </div>
+    <div class="i-d-content">
+        <div class="i-d-c-left fl">
+            <dl><dt>年化收益</dt><dd><?php echo $r['yieldStatic']*100; ?>%</dd></dl>
+            <dl><dt>项目期限</dt><dd><?php echo $r['waresSN']; ?></dd></dl>
+            <dl><dt>项目规模</dt><dd><?php echo $r['amount']/100; ?></dd></dl>
+            <ul>
+                <li>发布日期：<?php echo \Prj\Misc\View::fmtYmd($r['timeStartPlan'],'time'); ?></li>
+                <li>还款方式：<?php echo \Prj\Consts\InvestReturn::$enum[$r['returnType']]; ?></li><br>
+                <li>还款日期：<?php echo date('Y-m-d',$r['ymdPayPlan']); ?></li>
+                <li>保障机构：××投资股份有限公司</li>
+            </ul>
+        </div>
+        <div class="i-d-c-right fl">
+            <div>
+                <ul>
+                    <li>可投金额：<?php echo $r['remain']/100; ?>元</li><br>
+                    <li>发售时间：<?php echo \Prj\Misc\View::fmtYmd($r['timeStartPlan'],'time'); ?></li>
+                </ul>
+                <div>
+                    <?php
+                        echo $frm->renderFormTag();
+                        echo '<table>';
+                        echo $frm->renderDefault();
+                        echo '</table>';
+                        echo $frm->renderSubmit(\Prj\Misc\View::btnBuyName($r['statusCode']),"<div class='buy'>{btn}</div>");
+                        echo '</form>';
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+<div class="invest-details-tabs">
+    <?php
+    $viewStr = "\\Prj\\WaresTpl\\".$r['introView']."\\Viewer";
+    if(class_exists($viewStr))
+    {
+        $viewer = $viewStr::getCopy($r['introDisplay']);
+        echo $viewer->getTabsHtml();
+        echo $viewer->getHtml();
+    }
+    else
+    {
+        error_log('【error】'.$viewStr.'：模板类不存在！');
+        echo '模板类不存在！';
+    }
+
+    ?>
+</div>
+<?php }else{ ?>
+<div>标的不存在</div>
+<?php } ?>
+
+
+<?php
+
+
+$this->htmlHeadPart('<!-- head part -->');
+echo $this->renderInc('head');
+
+
+
+
+/*
+echo '<table>';
+foreach($r as $k=>$v){
+    echo '<tr><td>'.$k.'<td>'.$v.'</tr>';
+}
+echo '</table>'."\n";
+*/
+?>
+
+
+
+
+
+

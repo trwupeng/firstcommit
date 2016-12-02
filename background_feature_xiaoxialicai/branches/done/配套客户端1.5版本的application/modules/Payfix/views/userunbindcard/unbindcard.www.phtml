@@ -1,0 +1,77 @@
+<div class="bjui-pageContent">
+    <h6 style="color: red">警告:本界面用于解绑用户银行卡,过程不可逆,请务必谨慎使用.</h6>
+    <?php
+    $renderer = new \Prj\Misc\FormRenderer;
+
+    echo $renderer->getSearchStandard(\Sooh\Base\Form\Broker::getCopy('default'));
+
+    $userInfo = $this->userInfo;
+    if($userInfo){
+        foreach($userInfo as $k=>$v){
+            echo '<div style="margin-top: 10px;">';
+            echo $k.':'.$v;
+            echo '</div>';
+        }
+    }
+
+    $cardList = $this->cardList;
+    $num = 0;
+    if($this->error){
+        echo "<div style='margin: 10px;color: red'>";
+        echo $this->error;
+        echo "</div>";
+    }
+    if($cardList){
+        foreach($cardList as $k=>$v){
+            $num ++;
+            echo "<div class='bankcard'>";
+            echo "<div>银行:".$v['bankId']."</div>";
+            echo "<div>卡号:".$v['bankCard']."</div>";
+            echo "<div>预留号码:".$v['phone']."</div>";
+            echo \Prj\Misc\View::btnAjax('获取验证码',\Sooh\Base\Tools::uri(['_pkey_val_'=>$v['_pkey_val_'],'type'=>'first'],'unbind'),'',["callback"=>"unbind_callback"]);
+            echo "<input name='smscode' type='text' style='margin-top: 5px;margin-bottom: 5px;' placeholder='验证码'/>";
+            echo "<button style='display: none' class='btn btn-green' id='doUnbind'>解绑</button>";
+            echo "</div>";
+        }
+    }
+    ?>
+    <style>
+        .bankcard{margin: 20px;padding: 10px;border: 1px solid lightgray;width: 220px;border-radius: 10px;}
+        .bankcard div{margin-bottom: 5px;}
+    </style>
+    <script>
+        $(function(){
+            var ticket = '';
+            unbind_callback = function(json){
+                console.log(json);
+                if(json.statusCode==200){
+                    $('#doUnbind').show();
+                }else{
+                    alert(json.message);
+                }
+                ticket = json.ticket;
+                console.log(ticket);
+            }
+            $('#doUnbind').click(function(e){
+                if(!ticket){
+                    alert('ticket为空');
+                    return;
+                }
+                var smscode = $('[name="smscode"]').val();
+                if(!smscode){
+                    alert('请输入验证码');
+                    return;
+                }
+                $.post('<?php echo \Sooh\Base\Tools::uri(['_pkey_val_'=>$v['_pkey_val_'],'type'=>'second'],'unbind')  ?>',{'ticket':ticket,'smscode':smscode},function(e){
+                    console.log({'ticket':ticket,'smscode':smscode});
+                    console.log(e);
+                    if(e.code==200){
+                        alert('操作成功');
+                    }else{
+                        alert(e.message);
+                    }
+                });
+            });
+        });
+    </script>
+</div>
